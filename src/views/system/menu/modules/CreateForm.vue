@@ -31,7 +31,7 @@
             选择图标
           </a-button>
           <a @click="cancelSelectIcon" v-if="iconVisible" style="margin-left: 8px">
-            展开
+            收起
             <a-icon type="up"/>
           </a>
         </a-space>
