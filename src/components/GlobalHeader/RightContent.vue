@@ -15,7 +15,7 @@
       </a-tooltip>
       <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
       <!-- 暂只支持中文，国际化可自行扩展 -->
-      <!-- <select-lang :class="prefixCls" /> -->
+      <select-lang :class="prefixCls" />
     </a-space>
   </div>
 </template>
