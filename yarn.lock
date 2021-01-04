@@ -11244,29 +11244,6 @@
     "core-util-is" "1.0.2"
     "extsprintf" "^1.2.0"
 
-"viser-vue@^2.4.6":
-  "integrity" "sha1-P9sFhEXLpZwczunMnCAkvsKZJtQ="
-  "resolved" "https://registry.npm.taobao.org/viser-vue/download/viser-vue-2.4.8.tgz"
-  "version" "2.4.8"
-  dependencies:
-    "@types/node" "*"
-    "viser" "^2.0.0"
-    "vue" "^2.5.3"
-
-"viser@^2.0.0":
-  "integrity" "sha1-V/THD1cC+4DjiEPykCXOpXXLxgo= sha512-DKsqtMa3TZYQHEZ7jp4kpNp1Iqomda7d+3IkkIjIdKQvfL8OeksXfy/ECZUY1hTrGoOe7cq85+6PMS+MPn4mgQ=="
-  "resolved" "https://registry.npm.taobao.org/viser/download/viser-2.4.9.tgz"
-  "version" "2.4.9"
-  dependencies:
-    "@antv/g2" "~3.5.3"
-    "@antv/g2-brush" "^0.0.2"
-    "@antv/g2-plugin-slider" "^2.1.0"
-    "@types/d3-format" "*"
-    "@types/lodash" "*"
-    "@types/node" "^8.0.53"
-    "d3-format" "^1.3.0"
-    "lodash" "^4.17.4"
-
 "vm-browserify@^1.0.1":
   "integrity" "sha1-eGQcSIuObKkadfUR56OzKobl3aA= sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ=="
   "resolved" "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz?cache=0&sync_timestamp=1572870717730&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvm-browserify%2Fdownload%2Fvm-browserify-1.1.2.tgz"
