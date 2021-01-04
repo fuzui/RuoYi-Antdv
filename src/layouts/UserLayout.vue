@@ -22,7 +22,7 @@
           <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank">条款</a>
         </div>
         <div class="copyright">
-          Copyright &copy; 2020 <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank">RuoYi-Antdv</a>
+          Copyright &copy; 2021 <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank">RuoYi-Antdv</a>
         </div>
       </div>
     </div>
