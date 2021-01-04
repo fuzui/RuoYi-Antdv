@@ -65,7 +65,7 @@
 <script>
 
 import { getCache } from '@/api/monitor/cache'
-// import * as echarts from 'echarts'
+import * as echarts from 'echarts'
 
 export default {
   name: 'Cache',
@@ -98,7 +98,7 @@ export default {
           this.cache = cache
           this.loading = false
           this.$nextTick(() => {
-            this.commandstats = this.echarts.init(this.$refs.commandstats, 'macarons')
+            this.commandstats = echarts.init(this.$refs.commandstats, 'macarons')
             this.commandstats.setOption({
               tooltip: {
                 trigger: 'item',
@@ -117,7 +117,7 @@ export default {
                 }
               ]
             })
-            this.usedmemory = this.echarts.init(this.$refs.usedmemory, 'macarons')
+            this.usedmemory = echarts.init(this.$refs.usedmemory, 'macarons')
             this.usedmemory.setOption({
               tooltip: {
                 formatter: '{b} <br/>{a} : ' + this.cache.info.used_memory_human
