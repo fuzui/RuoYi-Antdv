@@ -43,7 +43,7 @@
           <a-row :gutter="16">
             <a-col class="gutter-row" :span="16">
               <a-form-item>
-                <a-input size="large" type="text" placeholder="验证码" v-decorator="['code', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
+                <a-input size="large" type="text" autocomplete="off" placeholder="验证码" v-decorator="['code', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
                   <a-icon slot="prefix" type="security-scan" :style="{ color: 'rgba(0,0,0,.25)' }"/>
                 </a-input>
               </a-form-item>
