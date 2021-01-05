@@ -18,7 +18,7 @@ export default {
   layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: false, // sticky header
-  fixSiderbar: false, // sticky siderbar
+  fixSiderbar: true, // sticky siderbar
   colorWeak: false,
   multiTab: true,
   menu: {
