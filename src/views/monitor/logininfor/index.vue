@@ -21,7 +21,7 @@
             <template v-if="advanced">
               <a-col :md="8" :sm="24">
                 <a-form-item label="登录名称">
-                  <a-input-number v-model="queryParam.loginName" style="width: 100%" allow-clear/>
+                  <a-input v-model="queryParam.loginName" style="width: 100%" allow-clear/>
                 </a-form-item>
               </a-col>
               <a-col :md="8" :sm="24">
