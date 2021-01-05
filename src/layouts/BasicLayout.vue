@@ -75,7 +75,7 @@ export default {
       fixedHeader: defaultSettings.fixedHeader,
       // base
       menus: [],
-      // 侧栏收起状态
+      // 侧栏展开状态
       collapsed: false,
       title: defaultSettings.title,
       settings: {
@@ -110,7 +110,7 @@ export default {
   created () {
     const routes = this.mainMenu.find(item => item.path === '/')
     this.menus = (routes && routes.children) || []
-    // 处理侧栏收起状态
+    // 处理侧栏展开状态
     this.$watch('collapsed', () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed)
     })
