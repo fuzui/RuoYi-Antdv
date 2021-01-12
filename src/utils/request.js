@@ -68,6 +68,8 @@ request.interceptors.request.use(config => {
 
 // response interceptor
 request.interceptors.response.use((res) => {
+  // 请求rul
+  const requestUrl = res.config.url
   // 未设置状态码则默认成功状态
   const code = res.data.code || 200
   // 获取错误信息
@@ -75,7 +77,7 @@ request.interceptors.response.use((res) => {
   if (code === 401) {
     notification.open({
       message: '系统提示',
-      description: '登录状态已过期，您可以继续留在该页面，或者重新登录',
+      description: '登录状态已过期，请重新登录',
       btn: h => {
         return h(
           'a-button',
@@ -99,10 +101,12 @@ request.interceptors.response.use((res) => {
       onClose: close
     })
   } else if (code === 500) {
-    notification.error({
-      message: msg,
-      description: msg
-    })
+    if (requestUrl !== '/login') {
+      notification.error({
+        message: msg,
+        description: msg
+      })
+    }
   } else if (code !== 200) {
     notification.error({
       message: msg
