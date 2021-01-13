@@ -13,6 +13,12 @@
         </template>
         <a-icon type="question-circle-o" @click="toDoc" :style="{ fontSize: '20px' }"/>
       </a-tooltip>
+      <a-tooltip>
+        <template slot="title">
+          {{ fullScreen ? '退出全屏' : '切为全屏' }}
+        </template>
+        <a-icon :type="fullScreen ? 'fullscreen-exit' : 'fullscreen'" @click="toggleFullScreen" :style="{ fontSize: '20px' }"/>
+      </a-tooltip>
       <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
       <!-- 暂只支持中文，国际化可自行扩展 -->
       <select-lang :class="prefixCls" />
@@ -52,6 +58,7 @@ export default {
     return {
       showMenu: true,
       currentUser: {},
+      fullScreen: false,
       docUrl: 'https://docs.geekera.cn/RuoYi-Antdv/',
       githubUrl: 'https://github.com/fuzui/RuoYi-Antdv'
     }
@@ -77,6 +84,17 @@ export default {
     },
     toGithub () {
       window.open(this.githubUrl)
+    },
+    // 全屏切换
+    toggleFullScreen () {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen()
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        }
+      }
+      this.fullScreen = !this.fullScreen
     }
   }
 }
