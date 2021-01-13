@@ -52,7 +52,7 @@ export default {
     return {
       showMenu: true,
       currentUser: {},
-      docUrl: 'https://github.com/fuzui/RuoYi-Antdv',
+      docUrl: 'https://docs.geekera.cn/RuoYi-Antdv/',
       githubUrl: 'https://github.com/fuzui/RuoYi-Antdv'
     }
   },
