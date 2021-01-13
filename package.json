@@ -11,7 +11,6 @@
     "lint:nofix": "vue-cli-service lint --no-fix"
   },
   "dependencies": {
-    "@ant-design-vue/pro-layout": "^1.0.1",
     "ant-design-vue": "^1.7.2",
     "axios": "^0.19.0",
     "core-js": "^3.1.2",
@@ -30,6 +29,8 @@
     "vditor": "^3.7.3",
     "vue": "^2.6.12",
     "vue-clipboard2": "^0.2.1",
+    "vue-container-query": "^0.1.0",
+    "vue-copy-to-clipboard": "^1.0.3",
     "vue-cropper": "0.4.9",
     "vue-i18n": "^8.17.4",
     "vue-router": "^3.1.2",

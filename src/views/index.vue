@@ -138,7 +138,7 @@
 <script>
 import { timeFix } from '@/utils/util'
 import { mapGetters } from 'vuex'
-import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
+import { PageHeaderWrapper } from '@/components/ProLayout'
 import ruoyiLogo from '@/assets/projects/ruoyi.png'
 import antdvLogo from '@/assets/projects/antdv.png'
 import { getUserProfile } from '@/api/system/user'

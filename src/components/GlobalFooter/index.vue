@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { GlobalFooter } from '@ant-design-vue/pro-layout'
+import { GlobalFooter } from '@/components/ProLayout'
 
 export default {
   name: 'ProGlobalFooter',

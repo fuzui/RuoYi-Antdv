@@ -15,6 +15,8 @@ import Dialog from '@/components/Dialog'
 
 import SettingDrawer from '@/components/SettingDrawer'
 
+import ProLayout from '@/components/ProLayout'
+
 export {
   AvatarList,
   Trend,
@@ -29,5 +31,7 @@ export {
   ArticleListContent,
 
   Dialog,
-  SettingDrawer
+  SettingDrawer,
+
+  ProLayout
 }
