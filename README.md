@@ -25,6 +25,8 @@
 
 * 预览：[https://ruoyi.setworld.net/](https://ruoyi.setworld.net/)
 
+* 文档: [https://docs.geekera.cn/RuoYi-Antdv/](https://docs.geekera.cn/RuoYi-Antdv/)
+
 * RuoYi-Vue文档: [https://doc.ruoyi.vip/ruoyi-vue/](https://doc.ruoyi.vip/ruoyi-vue/)
 
 * Ant Design Vue文档：[https://www.antdv.com/docs/vue/introduce-cn/](https://www.antdv.com/docs/vue/introduce-cn/)
