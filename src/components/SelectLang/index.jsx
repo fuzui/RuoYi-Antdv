@@ -7,7 +7,7 @@ import i18nMixin from '@/store/i18n-mixin'
 const locales = ['zh-CN', 'en-US']
 const languageLabels = {
   'zh-CN': '简体中文',
-  'en-US': 'English'
+  'en-US': 'English(暂不支持)'
 }
 // eslint-disable-next-line
 const languageIcons = {
