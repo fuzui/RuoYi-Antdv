@@ -10,7 +10,6 @@ import store from './store/'
 import i18n from './locales'
 import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@/components/ProLayout'
-import PageBreadcrumb from '@/components/PageBreadcrumb/PageBreadcrumb'
 import FooterToolBar from '@/components/FooterToolbar'
 import themePluginConfig from '../config/themePluginConfig'
 
@@ -46,7 +45,6 @@ Vue.use(VueAxios)
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)
-Vue.component('page-breadcrumb', PageBreadcrumb)
 Vue.component('footer-tool-bar', FooterToolBar)
 
 Vue.use(permission)
