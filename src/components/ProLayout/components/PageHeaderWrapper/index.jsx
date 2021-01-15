@@ -173,12 +173,13 @@ const PageHeaderWrapper = {
       const routes = $route.matched.concat().map(route => {
         return {
           path: route.path,
-          breadcrumbName: i18n(route.meta.title)
+          breadcrumbName: i18n(route.meta.title),
+          redirect: route.redirect
         }
       })
 
       const defaultItemRender = ({ route, params, routes, paths, h }) => {
-        return routes.indexOf(route) === routes.length - 1 && (
+        return (route.redirect === 'noRedirect' || routes.indexOf(route) === routes.length - 1) && (
           <span>{route.breadcrumbName}</span>
         ) || (
           <router-link to={{ path: route.path || '/', params }}>{route.breadcrumbName}</router-link>

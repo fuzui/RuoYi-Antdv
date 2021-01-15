@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <page-breadcrumb />
+  <page-header-wrapper>
     <a-space direction="vertical">
       <a-row :gutter="24">
         <a-col :span="12">
@@ -166,7 +165,7 @@
         </a-col>
       </a-row>
     </a-space>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>

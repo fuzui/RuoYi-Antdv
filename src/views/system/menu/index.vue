@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <page-header-wrapper>
     <page-breadcrumb />
     <a-card :bordered="false">
       <!-- 条件搜索 -->
@@ -81,7 +81,7 @@
         </span>
       </a-table>
     </a-card>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>

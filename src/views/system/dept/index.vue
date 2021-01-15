@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <page-breadcrumb />
+  <page-header-wrapper>
     <a-card :bordered="false">
       <!-- 条件搜索 -->
       <div class="table-page-search-wrapper">
@@ -76,7 +75,7 @@
         </span>
       </a-table>
     </a-card>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>

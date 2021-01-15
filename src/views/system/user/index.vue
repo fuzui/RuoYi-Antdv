@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <page-breadcrumb />
+  <page-header-wrapper>
     <a-card :bordered="false">
       <a-row :gutter="24">
         <a-col :span="4">
@@ -151,7 +150,7 @@
         </a-col>
       </a-row>
     </a-card>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>
