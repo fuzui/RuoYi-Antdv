@@ -17,7 +17,8 @@
     <!-- Ads end -->
 
     <!-- layout content -->
-    <a-layout-content :style="{ height: '100%', margin: '0 0 20px 0', paddingTop: fixedHeader ? '64px' : '0' }">
+    <!-- 2021.01.15 默认固定页头，去掉样式paddingTop: fixedHeader ? '64' : '0'  -->
+    <a-layout-content :style="{ height: '100%', margin: '0 0 20px 0'}">
       <multi-tab v-if="multiTab"></multi-tab>
       <transition name="page-transition">
       </transition>
