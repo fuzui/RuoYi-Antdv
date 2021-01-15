@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <div class="page-breadcrumb">
-      <a-page-header
-        style="border: 1px solid rgb(235, 237, 240)"
-        :title="formTitle"
-        @back="back"
-      />
-    </div>
+  <page-header-wrapper @back="back">
+    <template v-slot:breadcrumb>
+      {{ formTitle }}
+    </template>
+    <template v-slot:title>
+      {{ formTitle }}
+    </template>
+    <template v-slot:content>
+    </template>
+    <template v-slot:extraContent>
+    </template>
     <a-result title="请至少选择一个表修改" v-if="tableId == 0">
       <template #icon>
         <a-icon type="smile" theme="twoTone" />
@@ -129,7 +132,7 @@
         </footer-tool-bar>
       </a-form>
     </a-card>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>

@@ -1,12 +1,22 @@
 <template>
-  <div>
-    <div class="page-breadcrumb">
+  <page-header-wrapper @back="back">
+    <template v-slot:breadcrumb>
+      {{ formTitle }}
+    </template>
+    <template v-slot:title>
+      {{ formTitle }}
+    </template>
+    <template v-slot:content>
+    </template>
+    <template v-slot:extraContent>
+    </template>
+    <!-- <div class="page-breadcrumb">
       <a-page-header
         style="border: 1px solid rgb(235, 237, 240)"
         :title="formTitle"
         @back="back"
       />
-    </div>
+    </div> -->
     <a-card :bordered="false">
       <a-form-model ref="form" :model="form" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-form-model-item label="公告标题" prop="noticeTitle">
@@ -37,7 +47,7 @@
         </footer-tool-bar>
       </a-form-model>
     </a-card>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>
