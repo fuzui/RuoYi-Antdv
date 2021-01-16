@@ -1,6 +1,5 @@
 <template>
   <page-header-wrapper>
-    <page-breadcrumb />
     <a-card :bordered="false">
       <!-- 条件搜索 -->
       <div class="table-page-search-wrapper">

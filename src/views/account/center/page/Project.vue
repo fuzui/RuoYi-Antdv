@@ -2,27 +2,19 @@
   <div class="ant-pro-pages-account-projects-cardList">
     <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }">
       <a-list-item slot="renderItem" slot-scope="item">
-        <a-card class="ant-pro-pages-account-projects-card" hoverable>
-          <img slot="cover" :src="item.cover" :alt="item.title" />
-          <a-card-meta :title="item.title">
-            <template slot="description">
-              <ellipsis :length="50">{{ item.description }}</ellipsis>
-            </template>
-          </a-card-meta>
-          <div class="cardItemContent">
-            <span>{{ item.updatedAt | fromNow }}</span>
-            <div class="avatarList">
-              <avatar-list size="mini">
-                <avatar-list-item
-                  v-for="(member, i) in item.members"
-                  :key="`${item.id}-avatar-${i}`"
-                  :src="member.avatar"
-                  :tips="member.name"
-                />
-              </avatar-list>
+        <a :href="item.url" target="_blank">
+          <a-card class="ant-pro-pages-account-projects-card" hoverable>
+            <img slot="cover" :src="item.cover" :alt="item.title" />
+            <a-card-meta :title="item.title">
+              <template slot="description">
+                <ellipsis :length="50">{{ item.description }}</ellipsis>
+              </template>
+            </a-card-meta>
+            <div class="cardItemContent">
+              <span>{{ item.updatedAt | fromNow }}</span>
             </div>
-          </div>
-        </a-card>
+          </a-card>
+        </a>
       </a-list-item>
     </a-list>
   </div>
@@ -46,9 +38,34 @@ export default {
   },
   data () {
     return {
-      data: [],
+      data: [
+        {
+          title: 'RuoYi-Vue',
+          cover: 'https://oss.fuzui.net/img/20210116014248.png',
+          url: 'https://gitee.com/y_project/RuoYi-Vue',
+          description: 'RuoYi-Vue是基于SpringBoot，Spring Security，JWT，Vue 的前后端分离权限管理系统。'
+        },
+        {
+          title: 'Ant Design Vue',
+          cover: 'https://oss.fuzui.net/img/20210116014908.png',
+          url: 'ttps://github.com/vueComponent/ant-design-vue',
+          description: 'An enterprise-class UI components based on Ant Design and Vue. '
+        },
+        {
+          title: 'Antd Pro Vue',
+          cover: 'https://oss.fuzui.net/img/20210116014556.png',
+          url: 'https://github.com/vueComponent/ant-design-vue-pro',
+          description: 'An out-of-box UI solution for enterprise applications as a Vue boilerplate. based on Ant Design of Vue.'
+        },
+        {
+          title: 'vditor',
+          cover: 'https://oss.fuzui.net/img/20210116014834.png',
+          url: 'https://github.com/Vanessa219/vditor',
+          description: '一款浏览器端的 Markdown 编辑'
+        }
+      ],
       form: this.$form.createForm(this),
-      loading: true
+      loading: false
     }
   },
   filters: {

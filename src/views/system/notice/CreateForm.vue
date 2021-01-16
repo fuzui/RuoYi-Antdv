@@ -10,13 +10,6 @@
     </template>
     <template v-slot:extraContent>
     </template>
-    <!-- <div class="page-breadcrumb">
-      <a-page-header
-        style="border: 1px solid rgb(235, 237, 240)"
-        :title="formTitle"
-        @back="back"
-      />
-    </div> -->
     <a-card :bordered="false">
       <a-form-model ref="form" :model="form" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-form-model-item label="公告标题" prop="noticeTitle">
@@ -183,8 +176,5 @@ export default {
 <style lang="less" scoped>
 #vditor {
   margin: 0 5% 5% 5%;
-}
-.page-breadcrumb {
-  background-color: #F5F5F5;
 }
 </style>
