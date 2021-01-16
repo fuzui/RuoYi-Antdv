@@ -6,6 +6,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import permission from './directive/permission'
+import style from './directive/style'
 import store from './store/'
 import i18n from './locales'
 import { VueAxios } from './utils/request'
@@ -25,7 +26,6 @@ import './global.less' // global style
 import { getDicts } from '@/api/system/dict/data'
 import { getConfigKey } from '@/api/system/config'
 import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, download, handleTree } from '@/utils/ruoyi'
-import Highlight from './utils/highlight'
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
@@ -48,7 +48,7 @@ Vue.component('page-header-wrapper', PageHeaderWrapper)
 Vue.component('footer-tool-bar', FooterToolBar)
 
 Vue.use(permission)
-Vue.use(Highlight)
+Vue.use(style)
 
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 new Vue({
