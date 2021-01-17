@@ -13,8 +13,8 @@
       <a-form-model-item label="参数键值" prop="configValue">
         <a-input v-model="form.configValue" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="类型" prop="configType">
-        <a-select placeholder="请选择类型" v-model="form.configType">
+      <a-form-model-item label="系统内置" prop="configType">
+        <a-select placeholder="是否内置" v-model="form.configType">
           <a-select-option v-for="(d, index) in typeOptions" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
         </a-select>
       </a-form-model-item>

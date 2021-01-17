@@ -64,6 +64,7 @@
       <!-- 数据展示 -->
       <a-table
         :loading="loading"
+        :size="tableSize"
         rowKey="infoId"
         :columns="columns"
         :data-source="list"

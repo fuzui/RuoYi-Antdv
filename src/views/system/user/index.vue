@@ -99,6 +99,7 @@
           <!-- 数据展示 -->
           <a-table
             :loading="loading"
+            :size="tableSize"
             rowKey="userId"
             :columns="columns"
             :data-source="list"

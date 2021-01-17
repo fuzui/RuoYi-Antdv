@@ -14,7 +14,7 @@
                     style="margin-right: 50px"
                   >
                     <template #prefix>
-                      <a-icon type="team" />
+                      <a-icon type="setting" />
                     </template>
                   </a-statistic>
                   <a-statistic
@@ -66,6 +66,7 @@
           <a-card :loading="loading" title="内存" :bordered="false">
             <a-table
               :loading="loading"
+              size="small"
               rowKey="name"
               :columns="memColumns"
               :data-source="memData"
@@ -141,6 +142,7 @@
           <a-card :loading="loading" title="磁盘状态" :bordered="false">
             <a-table
               :loading="loading"
+              :size="tableSize"
               rowKey="dirName"
               :columns="sysColumns"
               :data-source="sysData"

@@ -79,6 +79,7 @@
       <!-- 数据展示 -->
       <a-table
         :loading="loading"
+        :size="tableSize"
         rowKey="roleId"
         :columns="columns"
         :data-source="list"

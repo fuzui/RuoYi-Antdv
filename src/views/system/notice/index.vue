@@ -59,6 +59,7 @@
       <!-- 数据展示 -->
       <a-table
         :loading="loading"
+        :size="tableSize"
         rowKey="noticeId"
         :columns="columns"
         :data-source="list"
@@ -71,7 +72,7 @@
           {{ statusFormat(record) }}
         </span>
         <span slot="createTime" slot-scope="text, record">
-          {{ parseTime(record.createTime, '{y}-{m}-{d}') }}
+          {{ parseTime(record.createTime) }}
         </span>
         <span slot="operation" slot-scope="text, record">
           <a @click="handleUpdate(record, undefined)" v-hasPermi="['system:notice:edit']">

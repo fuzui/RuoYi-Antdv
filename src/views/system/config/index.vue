@@ -76,6 +76,7 @@
       <!-- 数据展示 -->
       <a-table
         :loading="loading"
+        :size="tableSize"
         rowKey="configId"
         :columns="columns"
         :data-source="list"
@@ -173,7 +174,7 @@ export default {
           align: 'center'
         },
         {
-          title: '类型',
+          title: '系统内置',
           dataIndex: 'configType',
           scopedSlots: { customRender: 'configType' },
           align: 'center'
@@ -188,6 +189,7 @@ export default {
           title: '创建时间',
           dataIndex: 'createTime',
           scopedSlots: { customRender: 'createTime' },
+          ellipsis: true,
           align: 'center'
         },
         {
@@ -205,6 +207,7 @@ export default {
   created () {
     console.log('route', this.$route)
     this.getList()
+    console.log('tableSize', this.tableSize)
     this.getDicts('sys_yes_no').then(response => {
       this.typeOptions = response.data
     })

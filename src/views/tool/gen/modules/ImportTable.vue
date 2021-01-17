@@ -34,6 +34,7 @@
       <a-card :bordered="false" class="content">
         <a-table
           :loading="loading"
+          :size="tableSize"
           rowKey="tableName"
           :columns="columns"
           :data-source="list"

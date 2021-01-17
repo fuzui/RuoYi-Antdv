@@ -68,6 +68,7 @@
       <!-- 数据展示 -->
       <a-table
         :loading="loading"
+        :size="tableSize"
         rowKey="postId"
         :columns="columns"
         :data-source="list"

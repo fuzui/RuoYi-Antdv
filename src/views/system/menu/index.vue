@@ -51,6 +51,7 @@
       <!-- 数据展示 -->
       <a-table
         :loading="loading"
+        :size="tableSize"
         rowKey="menuId"
         :columns="columns"
         :data-source="list"
@@ -73,8 +74,8 @@
           <a @click="$refs.createForm.handleAdd(record)" v-hasPermi="['system:menu:add']">
             <a-icon type="plus" />新增
           </a>
-          <a-divider type="vertical" v-if="record.parentId != 0" v-hasPermi="['system:menu:remove']" />
-          <a @click="handleDelete(record)" v-if="record.parentId != 0" v-hasPermi="['system:menu:remove']">
+          <a-divider type="vertical" v-if="record.menuId != 0" v-hasPermi="['system:menu:remove']" />
+          <a @click="handleDelete(record)" v-if="record.menuId != 0" v-hasPermi="['system:menu:remove']">
             <a-icon type="delete" />删除
           </a>
         </span>
@@ -119,11 +120,13 @@ export default {
           title: '图标',
           dataIndex: 'icon',
           scopedSlots: { customRender: 'icon' },
+          width: '5%',
           align: 'center'
         },
         {
           title: '排序',
           dataIndex: 'orderNum',
+          width: '5%',
           align: 'center'
         },
         {
@@ -136,6 +139,7 @@ export default {
           title: '组件路径',
           dataIndex: 'component',
           scopedSlots: { customRender: 'component' },
+          ellipsis: true,
           align: 'center'
         },
         {
