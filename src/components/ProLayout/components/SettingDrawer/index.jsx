@@ -91,13 +91,13 @@ const getThemeList = (i18nRender) => {
   ]
 
   if (list.find((item) => item.theme === 'dark')) {
-    themeList.push({
-      // disable click
-      disable: true,
-      key: 'realDark',
-      url: 'https://gw.alipayobjects.com/zos/antfincdn/hmKaLQvmY2/LCkqqYNmvBEbokSDscrm.svg',
-      title: i18nRender('app.setting.pagestyle.realdark')
-    })
+    // themeList.push({
+    //   // disable click
+    //   // disable: true,
+    //   key: 'realDark',
+    //   url: 'https://gw.alipayobjects.com/zos/antfincdn/hmKaLQvmY2/LCkqqYNmvBEbokSDscrm.svg',
+    //   title: i18nRender('app.setting.pagestyle.realdark')
+    // })
   }
   // insert  theme color List
   list.forEach(item => {
@@ -149,7 +149,7 @@ const genCopySettingJson = (settings) =>
   )
 
 export const settings = {
-  theme: PropTypes.oneOf(['dark', 'light', 'realDark']),
+  theme: PropTypes.oneOf(['dark', 'light']),
   primaryColor: PropTypes.string,
   layout: PropTypes.oneOf(['sidemenu', 'topmenu']),
   colorWeak: PropTypes.bool,
@@ -158,6 +158,7 @@ export const settings = {
   // contentWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).def('Fluid'),
   fixedHeader: PropTypes.bool,
   fixSiderbar: PropTypes.bool,
+  multiTab: PropTypes.bool,
   hideHintAlert: PropTypes.bool.def(false),
   hideCopyButton: PropTypes.bool.def(false)
 }
@@ -191,6 +192,7 @@ const SettingDrawer = {
       layout = 'sidemenu',
       fixedHeader = false,
       fixSiderbar = false,
+      multiTab = true,
       contentWidth,
       hideHintAlert,
       hideCopyButton,
@@ -268,6 +270,7 @@ const SettingDrawer = {
             contentWidth={contentWidth}
             fixedHeader={fixedHeader}
             fixSiderbar={isTopMenu ? false : fixSiderbar}
+            multiTab={multiTab}
             layout={layout}
             onChange={({ type, value }) => {
               changeSetting(type, value)

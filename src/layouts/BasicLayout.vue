@@ -18,8 +18,8 @@
 
     <!-- layout content -->
     <!-- 2021.01.15 默认固定页头，去掉样式paddingTop: fixedHeader ? '64' : '0'  -->
-    <a-layout-content :style="{ height: '100%', margin: '0 0 20px 0'}">
-      <multi-tab v-if="multiTab"></multi-tab>
+    <a-layout-content :style="{ height: '100%', margin: '0 0 0px 0'}">
+      <multi-tab v-if="settings.multiTab"></multi-tab>
       <transition name="page-transition">
       </transition>
     </a-layout-content>
@@ -72,7 +72,7 @@ export default {
       // preview.pro.antdv.com only use.
       isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true' && process.env.NODE_ENV !== 'development',
       // end
-      multiTab: defaultSettings.multiTab,
+      // multiTab: defaultSettings.multiTab,
       fixedHeader: defaultSettings.fixedHeader,
       // base
       menus: [],
@@ -90,6 +90,7 @@ export default {
         primaryColor: defaultSettings.primaryColor,
         fixedHeader: defaultSettings.fixedHeader,
         fixSiderbar: defaultSettings.fixSiderbar,
+        multiTab: defaultSettings.multiTab,
         colorWeak: defaultSettings.colorWeak,
 
         hideHintAlert: false,

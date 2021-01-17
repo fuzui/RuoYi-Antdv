@@ -246,7 +246,7 @@ export default {
   methods: {
     /** 查询服务信息 */
     getList () {
-      this.loading = true
+      // this.loading = true
       getServer().then(response => {
           const serverData = response.data
           this.server = serverData

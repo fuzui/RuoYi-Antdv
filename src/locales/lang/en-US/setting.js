@@ -8,6 +8,7 @@ export default {
     // 'app.setting.content-width': 'Content Width',
     // 'app.setting.fixedheader': 'Fixed Header',
     // 'app.setting.fixedsidebar': 'Fixed Sidebar',
+    // 'app.setting.multitab': 'View multitab',
     // 'app.setting.sidemenu': 'Side Menu Layout',
     // 'app.setting.topmenu': 'Top Menu Layout',
     // 'app.setting.content-width.fixed': 'Fixed',

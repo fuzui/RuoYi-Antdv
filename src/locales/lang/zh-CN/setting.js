@@ -8,6 +8,7 @@ export default {
     'app.setting.content-width': '内容区域宽度',
     'app.setting.fixedheader': '固定 Header',
     'app.setting.fixedsidebar': '固定侧边栏',
+    'app.setting.multitab': '显示页签',
     'app.setting.sidemenu': '侧边菜单布局',
     'app.setting.topmenu': '顶部菜单布局',
     'app.setting.content-width.fixed': 'Fixed',

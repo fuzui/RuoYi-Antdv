@@ -24,6 +24,7 @@ export const LayoutSettingProps = {
   contentWidth: PropTypes.oneOf(['Fluid', 'Fixed']).def('Fluid'),
   fixedHeader: PropTypes.bool,
   fixSiderbar: PropTypes.bool,
+  multiTab: PropTypes.bool,
   layout: PropTypes.oneOf(['sidemenu', 'topmenu']),
 
   i18nRender: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]).def(false)
@@ -34,7 +35,7 @@ export default {
   inject: ['locale'],
   render (h) {
     const i18n = this.$props.i18nRender || this.locale
-    const { contentWidth, fixedHeader, layout, fixSiderbar } = this
+    const { contentWidth, fixedHeader, layout, fixSiderbar, multiTab } = this
 
     const handleChange = (type, value) => {
       this.$emit('change', { type, value })
@@ -84,6 +85,17 @@ export default {
             disabled={layout === 'topmenu'}
             checked={!!fixSiderbar}
             onChange={(checked) => handleChange('fixSiderbar', checked)}
+          />
+          )
+        },
+        {
+          title: i18n('app.setting.multitab'),
+          disabledReason: i18n('app.setting.fixedsidebar.hint'),
+          action: (
+          <Switch
+            size="small"
+            checked={!!multiTab}
+            onChange={(checked) => handleChange('multiTab', checked)}
           />
           )
         }
