@@ -1,19 +1,19 @@
 <template>
   <div :class="wrpCls">
     <a-space size="middle">
-      <a-tooltip>
+      <a-tooltip placement="bottom">
         <template slot="title">
           源码地址
         </template>
         <a-icon type="github" @click="toGithub" :style="{ fontSize: '20px' }"/>
       </a-tooltip>
-      <a-tooltip>
+      <a-tooltip placement="bottom">
         <template slot="title">
           文档地址
         </template>
         <a-icon type="question-circle-o" @click="toDoc" :style="{ fontSize: '20px' }"/>
       </a-tooltip>
-      <a-tooltip>
+      <a-tooltip placement="bottom">
         <template slot="title">
           {{ fullScreen ? '退出全屏' : '切为全屏' }}
         </template>
@@ -63,6 +63,15 @@ export default {
       githubUrl: 'https://github.com/fuzui/RuoYi-Antdv'
     }
   },
+  created () {
+    const that = this
+    window.onresize = function () {
+      if (!that.checkFull()) {
+        // 退出全屏后要执行的动作
+        that.fullScreen = false
+      }
+    }
+  },
   computed: {
     wrpCls () {
       return {
@@ -85,6 +94,19 @@ export default {
     toGithub () {
       window.open(this.githubUrl)
     },
+    checkFull () {
+      var isFull =
+        document.mozFullScreen ||
+        document.fullScreen ||
+        document.webkitIsFullScreen ||
+        document.webkitRequestFullScreen ||
+        document.mozRequestFullScreen ||
+        document.msFullscreenEnabled
+      if (isFull === undefined) {
+        isFull = false
+      }
+      return isFull
+    },
     // 全屏切换
     toggleFullScreen () {
       if (!document.fullscreenElement) {
@@ -94,7 +116,7 @@ export default {
           document.exitFullscreen()
         }
       }
-      this.fullScreen = !this.fullScreen
+      this.fullScreen = !document.fullscreenElement
     }
   }
 }
