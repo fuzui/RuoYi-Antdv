@@ -282,7 +282,6 @@ export default {
           e.isQuery = e.isQuery === '1'
           e.isRequired = e.isRequired === '1'
         })
-        console.log(tableList)
         this.tableList = tableList
         this.info = res.data.info
         this.tableLoading = false
@@ -305,7 +304,6 @@ export default {
 
       if (basicForm && genForm) {
         const genTable = Object.assign({}, basicForm, genForm)
-        console.log('columns', this.tableList)
         const tableList = this.tableList
         tableList.forEach(e => {
           e.isInsert = e.isInsert ? '1' : '0'

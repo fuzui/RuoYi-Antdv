@@ -95,7 +95,6 @@ export default {
       const status = info.file.status
       this.upload.uploadStatus = status
       if (status !== 'uploading') {
-        console.log(info.file, info.fileList)
       }
       if (status === 'done') {
         this.$message.success(`${info.file.name}: ${info.file.response.msg}`)

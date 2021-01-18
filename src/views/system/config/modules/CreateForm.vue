@@ -107,7 +107,6 @@ export default {
     /** 修改按钮操作 */
     handleUpdate (row, ids) {
       this.reset()
-      console.log(ids)
       const configId = row ? row.configId : ids
       getConfig(configId).then(response => {
         this.form = response.data

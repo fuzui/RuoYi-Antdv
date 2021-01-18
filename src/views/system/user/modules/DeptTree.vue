@@ -68,7 +68,6 @@ export default {
     // 筛选节点
     filterNode (e) {
       this.getAllDeptNode(this.deptOptions)
-      console.log('deptNodes', this.deptNodes)
       const value = e.target.value
       const gData = this.deptOptions
       const expandedKeys = this.deptNodes

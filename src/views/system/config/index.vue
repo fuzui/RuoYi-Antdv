@@ -205,9 +205,7 @@ export default {
   filters: {
   },
   created () {
-    console.log('route', this.$route)
     this.getList()
-    console.log('tableSize', this.tableSize)
     this.getDicts('sys_yes_no').then(response => {
       this.typeOptions = response.data
     })

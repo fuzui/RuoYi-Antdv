@@ -31,7 +31,6 @@ export function resolveBlob (res, mimeType) {
   var patt = new RegExp('filename=([^;]+\\.[^\\.;]+);*')
   var contentDisposition = decodeURI(res.headers['content-disposition'])
   var result = patt.exec(contentDisposition)
-  console.log(result)
   var fileName = result[1]
   fileName = fileName.replace(/"/g, '')
   aLink.href = URL.createObjectURL(blob)

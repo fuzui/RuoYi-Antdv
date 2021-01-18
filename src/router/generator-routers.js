@@ -55,12 +55,10 @@ export const generatorDynamicRouter = (token) => {
   return new Promise((resolve, reject) => {
     // 向后端请求路由数据
     getRouters().then(res => {
-      console.log(res)
       const menuNav = []
       rootRouter.children = indexRouterMap.concat(res.data)
       menuNav.push(rootRouter)
       const routers = generator(menuNav)
-      console.log('routers', routers)
       routers.push(notFoundRouter)
       resolve(routers)
     }).catch(err => {

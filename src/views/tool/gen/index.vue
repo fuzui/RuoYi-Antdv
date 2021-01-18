@@ -293,7 +293,6 @@ export default {
     /** 修改按钮操作 */
     handleEditTable (row) {
       const tableId = row.tableId || this.ids[0]
-      console.log(tableId)
       this.$router.push({
         name: 'GenEdit',
         params:
@@ -312,7 +311,6 @@ export default {
         )
         return
       }
-      console.log(row)
       if (row.genType === '1') {
         genCode(row.tableName).then(response => {
           this.msgSuccess('成功生成到自定义路径：' + row.genPath)

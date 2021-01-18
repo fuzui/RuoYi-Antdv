@@ -58,7 +58,6 @@ export default {
   },
   mounted () {
     this.updateMenu()
-    console.log('this', this)
   },
   methods: {
     onOpenChange (openKeys) {

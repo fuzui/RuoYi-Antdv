@@ -121,7 +121,6 @@ export default {
 
     // 上传图片（点击上传按钮）
     finish (type) {
-      console.log('finish')
       const _this = this
       const formData = new FormData()
       // 输出
@@ -133,28 +132,11 @@ export default {
           formData.append('avatarfile', data, this.fileName)
           uploadAvatar(formData).then(response => {
             this.open = false
-            console.log(process.env.VUE_APP_BASE_API + response.imgUrl)
-            // this.options.img = process.env.VUE_APP_BASE_API + response.imgUrl
             store.commit('SET_AVATAR', process.env.VUE_APP_BASE_API + response.imgUrl)
             _this.$message.success('上传成功')
             _this.$emit('ok', process.env.VUE_APP_BASE_API + response.imgUrl)
             _this.visible = false
           })
-          // this.$http.post('https://www.mocky.io/v2/5cc8019d300000980a055e76', formData, { contentType: false, processData: false, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-          //   .then((response) => {
-          //     console.log('upload response:', response)
-          //     // var res = response.data
-          //     // if (response.status === 'done') {
-          //     //   _this.imgFile = ''
-          //     //   _this.headImg = res.realPathList[0] // 完整路径
-          //     //   _this.uploadImgRelaPath = res.relaPathList[0] // 非完整路径
-          //     //   _this.$message.success('上传成功')
-          //     //   this.visible = false
-          //     // }
-          //     _this.$message.success('上传成功')
-          //     _this.$emit('ok', response.url)
-          //     _this.visible = false
-          //   })
         })
       } else {
         this.$refs.cropper.getCropData((data) => {
