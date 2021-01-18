@@ -13,12 +13,7 @@
         </template>
         <a-icon type="question-circle-o" @click="toDoc" :style="{ fontSize: '20px' }"/>
       </a-tooltip>
-      <a-tooltip placement="bottom">
-        <template slot="title">
-          {{ fullScreen ? '退出全屏' : '切为全屏' }}
-        </template>
-        <a-icon :type="fullScreen ? 'fullscreen-exit' : 'fullscreen'" @click="toggleFullScreen" :style="{ fontSize: '20px' }"/>
-      </a-tooltip>
+      <screenfull />
       <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
       <!-- 暂只支持中文，国际化可自行扩展 -->
       <select-lang :class="prefixCls" />
@@ -28,12 +23,14 @@
 
 <script>
 import AvatarDropdown from './AvatarDropdown'
+import Screenfull from '@/components/Screenfull'
 import SelectLang from '@/components/SelectLang'
 
 export default {
   name: 'RightContent',
   components: {
     AvatarDropdown,
+    Screenfull,
     SelectLang
   },
   props: {
