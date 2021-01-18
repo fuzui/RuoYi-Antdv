@@ -55,18 +55,8 @@ export default {
     return {
       showMenu: true,
       currentUser: {},
-      fullScreen: false,
       docUrl: 'https://docs.geekera.cn/RuoYi-Antdv/',
       githubUrl: 'https://github.com/fuzui/RuoYi-Antdv'
-    }
-  },
-  created () {
-    const that = this
-    window.onresize = function () {
-      if (!that.checkFull()) {
-        // 退出全屏后要执行的动作
-        that.fullScreen = false
-      }
     }
   },
   computed: {
@@ -90,30 +80,6 @@ export default {
     },
     toGithub () {
       window.open(this.githubUrl)
-    },
-    checkFull () {
-      var isFull =
-        document.mozFullScreen ||
-        document.fullScreen ||
-        document.webkitIsFullScreen ||
-        document.webkitRequestFullScreen ||
-        document.mozRequestFullScreen ||
-        document.msFullscreenEnabled
-      if (isFull === undefined) {
-        isFull = false
-      }
-      return isFull
-    },
-    // 全屏切换
-    toggleFullScreen () {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen()
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen()
-        }
-      }
-      this.fullScreen = !document.fullscreenElement
     }
   }
 }
