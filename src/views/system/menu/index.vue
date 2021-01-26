@@ -181,7 +181,7 @@ export default {
   watch: {
   },
   methods: {
-    /** 查询定时任务列表 */
+    /** 查询菜单列表 */
     getList () {
       this.loading = true
       listMenu(this.queryParam).then(response => {
