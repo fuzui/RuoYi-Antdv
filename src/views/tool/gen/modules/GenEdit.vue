@@ -116,7 +116,7 @@
           </a-table>
         </a-tab-pane>
         <a-tab-pane key="3" tab="生成信息" force-render>
-          <gen-info-form ref="genInfo" :info="info" :menus="menus"/>
+          <gen-info-form ref="genInfo" :info="info" :tables="tables" :menus="menus"/>
         </a-tab-pane>
       </a-tabs>
       <a-form label-width="100px">
@@ -157,6 +157,8 @@ export default {
       dictOptions: [],
       // 菜单信息
       menus: [],
+      // 表信息
+      tables: [],
       // 表详细信息
       info: {},
       // 表数据
@@ -284,6 +286,7 @@ export default {
         })
         this.tableList = tableList
         this.info = res.data.info
+        this.tables = res.data.tables
         this.tableLoading = false
       })
       /** 查询字典下拉列表 */

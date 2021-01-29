@@ -13,9 +13,10 @@
             <span slot="label">
               生成模板
             </span>
-            <a-select v-model="info.tplCategory" placeholder="请选择">
+            <a-select v-model="info.tplCategory" placeholder="请选择" @change="tplSelectChange">
               <a-select-option value="crud">单表（增删改查）</a-select-option>
               <a-select-option value="tree">树表（增删改查）</a-select-option>
+              <a-select-option value="sub">主子表（增删改查）</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -196,6 +197,48 @@
           </a-form-model-item>
         </a-col>
       </a-row>
+      <!-- 主子表 -->
+      <a-row v-show="info.tplCategory == 'sub'">
+        <a-divider orientation="left">
+          关联信息
+        </a-divider>
+        <a-col :span="12">
+          <a-form-model-item>
+            <span slot="label">
+              关联子表的表名
+              <a-tooltip>
+                <template slot="title">
+                  关联子表的表名， 如：sys_user
+                </template>
+                <a-icon type="question-circle-o" />
+              </a-tooltip>
+            </span>
+            <a-select v-model="info.subTableName" placeholder="请选择" @change="subSelectChange">
+              <a-select-option v-for="(item, index) in tables" :key="index" :value="item.tableName" >
+                {{ item.tableName + '：' + item.tableComment }}
+              </a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-model-item>
+            <span slot="label">
+              子表关联的外键名
+              <a-tooltip>
+                <template slot="title">
+                  子表关联的外键名， 如：user_id
+                </template>
+                <a-icon type="question-circle-o" />
+              </a-tooltip>
+            </span>
+            <a-select v-model="info.subTableFkName" placeholder="请选择">
+              <a-select-option v-for="(item, index) in subColumns" :key="index" :value="item.columnName" >
+                {{ item.columnName + '：' + item.columnComment }}
+              </a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+      </a-row>
     </a-form-model>
   </div>
 </template>
@@ -205,6 +248,10 @@ export default {
   props: {
     info: {
       type: Object,
+      default: null
+    },
+    tables: {
+      type: Array,
       default: null
     },
     menus: {
@@ -218,6 +265,7 @@ export default {
       loading: false,
       // 模态框数据
       data: {},
+      subColumns: [],
       rules: {
         tplCategory: [{ required: true, message: '请选择生成模板', trigger: 'blur' }],
         packageName: [{ required: true, message: '请输入生成包路径', trigger: 'blur' }],
@@ -245,6 +293,11 @@ export default {
       }
     }
   },
+  watch: {
+    'info.subTableName': function (val) {
+      this.setSubTableColumns(val)
+    }
+  },
   methods: {
     // 关闭模态框
     close () {
@@ -256,6 +309,27 @@ export default {
         this.data = data
       }
       this.visible = true
+    },
+    /** 选择子表名触发 */
+    subSelectChange () {
+      this.info.subTableFkName = ''
+    },
+    /** 选择生成模板触发 */
+    tplSelectChange (value) {
+      if (value !== 'sub') {
+        this.info.subTableName = ''
+        this.info.subTableFkName = ''
+      }
+    },
+    /** 设置关联外键 */
+    setSubTableColumns (value) {
+      for (var item in this.tables) {
+        const name = this.tables[item].tableName
+        if (value === name) {
+          this.subColumns = this.tables[item].columns
+          break
+        }
+      }
     }
   }
 }
