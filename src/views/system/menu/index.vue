@@ -232,7 +232,6 @@ export default {
         onOk () {
           return delMenu(menuId)
             .then(() => {
-              that.onSelectChange([], [])
               that.getList()
               that.$message.success(
                 '删除成功',
