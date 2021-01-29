@@ -97,8 +97,8 @@
                 <a-select-option value="radio">单选框</a-select-option>
                 <a-select-option value="checkbox">复选框</a-select-option>
                 <a-select-option value="datetime">日期控件</a-select-option>
-                <a-select-option value="uploadImage">图片上传</a-select-option>
-                <a-select-option value="uploadImage">文件上传</a-select-option>
+                <a-select-option value="imageUpload">图片上传</a-select-option>
+                <a-select-option value="fileUpload">文件上传</a-select-option>
                 <a-select-option value="editor">富文本控件</a-select-option>
               </a-select>
             </template>
