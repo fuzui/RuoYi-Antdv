@@ -114,6 +114,7 @@ export default {
         {
           title: '菜单名称',
           dataIndex: 'menuName',
+          ellipsis: true,
           width: '15%'
         },
         {
