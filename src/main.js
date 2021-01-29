@@ -12,6 +12,7 @@ import i18n from './locales'
 import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@/components/ProLayout'
 import FooterToolBar from '@/components/FooterToolbar'
+import FileUpload from '@/components/FileUpload'
 import themePluginConfig from '../config/themePluginConfig'
 
 // mock
@@ -48,6 +49,7 @@ Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)
 Vue.component('footer-tool-bar', FooterToolBar)
+Vue.component('file-upload', FileUpload)
 
 Vue.use(permission)
 Vue.use(style)
