@@ -69,6 +69,13 @@
 
 
 
+## 注意事项
+
+* 若需使用代码生成，请按照文档描述修改：
+  [代码生成前端适配](./docs/gen/) 
+
+
+
 ## 致谢
 
 * [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) 基于SpringBoot，Spring Security，JWT，Vue 的前后端分离权限管理系统
