@@ -110,7 +110,9 @@ const defaultPageHeaderRender = (h, props, pageMeta, i18nRender) => {
   }
   let pageHeaderTitle = propTitle
   if (!propTitle && propTitle !== false) {
-    pageHeaderTitle = pageMeta.title
+    // pageHeaderTitle = pageMeta.title
+    // 2021.02.03 去除title显示
+    pageHeaderTitle = undefined
   }
   // title props 不是 false 且不是 array 则直接渲染 title
   // 反之认为是 VNode, 作为 render 参数直接传入到 PageHeader
