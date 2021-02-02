@@ -8,7 +8,7 @@ export default {
   inserted (el, binding, vnode) {
     const { value } = binding
     const allPermission = '*:*:*'
-    const permissions = store.getters && store.getters.permissions
+    const permissions = store.state.user && store.state.user.permissions
 
     if (value && value instanceof Array && value.length > 0) {
       const permissionFlag = value
