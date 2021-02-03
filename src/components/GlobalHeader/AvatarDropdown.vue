@@ -58,7 +58,7 @@ export default {
         content: '确定注销并退出系统吗？',
         onOk: () => {
           return this.$store.dispatch('Logout').then(() => {
-            this.$router.push({ name: 'login' })
+            location.href = '/index'
           })
         },
         onCancel () {}
