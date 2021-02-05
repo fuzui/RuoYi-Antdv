@@ -112,7 +112,7 @@
                 @confirm="confirmHandleStatus(record)"
                 @cancel="cancelHandleStatus(record)"
               >
-                <span slot="title">确认<b>{{ record.status === '1' ? '启用' : '关闭' }}</b>{{'关闭'}</span>
+                <span slot="title">确认<b>{{ record.status === '1' ? '启用' : '停用' }}</b>{{ record.nickName }}的用户吗?</span>
                 <a-switch checked-children="开" un-checked-children="关" :checked="record.status == 0" />
               </a-popconfirm>
             </span>
