@@ -3,13 +3,13 @@
 > RuoYi-Antdv 是RuoYi-Vue和Ant Design Vue Pro的结合。
 
 <p align="center">
-<p align="center">
- <a href="https://gitee.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://gitee.com/fuzui/RuoYi-Antdv/badge/star.svg?theme=dark" alt="Build Status"></a>
- <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://img.shields.io/github/stars/fuzui/RuoYi-Antdv.svg?style=social" alt="Build Status"></a>
- <a href="https://gitee.com/y_project/RuoYi-Vue" target="_blank"><img src="https://img.shields.io/badge/RuoYi Vue-3.3.0-brightgreen" alt="Build Status"></a>
- <a href="https://github.com/vueComponent/ant-design-vue" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue-1.7.2-brightgreen" alt="Build Status"></a>
+ <a href="https://gitee.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://gitee.com/fuzui/RuoYi-Antdv/badge/star.svg?theme=dark" alt="Build Status"></a>&nbsp;
+ <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://img.shields.io/github/stars/fuzui/RuoYi-Antdv.svg?style=social" alt="Build Status"></a>&nbsp;
+ <a href="https://gitee.com/y_project/RuoYi-Vue" target="_blank"><img src="https://img.shields.io/badge/RuoYi Vue-3.3.0-brightgreen" alt="Build Status"></a>&nbsp;
+ <a href="https://github.com/vueComponent/ant-design-vue" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue-1.7.2-brightgreen" alt="Build Status"></a>&nbsp;
  <a href="https://github.com/vueComponent/ant-design-vue-pro" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue Pro-3.0.0-brightgreen" alt="Build Status"></a>
 </p>
+
 
 ------------------------------
 
@@ -25,9 +25,9 @@
 
 * 预览：[https://ruoyi.setworld.net/](https://ruoyi.setworld.net/)
 
-* 文档: [https://docs.geekera.cn/RuoYi-Antdv/](https://docs.geekera.cn/RuoYi-Antdv/)
+* 文档：[https://docs.geekera.cn/RuoYi-Antdv/](https://docs.geekera.cn/RuoYi-Antdv/)
 
-* RuoYi-Vue文档: [https://doc.ruoyi.vip/ruoyi-vue/](https://doc.ruoyi.vip/ruoyi-vue/)
+* RuoYi-Vue文档：[https://doc.ruoyi.vip/ruoyi-vue/](https://doc.ruoyi.vip/ruoyi-vue/)
 
 * Ant Design Vue文档：[https://www.antdv.com/docs/vue/introduce-cn/](https://www.antdv.com/docs/vue/introduce-cn/)
 
@@ -79,18 +79,31 @@
 ## 致谢
 
 * [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) 基于SpringBoot，Spring Security，JWT，Vue 的前后端分离权限管理系统
-* [Ant Design Vue](https://github.com/vueComponent/ant-design-vue/) An enterprise-class UI components based on Ant Design and Vue.
+* [Ant Design Vue](https://github.com/vueComponent/ant-design-vue/) An enterprise-class UI components based on Ant Design and Vue
 * [Ant Design Vue Pro](https://github.com/vueComponent/ant-design-vue-pro) Use Ant Design Vue like a Pro
-
 * [vditor](https://github.com/Vanessa219/vditor) 一款浏览器端的 Markdown 编辑
 
 
+
+## 推荐
+
+*  [RuoYi-Cloud-Ant-Design](https://gitee.com/xuezipeng/ruoyi-cloud-ant-design) RuoYi-Cloud的Ant Design(Antdv)版前端
+
+* [RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud) 基于Spring Boot、Spring Cloud & Alibaba的分布式微服务架构权限管理系统
 
 ## 联系
 
 如果您发现了什么bug，或者有什么界面建议或意见，
 
 欢迎 [issue](https://github.com/fuzui/RuoYi-Antdv/issues)
+
+`RuoYi-Antdv(SpringBoot/SpringCloud)`群：
+
+ [![加入QQ群](https://img.shields.io/badge/Q群-1038609759-blue.svg)](https://jq.qq.com/?_wv=1027&k=Cq8fZnrj)
+
+如果讨论后端，推荐添加若依前后端分离交流群（官方）：
+
+ [![加入QQ群](https://img.shields.io/badge/Q群-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og)
 
 
 
