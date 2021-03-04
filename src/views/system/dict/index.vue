@@ -226,7 +226,7 @@ export default {
   watch: {
   },
   methods: {
-    /** 查询定时任务列表 */
+    /** 查询字典列表 */
     getList () {
       this.loading = true
       listType(this.addDateRange(this.queryParam, this.dateRange)).then(response => {

@@ -215,7 +215,7 @@ export default {
   watch: {
   },
   methods: {
-    /** 查询定时任务列表 */
+    /** 查询参数列表 */
     getList () {
       this.loading = true
       listConfig(this.addDateRange(this.queryParam, this.dateRange)).then(response => {

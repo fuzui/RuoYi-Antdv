@@ -198,7 +198,7 @@ export default {
   watch: {
   },
   methods: {
-    /** 查询定时任务列表 */
+    /** 查询部门列表 */
     getList () {
       this.loading = true
       listPost(this.queryParam).then(response => {

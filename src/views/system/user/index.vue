@@ -263,7 +263,7 @@ export default {
   watch: {
   },
   methods: {
-    /** 查询定时任务列表 */
+    /** 查询用户列表 */
     getList () {
       this.loading = true
       listUser(this.addDateRange(this.queryParam, this.dateRange)).then(response => {
@@ -320,7 +320,7 @@ export default {
       this.queryParam.deptId = deptId
       this.getList()
     },
-    /* 任务状态修改 */
+    /* 用户状态修改 */
     confirmHandleStatus (row) {
       const text = row.status === '1' ? '启用' : '关闭'
       row.status = row.status === '0' ? '1' : '0'

@@ -92,7 +92,7 @@
             @confirm="confirmHandleStatus(record)"
             @cancel="cancelHandleStatus(record)"
           >
-            <span slot="title">确认<b>{{ record.status === '1' ? '启用' : '关闭' }}</b>{{ record.jobName }}的任务吗?</span>
+            <span slot="title">确认<b>{{ record.status === '1' ? '启用' : '停用' }}</b>{{ record.roleName }}的角色吗?</span>
             <a-switch checked-children="开" un-checked-children="关" :checked="record.status == 0" />
           </a-popconfirm>
         </span>
@@ -224,7 +224,7 @@ export default {
   watch: {
   },
   methods: {
-    /** 查询定时任务列表 */
+    /** 查询角色列表 */
     getList () {
       this.loading = true
       listRole(this.addDateRange(this.queryParam, this.dateRange)).then(response => {
@@ -270,9 +270,9 @@ export default {
     toggleAdvanced () {
       this.advanced = !this.advanced
     },
-    /* 任务状态修改 */
+    /* 角色状态修改 */
     confirmHandleStatus (row) {
-      const text = row.status === '1' ? '启用' : '关闭'
+      const text = row.status === '1' ? '启用' : '停用'
       row.status = row.status === '0' ? '1' : '0'
       changeRoleStatus(row.roleId, row.status)
       .then(() => {
