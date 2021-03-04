@@ -103,7 +103,7 @@
 
 如果讨论后端，推荐添加若依前后端分离交流群（官方）：
 
- [![加入QQ群](https://img.shields.io/badge/Q群-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og)
+ [![加入QQ群](https://img.shields.io/badge/Q群-186866453-blue.svg)](https://jq.qq.com/?_wv=1027&k=VvjN2nvu)
 
 
 
