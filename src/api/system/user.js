@@ -125,3 +125,12 @@ export function importTemplate () {
     method: 'get'
   })
 }
+
+// 导入用户
+export function importData (data) {
+  return request({
+    url: '/system/user/importData',
+    method: 'post',
+    data: data
+  })
+}
