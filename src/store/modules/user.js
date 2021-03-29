@@ -73,14 +73,14 @@ const user = {
     Logout ({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          commit('SET_PERMISSIONS', [])
-          storage.remove(ACCESS_TOKEN)
           resolve()
         }).catch(error => {
           reject(error)
         }).finally(() => {
+          commit('SET_TOKEN', '')
+          commit('SET_ROLES', [])
+          commit('SET_PERMISSIONS', [])
+          storage.remove(ACCESS_TOKEN)
         })
       })
     }
