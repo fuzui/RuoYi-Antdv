@@ -319,7 +319,7 @@ export default {
     /** 清理缓存按钮操作 */
     handleClearCache () {
       clearCache().then(response => {
-        this.msgSuccess('清理成功')
+        this.$message.success('清理成功')
       })
     },
     onExpandCurrent (expandedKeys, row) {
