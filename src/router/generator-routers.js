@@ -109,7 +109,7 @@ export const generator = (routerMap, parent) => {
         // 目前只能通过判断path的http链接来判断是否外链，适配若依
         target: validURL(item.path) ? '_blank' : '',
         permission: item.name,
-        keepAlive: noCache,
+        keepAlive: !noCache,
         hidden: hidden
       },
       redirect: item.redirect
