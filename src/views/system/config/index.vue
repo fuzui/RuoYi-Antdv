@@ -56,8 +56,8 @@
         <a-button type="primary" @click="handleExport" v-hasPermi="['system:config:export']">
           <a-icon type="download" />导出
         </a-button>
-        <a-button type="dashed" @click="handleClearCache" v-hasPermi="['system:config:remove']">
-          <a-icon type="redo" />清除缓存
+        <a-button type="dashed" @click="handleRefreshCache" v-hasPermi="['system:config:remove']">
+          <a-icon type="redo" />刷新缓存
         </a-button>
         <a-button
           type="dashed"
@@ -116,7 +116,7 @@
 
 <script>
 
-import { listConfig, delConfig, exportConfig, clearCache } from '@/api/system/config'
+import { listConfig, delConfig, exportConfig, refreshCache } from '@/api/system/config'
 import CreateForm from './modules/CreateForm'
 
 export default {
@@ -305,11 +305,11 @@ export default {
         onCancel () {}
       })
     },
-    /** 清理缓存按钮操作 */
-    handleClearCache () {
-      clearCache().then(response => {
+    /** 刷新缓存按钮操作 */
+    handleRefreshCache () {
+      refreshCache().then(response => {
         this.$message.success(
-          '清理成功',
+          '刷新成功',
           3
         )
       })

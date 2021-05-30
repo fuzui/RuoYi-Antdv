@@ -56,8 +56,8 @@
         <a-button type="primary" @click="handleExport" v-hasPermi="['system:dict:export']">
           <a-icon type="download" />导出
         </a-button>
-        <a-button type="dashed" @click="handleClearCache" v-hasPermi="['system:dict:remove']">
-          <a-icon type="redo" />清除缓存
+        <a-button type="dashed" @click="handleRefreshCache" v-hasPermi="['system:dict:remove']">
+          <a-icon type="redo" />刷新缓存
         </a-button>
         <a-button
           type="dashed"
@@ -128,7 +128,7 @@
 
 <script>
 
-import { listType, delType, exportType, clearCache } from '@/api/system/dict/type'
+import { listType, delType, exportType, refreshCache } from '@/api/system/dict/type'
 import CreateForm from './modules/CreateForm'
 import DictData from './modules/DictData'
 import CreateDataForm from './modules/CreateDataForm'
@@ -317,9 +317,9 @@ export default {
       })
     },
     /** 清理缓存按钮操作 */
-    handleClearCache () {
-      clearCache().then(response => {
-        this.$message.success('清理成功')
+    handleRefreshCache () {
+      refreshCache().then(response => {
+        this.$message.success('刷新成功')
       })
     },
     onExpandCurrent (expandedKeys, row) {
