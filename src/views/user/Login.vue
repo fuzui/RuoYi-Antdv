@@ -32,9 +32,9 @@
           <img class="getCaptcha" :src="codeUrl" @click="getCode">
         </a-col>
       </a-row>
-      <a-form-item>
-        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">记住密码</a-checkbox>
-      </a-form-item>
+      <a-form-model-item prop="rememberMe">
+        <a-checkbox :checked="form.rememberMe" @change="rememberMe">记住密码</a-checkbox>
+      </a-form-model-item>
       <a-form-item style="margin-top:24px">
         <a-button
           size="large"
@@ -55,6 +55,8 @@
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
 import { getCodeImg } from '@/api/login'
+import { LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_REMEMBERME } from '@/store/mutation-types'
+import storage from 'store'
 
 export default {
   components: {
@@ -68,7 +70,8 @@ export default {
         username: 'admin',
         password: 'admin123',
         code: undefined,
-        uuid: ''
+        uuid: '',
+        rememberMe: false
       },
       rules: {
         username: [{ required: true, message: '请输入帐户名', trigger: 'blur' }],
@@ -79,6 +82,7 @@ export default {
     }
   },
   created () {
+    this.getStorage()
     this.getCode()
   },
   methods: {
@@ -88,11 +92,38 @@ export default {
         this.form.uuid = res.uuid
       })
     },
+    getStorage () {
+      const username = storage.get(LOGIN_USERNAME)
+      const password = storage.get(LOGIN_PASSWORD)
+      const rememberMe = storage.get(LOGIN_REMEMBERME)
+      if (username) {
+        this.form = {
+          username: username,
+          password: password,
+          rememberMe: rememberMe
+        }
+      }
+    },
+    rememberMe (e) {
+      this.form.rememberMe = e.target.checked
+      console.log('change:' + this.form.rememberMe)
+    },
     ...mapActions(['Login', 'Logout']),
     handleSubmit () {
       this.logining = true
       this.$refs.form.validate(valid => {
         if (valid) {
+          if (this.form.rememberMe) {
+            storage.set(LOGIN_USERNAME, this.form.username)
+            storage.set(LOGIN_PASSWORD, this.form.password)
+            storage.set(LOGIN_REMEMBERME, this.form.rememberMe)
+            console.log('remember')
+            console.log(storage.get(LOGIN_USERNAME))
+          } else {
+            storage.remove(LOGIN_USERNAME)
+            storage.remove(LOGIN_PASSWORD)
+            storage.remove(LOGIN_REMEMBERME)
+          }
           this.Login(this.form)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))

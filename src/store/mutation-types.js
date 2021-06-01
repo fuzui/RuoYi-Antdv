@@ -13,6 +13,10 @@ export const TOGGLE_WEAK = 'weak'
 export const TOGGLE_MULTI_TAB = 'multi_tab'
 export const APP_LANGUAGE = 'app_language'
 
+export const LOGIN_USERNAME = 'login_username'
+export const LOGIN_PASSWORD = 'login_password'
+export const LOGIN_REMEMBERME = 'login_rememberme'
+
 export const CONTENT_WIDTH_TYPE = {
   Fluid: 'Fluid',
   Fixed: 'Fixed'
