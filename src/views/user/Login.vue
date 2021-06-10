@@ -106,7 +106,6 @@ export default {
     },
     rememberMe (e) {
       this.form.rememberMe = e.target.checked
-      console.log('change:' + this.form.rememberMe)
     },
     ...mapActions(['Login', 'Logout']),
     handleSubmit () {
@@ -117,8 +116,6 @@ export default {
             storage.set(LOGIN_USERNAME, this.form.username)
             storage.set(LOGIN_PASSWORD, this.form.password)
             storage.set(LOGIN_REMEMBERME, this.form.rememberMe)
-            console.log('remember')
-            console.log(storage.get(LOGIN_USERNAME))
           } else {
             storage.remove(LOGIN_USERNAME)
             storage.remove(LOGIN_PASSWORD)
