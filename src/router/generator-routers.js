@@ -76,6 +76,12 @@ export const generatorDynamicRouter = (token) => {
  */
 export const generator = (routerMap, parent) => {
   return routerMap.map(item => {
+    // 适配ruoyi路由规则
+    if (item.children && item.children.length === 1 && !(item.children.children && item.children.children.length > 0) && !item.alwaysShow) {
+      parent = undefined
+      item = item.children[0]
+      item.children = []
+    }
     const { title, show, hideChildren, hiddenHeaderContent, hidden, icon, noCache } = item.meta || {}
     if (item.component) {
       // Layout ParentView 组件特殊处理
