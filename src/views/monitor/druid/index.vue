@@ -14,7 +14,7 @@ export default {
   },
   data () {
     return {
-      src: process.env.VUE_APP_BASE_API + '/druid/index.html',
+      src: process.env.VUE_APP_BASE_API + '/druid/login.html',
       height: document.documentElement.clientHeight - 94.5 + 'px;',
       loading: true
     }
