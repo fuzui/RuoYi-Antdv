@@ -194,7 +194,6 @@ export default {
         onOk () {
           return delDept(deptId)
             .then(() => {
-              that.onSelectChange([], [])
               that.getList()
               that.$message.success(
                 '删除成功',
