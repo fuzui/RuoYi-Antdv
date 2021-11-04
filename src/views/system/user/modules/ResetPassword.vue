@@ -10,10 +10,10 @@
         <a-input v-model="form.userName" :disabled="true"/>
       </a-form-model-item>
       <a-form-model-item has-feedback label="新密码" prop="newPassword">
-        <a-input-password v-model="form.newPassword" placeholder="请输入新密码" />
+        <a-input-password v-model="form.newPassword" placeholder="请输入新密码" :maxLength="20" />
       </a-form-model-item>
       <a-form-model-item has-feedback label="确认密码" prop="confirmPassword">
-        <a-input-password v-model="form.confirmPassword" placeholder="请确认密码" />
+        <a-input-password v-model="form.confirmPassword" placeholder="请确认密码" :maxLength="20" />
       </a-form-model-item>
     </a-form-model>
   </a-modal>
@@ -29,8 +29,8 @@ export default {
     const validateNewPass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入新密码'))
-      } else if (!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/.test(value)) {
-        callback(new Error('请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种'))
+      } else if (!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){5,20}$/.test(value)) {
+        callback(new Error('请输入5-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种'))
       } else {
         if (this.form.confirmPassword !== '') {
           this.$refs.form.validateField('confirmPassword')

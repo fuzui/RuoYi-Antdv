@@ -6,7 +6,7 @@
     </a-divider>
     <a-form-model ref="form" :model="form" :rules="rules">
       <a-form-model-item label="用户昵称" prop="nickName">
-        <a-input v-model="form.nickName" placeholder="请输入" />
+        <a-input v-model="form.nickName" placeholder="请输入" :maxLength="30" />
       </a-form-model-item>
       <a-form-model-item label="部门" prop="deptId">
         <a-tree-select
@@ -29,8 +29,8 @@
       <a-form-model-item label="用户名" prop="userName" v-if="form.userId == undefined">
         <a-input v-model="form.userName" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="密码)" prop="password" v-if="form.userId == undefined">
-        <a-input-password v-model="form.password" placeholder="请输入" />
+      <a-form-model-item label="密码" prop="password" v-if="form.userId == undefined">
+        <a-input-password v-model="form.password" placeholder="请输入" :maxLength="20" />
       </a-form-model-item>
       <a-form-model-item label="性别" prop="sex">
         <a-radio-group v-model="form.sex" button-style="solid">
@@ -140,7 +140,8 @@ export default {
           { required: true, message: '部门不能为空', trigger: 'change' }
         ],
         password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' }
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          { min: 5, max: 20, message: '用户密码长度必须介于 5 和 20 之间', trigger: 'blur' }
         ],
         email: [
           { required: true, message: '邮箱不能为空', trigger: 'blur' },

@@ -3,45 +3,44 @@
     <a-row :gutter="16">
       <a-col :md="24" :lg="16">
 
-        <a-form
+        <a-form-model
           layout="vertical"
           :rules="rules"
           :model="user"
           ref="form"
         >
-          <a-form-item
+          <a-form-model-item
             label="昵称"
             ref="nickName"
             prop="nickName"
-            :required="true"
           >
-            <a-input v-model="user.nickName" placeholder="给自己起个名字" />
-          </a-form-item>
-          <a-form-item
+            <a-input v-model="user.nickName" placeholder="给自己起个名字" :maxLength="30" />
+          </a-form-model-item>
+          <a-form-model-item
             label="手机"
-            :required="true"
+            prop="phonenumber"
           >
-            <a-input v-model="user.phonenumber" placeholder="15555555555"/>
-          </a-form-item>
-          <a-form-item
+            <a-input v-model="user.phonenumber" placeholder="请填写手机号"/>
+          </a-form-model-item>
+          <a-form-model-item
             label="电子邮件"
-            :required="true"
+            prop="email"
           >
-            <a-input v-model="user.email" placeholder="exp@admin.com"/>
-          </a-form-item>
-          <a-form-item
+            <a-input v-model="user.email" placeholder="请填写手机号邮箱"/>
+          </a-form-model-item>
+          <a-form-model-item
             label="性别"
-            :required="false"
+            prop="sex"
           >
             <a-radio-group v-model="user.sex">
               <a-radio :value="sexValue.men">男</a-radio>
               <a-radio :value="sexValue.women">女</a-radio>
             </a-radio-group>
-          </a-form-item>
-          <a-form-item>
+          </a-form-model-item>
+          <a-form-model-item>
             <a-button type="primary" @click="submit">保存</a-button>
-          </a-form-item>
-        </a-form>
+          </a-form-model-item>
+        </a-form-model>
 
       </a-col>
       <a-col :md="24" :lg="8" :style="{ minHeight: '180px' }">
@@ -96,8 +95,23 @@ export default {
       },
       rules: {
         nickName: [
-          { required: true, message: '请输入昵称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度应为1-5', trigger: 'blur' }
+          { required: true, message: '请输入昵称', trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: '邮箱不能为空', trigger: 'blur' },
+          {
+            type: 'email',
+            message: '请正确填写邮箱地址',
+            trigger: ['blur', 'change']
+          }
+        ],
+        phonenumber: [
+          { required: true, message: '手机号不能为空', trigger: 'blur' },
+          {
+            pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
+            message: '请正确填写手机号',
+            trigger: 'blur'
+          }
         ]
       }
     }
