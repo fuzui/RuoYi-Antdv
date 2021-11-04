@@ -20,7 +20,7 @@
           <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
         </a-input-password>
       </a-form-model-item>
-      <a-row :gutter="16">
+      <a-row :gutter="16" v-if="captchaOnOff">
         <a-col class="gutter-row" :span="16">
           <a-form-model-item prop="code">
             <a-input v-model="form.code" size="large" type="text" autocomplete="off" placeholder="验证码">
@@ -78,7 +78,8 @@ export default {
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
         code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
       },
-      logining: false
+      logining: false,
+      captchaOnOff: true
     }
   },
   created () {
@@ -88,8 +89,11 @@ export default {
   methods: {
     getCode () {
       getCodeImg().then(res => {
-        this.codeUrl = 'data:image/gif;base64,' + res.img
-        this.form.uuid = res.uuid
+        this.captchaOnOff = res.captchaOnOff === undefined ? true : res.captchaOnOff
+        if (this.captchaOnOff) {
+          this.codeUrl = 'data:image/gif;base64,' + res.img
+          this.form.uuid = res.uuid
+        }
       })
     },
     getStorage () {
@@ -149,7 +153,9 @@ export default {
       this.isLoginError = true
       this.loginErrorInfo = err
       this.form.code = undefined
-      this.getCode()
+      if (this.captchaOnOff) {
+        this.getCode()
+      }
     },
     handleCloseLoginError () {
       this.isLoginError = false
