@@ -43,7 +43,7 @@
         <a-input v-model="form.menuName" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="排序" prop="orderNum">
-        <a-input-number v-model="form.orderNum" :min="0" style="width: 100%"/>
+        <a-input-number v-model="form.orderNum" :min="0" :max="9999" style="width: 100%" />
       </a-form-model-item>
       <a-form-model-item label="是否外链" prop="isFrame" v-if="form.menuType != 'F'">
         <a-radio-group v-model="form.isFrame" button-style="solid">
@@ -58,7 +58,7 @@
         <a-input v-model="form.component" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="权限标识" prop="perms" v-if="form.menuType != 'M'">
-        <a-input v-model="form.perms" placeholder="请输入" />
+        <a-input v-model="form.perms" placeholder="请输入" maxLength="100" />
       </a-form-model-item>
       <a-form-model-item label="是否显示" prop="visible" v-if="form.menuType != 'F'">
         <a-radio-group v-model="form.visible" button-style="solid">
