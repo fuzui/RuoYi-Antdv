@@ -123,13 +123,13 @@
             <span slot="createTime" slot-scope="text, record">
               {{ parseTime(record.createTime) }}
             </span>
-            <span slot="operation" slot-scope="text, record">
+            <span slot="operation" slot-scope="text, record" v-if="record.userId !== 1">
               <a @click="$refs.createForm.handleUpdate(record,undefined)" v-hasPermi="['system:user:edit']">
                 <a-icon type="edit" />
                 修改
               </a>
-              <a-divider type="vertical" v-if="record.userId !== 1" v-hasPermi="['system:user:remove']" />
-              <a @click="handleDelete(record)" v-if="record.userId !== 1" v-hasPermi="['system:user:remove']">
+              <a-divider type="vertical" v-hasPermi="['system:user:remove']" />
+              <a @click="handleDelete(record)" v-hasPermi="['system:user:remove']">
                 <a-icon type="delete" />
                 删除
               </a>
