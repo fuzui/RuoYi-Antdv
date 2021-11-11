@@ -5,6 +5,7 @@ import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import errorCode from '@/utils/errorCode'
+import qs from 'qs'
 
 // 创建 axios 实例
 const request = axios.create({
@@ -41,25 +42,9 @@ request.interceptors.request.use(config => {
     config.headers['Authorization'] = 'Bearer ' + token // 让每个请求携带自定义token 请根据实际情况自行修改
     // config.headers['accessAccess-Token'] = token
   }
-  // get请求映射params参数
-  if (config.method === 'get' && config.params) {
-    let url = config.url + '?'
-    for (const propName of Object.keys(config.params)) {
-      const value = config.params[propName]
-      var part = encodeURIComponent(propName) + '='
-      if (value && typeof (value) !== 'undefined') {
-        if (typeof value === 'object') {
-          for (const key of Object.keys(value)) {
-            const params = propName + '[' + key + ']'
-            var subPart = encodeURIComponent(params) + '='
-            url += subPart + encodeURIComponent(value[key]) + '&'
-          }
-        } else {
-          url += part + encodeURIComponent(value) + '&'
-        }
-      }
-    }
-    url = url.slice(0, -1)
+  // 处理params参数
+  if (config.params) {
+    const url = config.url + '?' + qs.stringify(config.params, { indices: false })
     config.params = {}
     config.url = url
   }
