@@ -134,3 +134,21 @@ export function importData (data) {
     data: data
   })
 }
+
+// 查询授权角色
+export function getAuthRole (userId) {
+  return request({
+    url: '/system/user/authRole/' + userId,
+    method: 'get'
+  })
+}
+
+// 保存授权角色
+export function updateAuthRole (data) {
+  console.log(data)
+  return request({
+    url: '/system/user/authRole',
+    method: 'put',
+    params: data
+  })
+}

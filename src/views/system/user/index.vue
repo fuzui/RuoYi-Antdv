@@ -91,6 +91,10 @@
           <reset-password
             ref="resetPassword"
           />
+          <!-- 分配角色模态框 -->
+          <auth-role
+            ref="authRole"
+          />
           <!-- 上传文件 -->
           <import-excel
             ref="importExcel"
@@ -129,11 +133,27 @@
                 <a-icon type="delete" />
                 删除
               </a>
-              <a-divider type="vertical" v-hasPermi="['system:user:resetPwd']" />
-              <a @click="$refs.resetPassword.handleResetPwd(record)" v-hasPermi="['system:user:resetPwd']">
-                <a-icon type="key" />
-                重置
-              </a>
+              <a-divider type="vertical" v-hasPermi="['system:user:resetPwd', 'system:user:edit']" />
+              <a-dropdown v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
+                <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+                  <a-icon type="double-right" />
+                  更多
+                </a>
+                <a-menu slot="overlay">
+                  <a-menu-item v-hasPermi="['system:user:resetPwd']">
+                    <a @click="$refs.resetPassword.handleResetPwd(record)">
+                      <a-icon type="key" />
+                      重置密码
+                    </a>
+                  </a-menu-item>
+                  <a-menu-item v-hasPermi="['system:user:edit']">
+                    <a @click="$refs.authRole.handleAuthRole(record)">
+                      <a-icon type="check-circle" />
+                      分配角色
+                    </a>
+                  </a-menu-item>
+                </a-menu>
+              </a-dropdown>
             </span>
           </a-table>
           <!-- 分页 -->
@@ -158,6 +178,7 @@
 
 import { listUser, delUser, exportUser, changeUserStatus } from '@/api/system/user'
 import { treeselect } from '@/api/system/dept'
+import AuthRole from './modules/AuthRole'
 import ResetPassword from './modules/ResetPassword'
 import CreateForm from './modules/CreateForm'
 import ImportExcel from './modules/ImportExcel'
@@ -166,6 +187,7 @@ import DeptTree from './modules/DeptTree'
 export default {
   name: 'User',
   components: {
+    AuthRole,
     ResetPassword,
     CreateForm,
     ImportExcel,
