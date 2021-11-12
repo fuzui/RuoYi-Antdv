@@ -101,16 +101,35 @@
         </span>
         <span slot="operation" slot-scope="text, record">
           <a @click="$refs.createForm.handleUpdate(record, undefined)" v-hasPermi="['system:role:edit']">
-            <a-icon type="edit" />修改
-          </a>
-          <a-divider type="vertical" v-hasPermi="['system:role:edit']" />
-          <a @click="$refs.createDataScopeForm.handleDataScope(record)" v-hasPermi="['system:role:edit']">
-            <a-icon type="lock" />数据权限
+            <a-icon type="edit" />
+            修改
           </a>
           <a-divider type="vertical" v-hasPermi="['system:role:remove']" />
           <a @click="handleDelete(record)" v-hasPermi="['system:role:remove']">
-            <a-icon type="delete" />删除
+            <a-icon type="delete" />
+            删除
           </a>
+          <a-divider type="vertical" v-hasPermi="['system:role:edit']" />
+          <a-dropdown v-hasPermi="['system:role:edit']">
+            <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+              <a-icon type="double-right" />
+              更多
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item>
+                <a @click="$refs.createDataScopeForm.handleDataScope(record)">
+                  <a-icon type="lock" />
+                  数据权限
+                </a>
+              </a-menu-item>
+              <a-menu-item>
+                <a @click="handleAuthUser(record)">
+                  <a-icon type="user-add" />
+                  分配用户
+                </a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
         </span>
       </a-table>
       <!-- 分页 -->
@@ -328,6 +347,11 @@ export default {
         },
         onCancel () {}
       })
+    },
+    /** 分配用户操作 */
+    handleAuthUser (row) {
+      const roleId = row.roleId
+      this.$router.push({ path: '/system/role/authUser', query: { roleId: roleId } })
     }
   }
 }

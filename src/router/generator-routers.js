@@ -22,6 +22,8 @@ const constantRouterComponents = {
   'SecuritySettings': () => import('@/views/account/settings/Security'),
   // job log
   'JobLog': () => import('@/views/monitor/job/log'),
+  // 授权用户
+  'AuthUser': () => import('@/views/system/role/authUser'),
   // 公告新增修改
   'NoticeForm': () => import('@/views/system/notice/CreateForm'),
   // 修改生成配置

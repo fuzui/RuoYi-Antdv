@@ -49,6 +49,13 @@ export const indexRouterMap = [
     hidden: true
   },
   {
+    path: '/system/role/authUser',
+    name: 'AuthUser',
+    component: 'AuthUser',
+    meta: { title: '分配用户', keepAlive: true },
+    hidden: true
+  },
+  {
     path: '/system/notice/form',
     name: 'NoticeForm',
     component: 'NoticeForm',
