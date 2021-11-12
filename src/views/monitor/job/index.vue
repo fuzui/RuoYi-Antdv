@@ -95,22 +95,44 @@
           </a-popconfirm>
         </span>
         <span slot="operation" slot-scope="text, record">
-          <a-popconfirm
-            ok-text="是"
-            cancel-text="否"
-            @confirm="confirmHandleRun(record)"
-            @cancel="cancelHandleRun(record)"
-          >
-            <span slot="title">确认执行一次{{ record.jobName }}的任务吗?</span>
-            <a v-hasPermi="['monitor:job:changeStatus']">
-              <a-icon type="caret-right" />
-              执行一次
-            </a>
-          </a-popconfirm>
-          <a-divider type="vertical" />
-          <a @click="$refs.viewForm.handleView(record)" v-hasPermi="['monitor:job:query']">
-            <a-icon type="eye" />详细
+          <a @click="$refs.createForm.handleUpdate(record, undefined)" v-hasPermi="['monitor:job:edit']">
+            <a-icon type="edit" />
+            修改
           </a>
+          <a-divider type="vertical" v-hasPermi="['monitor:job:remove']" />
+          <a @click="handleDelete(record)" v-hasPermi="['monitor:job:remove']">
+            <a-icon type="delete" />
+            删除
+          </a>
+          <a-divider type="vertical" v-hasPermi="['system:job:edit', 'monitor:job:query']" />
+          <a-dropdown v-hasPermi="['system:job:edit', 'monitor:job:query']">
+            <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+              <a-icon type="double-right" />
+              更多
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item v-hasPermi="['monitor:job:edit']">
+                <a-popconfirm
+                  ok-text="是"
+                  cancel-text="否"
+                  @confirm="confirmHandleRun(record)"
+                  @cancel="cancelHandleRun(record)"
+                >
+                  <span slot="title">确认执行一次{{ record.jobName }}的任务吗?</span>
+                  <a>
+                    <a-icon type="caret-right" />
+                    执行一次
+                  </a>
+                </a-popconfirm>
+              </a-menu-item>
+              <a-menu-item v-hasPermi="['monitor:job:query']">
+                <a @click="$refs.viewForm.handleView(record)">
+                  <a-icon type="eye" />
+                  详细
+                </a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
         </span>
       </a-table>
       <!-- 分页 -->
