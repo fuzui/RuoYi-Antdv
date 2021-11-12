@@ -72,25 +72,42 @@
           {{ parseTime(record.updateTime) }}
         </span>
         <span slot="operation" slot-scope="text, record">
-          <a @click="$refs.previewCode.handlePreview(record)" v-hasPermi="['tool:gen:preview']">
-            <a-icon type="eye" />预览
-          </a>
-          <a-divider type="vertical" v-hasPermi="['tool:gen:edit']" />
           <a @click="handleEditTable(record)" v-hasPermi="['tool:gen:edit']">
-            <a-icon type="edit" />编辑
+            <a-icon type="edit" />
+            编辑
           </a>
           <a-divider type="vertical" v-hasPermi="['tool:gen:remove']" />
           <a @click="handleDelete(record)" v-hasPermi="['tool:gen:remove']">
-            <a-icon type="delete" />删除
+            <a-icon type="delete" />
+            删除
           </a>
-          <a-divider type="vertical" v-hasPermi="['tool:gen:edit']" />
-          <a @click="handleSynchDb(record)" v-hasPermi="['tool:gen:edit']">
-            <a-icon type="cloud-sync" />同步
-          </a>
-          <a-divider type="vertical" v-hasPermi="['tool:gen:code']" />
-          <a @click="handleGenTable(record)" v-hasPermi="['tool:gen:code']">
-            <a-icon type="cloud-download" />生成代码
-          </a>
+          <a-divider type="vertical" v-hasPermi="['tool:gen:preview', 'tool:gen:edit', 'tool:gen:code']" />
+          <a-dropdown v-hasPermi="['tool:gen:preview', 'tool:gen:edit', 'tool:gen:code']">
+            <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+              <a-icon type="double-right" />
+              更多
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item v-hasPermi="['tool:gen:preview']">
+                <a @click="$refs.previewCode.handlePreview(record)" v-hasPermi="['tool:gen:preview']">
+                  <a-icon type="eye" />
+                  预览
+                </a>
+              </a-menu-item>
+              <a-menu-item v-hasPermi="['tool:gen:edit']">
+                <a @click="handleSynchDb(record)">
+                  <a-icon type="cloud-sync" />
+                  同步
+                </a>
+              </a-menu-item>
+              <a-menu-item v-hasPermi="['tool:gen:code']">
+                <a @click="handleGenTable(record)">
+                  <a-icon type="cloud-download" />
+                  生成代码
+                </a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
         </span>
       </a-table>
       <!-- 分页 -->
@@ -191,7 +208,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
-          width: '33%',
+          width: '20%',
           scopedSlots: { customRender: 'operation' },
           align: 'center'
         }
