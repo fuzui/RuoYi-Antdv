@@ -7,7 +7,16 @@
       <a-form-model-item label="角色名称" prop="roleName">
         <a-input v-model="form.roleName" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="权限字符" prop="roleKey">
+      <a-form-model-item prop="roleKey">
+        <span slot="label">
+          权限字符
+          <a-tooltip>
+            <template slot="title">
+              控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasRole('admin')`)
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-input v-model="form.roleKey" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="排序" prop="roleSort">

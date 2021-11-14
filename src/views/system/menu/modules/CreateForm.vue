@@ -45,32 +45,95 @@
       <a-form-model-item label="排序" prop="orderNum">
         <a-input-number v-model="form.orderNum" :min="0" :max="9999" style="width: 100%" />
       </a-form-model-item>
-      <a-form-model-item label="是否外链" prop="isFrame" v-if="form.menuType != 'F'">
+      <a-form-model-item prop="isFrame" v-if="form.menuType != 'F'">
+        <span slot="label">
+          是否外链
+          <a-tooltip>
+            <template slot="title">
+              选择是外链则路由地址需要以`http(s)://`开头
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-radio-group v-model="form.isFrame" button-style="solid">
           <a-radio-button value="0">是</a-radio-button>
           <a-radio-button value="1">否</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
-      <a-form-model-item label="路由地址" prop="path" v-if="form.menuType != 'F'">
+      <a-form-model-item prop="path" v-if="form.menuType != 'F'">
+        <span slot="label">
+          路由地址
+          <a-tooltip>
+            <template slot="title">
+              访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-input v-model="form.path" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="组件路径" prop="component" v-if="form.menuType == 'C'">
+      <a-form-model-item prop="component" v-if="form.menuType == 'C'">
+        <span slot="label">
+          组件路径
+          <a-tooltip>
+            <template slot="title">
+              访问的组件路径，如：`system/user/index`，默认在`views`目录下
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-input v-model="form.component" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="权限标识" prop="perms" v-if="form.menuType != 'M'">
+      <a-form-model-item prop="perms" v-if="form.menuType != 'M'">
+        <span slot="label">
+          权限标识
+          <a-tooltip>
+            <template slot="title">
+              控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasPermi('system:user:list')`)
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-input v-model="form.perms" placeholder="请输入" maxLength="100" />
       </a-form-model-item>
-      <a-form-model-item label="是否显示" prop="visible" v-if="form.menuType != 'F'">
+      <a-form-model-item prop="visible" v-if="form.menuType != 'F'">
+        <span slot="label">
+          是否显示
+          <a-tooltip>
+            <template slot="title">
+              选择隐藏则路由将不会出现在侧边栏，但仍然可以访问
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-radio-group v-model="form.visible" button-style="solid">
           <a-radio-button v-for="(d, index) in visibleOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
-      <a-form-model-item label="状态" prop="status" v-if="form.menuType != 'F'">
+      <a-form-model-item prop="status" v-if="form.menuType != 'F'">
+        <span slot="label">
+          状态
+          <a-tooltip>
+            <template slot="title">
+              选择停用则路由将不会出现在侧边栏，也不能被访问
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-radio-group v-model="form.status" button-style="solid">
           <a-radio-button v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
-      <a-form-model-item label="是否缓存" prop="isCache" v-if="form.menuType == 'C'">
+      <a-form-model-item prop="isCache" v-if="form.menuType == 'C'">
+        <span slot="label">
+          是否缓存
+          <a-tooltip>
+            <template slot="title">
+              选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </span>
         <a-radio-group v-model="form.isCache" button-style="solid">
           <a-radio-button value="0">缓存</a-radio-button>
           <a-radio-button value="1">不缓存</a-radio-button>
