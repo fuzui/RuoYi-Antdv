@@ -27,7 +27,12 @@
         <a-input v-model="form.invokeTarget" placeholder="请输入调用目标字符串" />
       </a-form-model-item>
       <a-form-model-item label="cron表达式" prop="cronExpression">
-        <a-input v-model="form.cronExpression" placeholder="请输入cron执行表达式" />
+        <a-input-search v-model="form.cronExpression" placeholder="请输入cron执行表达式" @search="$refs.genCrontab.show(form.cronExpression)">
+          <a-button slot="enterButton">
+            生成表达式
+            <a-icon type="tool" />
+          </a-button>
+        </a-input-search>
       </a-form-model-item>
       <a-form-model-item label="是否并发" prop="concurrent">
         <a-radio-group v-model="form.concurrent" button-style="solid">
@@ -58,15 +63,20 @@
         </a-space>
       </div>
     </a-form-model>
+    <gen-crontab ref="genCrontab" @fill="crontabFill" />
   </a-drawer>
 </template>
 
 <script>
 
 import { getJob, addJob, updateJob } from '@/api/monitor/job'
+import GenCrontab from './GenCrontab'
 
 export default {
   name: 'CreateForm',
+  components: {
+    GenCrontab
+  },
   props: {
     statusOptions: {
       type: Array,
@@ -140,7 +150,7 @@ export default {
         status: '0'
       }
     },
-     /** 新增按钮操作 */
+    /** 新增按钮操作 */
     handleAdd () {
       this.reset()
       this.open = true
@@ -183,6 +193,9 @@ export default {
           return false
         }
       })
+    },
+    crontabFill (value) {
+      this.form.cronExpression = value
     }
   }
 }

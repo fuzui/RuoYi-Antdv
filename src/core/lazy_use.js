@@ -58,6 +58,7 @@ import Dialog from '@/components/Dialog'
 import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
 import PermissionHelper from '@/core/permission/permission'
+import VueClipboard from 'vue-clipboard2'
 import './directives/action'
 
 Vue.use(ConfigProvider)
@@ -106,6 +107,7 @@ Vue.use(Statistic)
 Vue.use(Descriptions)
 Vue.use(Space)
 Vue.use(Tree)
+Vue.use(VueClipboard)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
