@@ -2,10 +2,13 @@ import axios from 'axios'
 import store from '@/store'
 import storage from 'store'
 import notification from 'ant-design-vue/es/notification'
+import message from 'ant-design-vue/es/message'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import errorCode from '@/utils/errorCode'
 import qs from 'qs'
+import { blobValidate } from '@/utils/ruoyi'
+import { saveAs } from 'file-saver'
 
 // 创建 axios 实例
 const request = axios.create({
@@ -59,6 +62,10 @@ request.interceptors.response.use((res) => {
   const code = res.data.code || 200
   // 获取错误信息
   const msg = errorCode[code] || res.data.msg || errorCode['default']
+  // 二进制数据则直接返回
+  if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
+    return res.data
+  }
   if (code === 401) {
     notification.open({
       message: '系统提示',
@@ -107,6 +114,44 @@ const installer = {
   install (Vue) {
     Vue.use(VueAxios, request)
   }
+}
+
+// 通用下载方法
+export function download (url, params, filename) {
+  const notificationKey = 'download'
+  notification.open({
+    key: notificationKey,
+    message: '正在下载数据，请稍候',
+    duration: null,
+    icon: h => {
+      return h(
+        'a-icon',
+        {
+          props: {
+            type: 'loading'
+          }
+        }
+      )
+      }
+  })
+  return request.post(url, params, {
+    transformRequest: [(params) => { return qs.stringify(params, { indices: false }) }],
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    responseType: 'blob'
+  }).then(async (data) => {
+    const isLogin = await blobValidate(data)
+    if (isLogin) {
+      const blob = new Blob([data])
+      saveAs(blob, filename)
+      message.success('下载成功')
+    } else {
+      message.error('无效的会话，或者会话已过期，请重新登录。')
+    }
+    notification.close(notificationKey)
+  }).catch((r) => {
+    message.error('下载文件出现错误，请联系管理员！')
+    notification.close(notificationKey)
+  })
 }
 
 export default request

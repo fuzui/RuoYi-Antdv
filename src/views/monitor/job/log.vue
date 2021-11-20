@@ -104,7 +104,7 @@
 
 <script>
 
-import { listJobLog, delJobLog, exportJobLog, cleanJobLog } from '@/api/monitor/jobLog'
+import { listJobLog, delJobLog, cleanJobLog } from '@/api/monitor/jobLog'
 import LogViewForm from './modules/LogViewForm'
 
 export default {
@@ -304,14 +304,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportJobLog(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('/monitor/jobLog/export', {
+            ...that.queryParam
+          }, `job_log_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

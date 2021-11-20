@@ -3,8 +3,6 @@
  * Copyright (c) 2019 ruoyi
  */
 
-const baseURL = process.env.VUE_APP_BASE_API
-
 // 日期格式化
 export function parseTime (time, pattern) {
 	if (arguments.length === 0 || !time) {
@@ -96,11 +94,6 @@ export function selectDictLabels (datas, value, separator) {
 	return actions.join('').substring(0, actions.join('').length - 1)
 }
 
-// 通用下载方法
-export function download (fileName) {
-	window.location.href = baseURL + '/common/download?fileName=' + encodeURI(fileName) + '&delete=' + true
-}
-
 // 字符串格式化(%s )
 export function sprintf (str) {
 	var args = arguments
@@ -155,4 +148,15 @@ export function handleTree (data, id, parentId, children, rootId) {
 		return father[parentId] === rootId
 	})
 	return treeData !== '' ? treeData : data
+}
+
+// 验证是否为blob格式
+export async function blobValidate (data) {
+	try {
+		const text = await data.text()
+		JSON.parse(text)
+		return false
+	} catch (error) {
+		return true
+	}
 }

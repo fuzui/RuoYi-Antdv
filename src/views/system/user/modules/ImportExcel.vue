@@ -35,7 +35,7 @@
 
 <script>
 
-import { importTemplate, importData } from '@/api/system/user'
+import { importData } from '@/api/system/user'
 
 export default {
   name: 'ImportExcel',
@@ -72,9 +72,9 @@ export default {
     },
     /** 下载模板操作 */
     importTemplate () {
-      importTemplate().then(response => {
-        this.download(response.msg)
-      })
+      this.download('system/user/importTemplate', {
+        ...this.queryParams
+      }, `user_template_${new Date().getTime()}.xlsx`)
     },
     /** 导入excel窗体开启 */
     importExcelHandleOpen (e) {

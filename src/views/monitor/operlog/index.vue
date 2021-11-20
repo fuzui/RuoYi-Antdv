@@ -109,7 +109,7 @@
 
 <script>
 
-import { list, delOperlog, cleanOperlog, exportOperlog } from '@/api/monitor/operlog'
+import { list, delOperlog, cleanOperlog } from '@/api/monitor/operlog'
 import ViewForm from './modules/ViewForm'
 
 export default {
@@ -316,14 +316,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportOperlog(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('monitor/operlog/export', {
+            ...that.queryParam
+          }, `operlog_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

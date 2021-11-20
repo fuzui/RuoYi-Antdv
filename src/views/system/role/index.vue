@@ -150,7 +150,7 @@
 
 <script>
 
-import { listRole, delRole, exportRole, changeRoleStatus } from '@/api/system/role'
+import { listRole, delRole, changeRoleStatus } from '@/api/system/role'
 import CreateForm from './modules/CreateForm'
 import CreateDataScopeForm from './modules/CreateDataScopeForm'
 
@@ -336,14 +336,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportRole(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('system/role/export', {
+            ...that.queryParam
+          }, `role_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

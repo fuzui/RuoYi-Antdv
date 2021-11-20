@@ -27,7 +27,8 @@ import './global.less' // global style
 import config from '@/config/defaultSettings'
 import { getDicts } from '@/api/system/dict/data'
 import { getConfigKey } from '@/api/system/config'
-import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, download, handleTree } from '@/utils/ruoyi'
+import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree } from '@/utils/ruoyi'
+import { download } from '@/utils/request'
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts

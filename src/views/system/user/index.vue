@@ -176,7 +176,7 @@
 
 <script>
 
-import { listUser, delUser, exportUser, changeUserStatus } from '@/api/system/user'
+import { listUser, delUser, changeUserStatus } from '@/api/system/user'
 import { treeselect } from '@/api/system/dept'
 import AuthRole from './modules/AuthRole'
 import ResetPassword from './modules/ResetPassword'
@@ -389,14 +389,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportUser(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('system/user/export', {
+            ...that.queryParam
+          }, `user_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

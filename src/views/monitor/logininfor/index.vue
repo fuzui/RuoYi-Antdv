@@ -92,7 +92,7 @@
 
 <script>
 
-import { list, delLogininfor, cleanLogininfor, exportLogininfor } from '@/api/monitor/logininfor'
+import { list, delLogininfor, cleanLogininfor } from '@/api/monitor/logininfor'
 
 export default {
   name: 'Logininfor',
@@ -281,14 +281,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportLogininfor(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('monitor/logininfor/export', {
+            ...that.queryParam
+          }, `logininfor_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

@@ -16,6 +16,7 @@
     "core-js": "^3.8.1",
     "echarts": "^5.0.0",
     "enquire.js": "^2.1.6",
+    "file-saver": "^2.0.5",
     "highlight.js": "^10.7.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.get": "^4.4.2",

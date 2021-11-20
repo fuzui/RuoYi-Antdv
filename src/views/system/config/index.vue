@@ -116,7 +116,7 @@
 
 <script>
 
-import { listConfig, delConfig, exportConfig, refreshCache } from '@/api/system/config'
+import { listConfig, delConfig, refreshCache } from '@/api/system/config'
 import CreateForm from './modules/CreateForm'
 
 export default {
@@ -293,14 +293,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportConfig(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('system/config/export', {
+            ...that.queryParam
+          }, `config_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

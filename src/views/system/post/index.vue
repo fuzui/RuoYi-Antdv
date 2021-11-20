@@ -108,7 +108,7 @@
 
 <script>
 
-import { listPost, delPost, exportPost } from '@/api/system/post'
+import { listPost, delPost } from '@/api/system/post'
 import CreateForm from './modules/CreateForm'
 
 export default {
@@ -275,14 +275,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportPost(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('system/post/export', {
+            ...that.queryParam
+          }, `post_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

@@ -153,7 +153,7 @@
 
 <script>
 
-import { listJob, delJob, exportJob, runJob, changeJobStatus } from '@/api/monitor/job'
+import { listJob, delJob, runJob, changeJobStatus } from '@/api/monitor/job'
 import CreateForm from './modules/CreateForm'
 import ViewForm from './modules/ViewForm'
 
@@ -374,14 +374,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportJob(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          that.download('monitor/job/export', {
+            ...that.queryParam
+          }, `job_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })

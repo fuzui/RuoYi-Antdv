@@ -59,7 +59,7 @@
 
 <script>
 
-import { listData, delData, exportData } from '@/api/system/dict/data'
+import { listData, delData } from '@/api/system/dict/data'
 import CreateDataForm from './CreateDataForm'
 
 export default {
@@ -241,14 +241,9 @@ export default {
         title: '是否确认导出?',
         content: '此操作将导出当前条件下所有数据而非选中数据',
         onOk () {
-          return exportData(that.queryParam)
-            .then(response => {
-              that.download(response.msg)
-              that.$message.success(
-                '导出成功',
-                3
-              )
-          })
+          this.download('system/dict/data/export', {
+            ...that.queryParam
+          }, `data_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })
