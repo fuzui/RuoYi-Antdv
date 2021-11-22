@@ -2,6 +2,14 @@
 import events from './events'
 import { i18nRender } from '@/locales'
 
+// 首页
+const homeRoute = {
+  fullPath: '/index',
+  path: '/index',
+  meta: {
+    title: '首页'
+  }
+}
 export default {
   name: 'MultiTab',
   data () {
@@ -34,7 +42,10 @@ export default {
       } catch (e) {
       }
     })
-
+    if (homeRoute.fullPath !== this.$route.fullPath) {
+      this.pages.push(homeRoute)
+      this.fullPathList.push(homeRoute.fullPath)
+    }
     this.pages.push(this.$route)
     this.fullPathList.push(this.$route.fullPath)
     this.selectedLastPath()
@@ -68,7 +79,7 @@ export default {
       const currentIndex = this.fullPathList.indexOf(e)
       if (currentIndex > 0) {
         this.fullPathList.forEach((item, index) => {
-          if (index < currentIndex) {
+          if (index < currentIndex && index !== 0) {
             this.remove(item)
           }
         })
@@ -89,9 +100,9 @@ export default {
       }
     },
     closeAll (e) {
-      const currentIndex = this.fullPathList.indexOf(e)
+      // const currentIndex = this.fullPathList.indexOf(e)
       this.fullPathList.forEach((item, index) => {
-        if (index !== currentIndex) {
+        if (index !== 0) {
           this.remove(item)
         }
       })
@@ -99,19 +110,19 @@ export default {
     closeMenuClick (key, route) {
       this[key](route)
     },
-    renderTabPaneMenu (e) {
+    renderTabPaneMenu (e, index) {
       return (
         <a-menu {...{ on: { click: ({ key, item, domEvent }) => { this.closeMenuClick(key, e) } } }}>
-          <a-menu-item key="closeThat">关闭当前标签</a-menu-item>
-          <a-menu-item key="closeRight">关闭右侧</a-menu-item>
-          <a-menu-item key="closeLeft">关闭左侧</a-menu-item>
-          <a-menu-item key="closeAll">关闭全部</a-menu-item>
+          <a-menu-item disabled={index === 0} key="closeThat">关闭当前标签</a-menu-item>
+          <a-menu-item disabled={this.fullPathList.length === index + 1} key="closeRight">关闭右侧</a-menu-item>
+          <a-menu-item disabled={index <= 1} key="closeLeft">关闭左侧</a-menu-item>
+          <a-menu-item disabled={this.fullPathList.length === 1} key="closeAll">关闭全部</a-menu-item>
         </a-menu>
       )
     },
     // render
-    renderTabPane (title, keyPath) {
-      const menu = this.renderTabPaneMenu(keyPath)
+    renderTabPane (title, keyPath, index) {
+      const menu = this.renderTabPaneMenu(keyPath, index)
 
       return (
         <a-dropdown overlay={menu} trigger={['contextmenu']}>
@@ -134,12 +145,12 @@ export default {
   },
   render () {
     const { onEdit, $data: { pages } } = this
-    const panes = pages.map(page => {
+    const panes = pages.map((page, index) => {
       return (
         <a-tab-pane
           style={{ height: 0 }}
-          tab={this.renderTabPane(page.meta.customTitle || page.meta.title, page.fullPath)}
-          key={page.fullPath} closable={pages.length > 1}
+          tab={this.renderTabPane(page.meta.customTitle || page.meta.title, page.fullPath, index)}
+          key={page.fullPath} closable={page.fullPath !== homeRoute.fullPath}
         >
         </a-tab-pane>)
     })
