@@ -13,7 +13,7 @@
       广告代码 真实项目中请移除
       production remove this Ads
     -->
-    <ads v-if="isProPreviewSite && !collapsed"/>
+    <!-- <ads v-if="isProPreviewSite && !collapsed"/> -->
     <!-- Ads end -->
 
     <!-- layout content -->
@@ -33,7 +33,7 @@
       </div>
     </template>
 
-    <setting-drawer :settings="settings" @change="handleSettingChange" />
+    <setting-drawer v-if="isProPreviewSite" :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
@@ -49,12 +49,25 @@ import MultiTab from '@/components/MultiTab'
 import { SettingDrawer, updateTheme } from '@/components/ProLayout'
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
-import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
+import {
+  CONTENT_WIDTH_TYPE,
+  SIDEBAR_TYPE,
+  TOGGLE_MOBILE_TYPE,
+  TOGGLE_CONTENT_WIDTH,
+  TOGGLE_FIXED_HEADER,
+  TOGGLE_FIXED_SIDEBAR,
+  TOGGLE_LAYOUT,
+  TOGGLE_NAV_THEME,
+  TOGGLE_WEAK,
+  TOGGLE_COLOR,
+  TOGGLE_MULTI_TAB
+} from '@/store/mutation-types'
 
 import defaultSettings from '@/config/defaultSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
 import Ads from '@/components/Other/CarbonAds'
+import { baseMixin } from '@/store/app-mixin'
 
 export default {
   name: 'BasicLayout',
@@ -65,13 +78,12 @@ export default {
     Ads,
     MultiTab
   },
+  mixins: [baseMixin],
   data () {
     return {
       // preview.pro.antdv.com only use.
-      isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true' && process.env.NODE_ENV !== 'development',
+      isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true',
       // end
-      // multiTab: defaultSettings.multiTab,
-      fixedHeader: defaultSettings.fixedHeader,
       // base
       menus: [],
       // 侧栏展开状态
@@ -91,14 +103,11 @@ export default {
         multiTab: defaultSettings.multiTab,
         colorWeak: defaultSettings.colorWeak,
 
-        hideHintAlert: false,
+        hideHintAlert: true,
         hideCopyButton: false
       },
       // 媒体查询
-      query: {},
-
-      // 是否手机模式
-      isMobile: false
+      query: {}
     }
   },
   computed: {
@@ -119,6 +128,16 @@ export default {
     })
   },
   mounted () {
+    if (this.isProPreviewSite) {
+      this.settings.layout = this.layout
+      this.settings.contentWidth = this.contentWidth
+      this.settings.theme = this.navTheme
+      this.settings.primaryColor = this.primaryColor
+      this.settings.fixedHeader = this.fixedHeader
+      this.settings.fixSiderbar = this.fixedSidebar
+      this.settings.multiTab = this.multiTab
+      this.settings.colorWeak = this.colorWeak
+    }
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {
@@ -156,16 +175,39 @@ export default {
     handleSettingChange ({ type, value }) {
       type && (this.settings[type] = value)
       switch (type) {
+        case 'theme':
+          this.$store.commit(TOGGLE_NAV_THEME, value)
+          break
+        case 'primaryColor':
+          this.$store.commit(TOGGLE_COLOR, value)
+          break
         case 'contentWidth':
           this.settings[type] = value
+          this.$store.commit(TOGGLE_CONTENT_WIDTH, value)
           break
         case 'layout':
+          this.$store.commit(TOGGLE_LAYOUT, value)
           if (value === 'sidemenu') {
             this.settings.contentWidth = CONTENT_WIDTH_TYPE.Fluid
+            this.$store.commit(TOGGLE_CONTENT_WIDTH, CONTENT_WIDTH_TYPE.Fluid)
           } else {
             this.settings.fixSiderbar = false
+            this.$store.commit(TOGGLE_FIXED_SIDEBAR, false)
             this.settings.contentWidth = CONTENT_WIDTH_TYPE.Fixed
+            this.$store.commit(TOGGLE_CONTENT_WIDTH, CONTENT_WIDTH_TYPE.Fixed)
           }
+          break
+        case 'fixSiderbar':
+          this.$store.commit(TOGGLE_FIXED_SIDEBAR, value)
+          break
+        case 'fixedHeader':
+          this.$store.commit(TOGGLE_FIXED_HEADER, value)
+          break
+        case 'multiTab':
+          this.$store.commit(TOGGLE_MULTI_TAB, value)
+          break
+        case 'colorWeak':
+          this.$store.commit(TOGGLE_WEAK, value)
           break
       }
     }
