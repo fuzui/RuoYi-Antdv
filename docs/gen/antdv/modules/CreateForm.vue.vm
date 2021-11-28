@@ -38,7 +38,7 @@
 #set($ruleLastIndex = 0)
 #foreach($column in $columns)
 #if(${column.dictType} != '')
-#set($ruleLastIndex = $velocityCount)
+#set($ruleLastIndex = $foreach.count)
 #end
 #set($field=$column.javaField)
 #if(($column.insert || $column.edit) && !$column.pk)
@@ -156,7 +156,7 @@ export default {
     ${column.javaField}Options: {
       type: Array,
       required: true
-#if($velocityCount!=$ruleLastIndex || $tplCategory == 'tree')
+#if($foreach.count!=$ruleLastIndex || $tplCategory == 'tree')
     },
 #else
     }
@@ -194,11 +194,11 @@ export default {
 #foreach ($column in $columns)
 #if($column.insert || $column.edit)
 #if($column.htmlType == "radio")
-        $column.javaField: #if($column.javaType == "Integer" || $column.javaType == "Long")0#else'0'#end#if($velocityCount != $columns.size()),#end
+        $column.javaField: #if($column.javaType == "Integer" || $column.javaType == "Long")0#else'0'#end#if($foreach.count != $columns.size()),#end
 #elseif($column.htmlType == "checkbox")
-        $column.javaField: []#if($velocityCount != $columns.size()),#end
+        $column.javaField: []#if($foreach.count != $columns.size()),#end
 #else
-        $column.javaField: null#if($velocityCount != $columns.size()),#end
+        $column.javaField: null#if($foreach.count != $columns.size()),#end
 #end
 
 #end
@@ -300,11 +300,11 @@ export default {
 #foreach ($column in $columns)
 #if($column.insert || $column.edit)
 #if($column.htmlType == "radio")
-        $column.javaField: #if($column.javaType == "Integer" || $column.javaType == "Long")0#else'0'#end#if($velocityCount != $columns.size()),#end
+        $column.javaField: #if($column.javaType == "Integer" || $column.javaType == "Long")0#else'0'#end#if($foreach.count != $columns.size()),#end
 #elseif($column.htmlType == "checkbox")
-        $column.javaField: []#if($velocityCount != $columns.size()),#end
+        $column.javaField: []#if($foreach.count != $columns.size()),#end
 #else
-        $column.javaField: null#if($velocityCount != $columns.size()),#end
+        $column.javaField: null#if($foreach.count != $columns.size()),#end
 #end
 
 #end

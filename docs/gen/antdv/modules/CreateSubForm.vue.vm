@@ -16,7 +16,7 @@
 #end
 #if($column.pk || $javaField == ${subTableFkclassName})
 #elseif($column.list && "" != $javaField)
-#set($columnLastIndex = $velocityCount)
+#set($columnLastIndex = $foreach.count)
       <a-form-model-item label="${comment}" prop="${javaField}">
         <a-input v-model="form.${javaField}" placeholder="请输入" />
       </a-form-model-item>
@@ -53,7 +53,7 @@ export default {
 #set($javaField=$column.javaField)
 #if($column.pk || $javaField == ${subTableFkclassName})
 #elseif($column.list && "" != $javaField)
-        ${$javaField}: undefined#if($columnLastIndex != $velocityCount),#end
+        ${$javaField}: undefined#if($columnLastIndex != $foreach.count),#end
 
 #end
 #end
@@ -85,7 +85,7 @@ export default {
 #set($javaField=$column.javaField)
 #if($column.pk || $javaField == ${subTableFkclassName})
 #elseif($column.list && "" != $javaField)
-        ${$javaField}: undefined#if($columnLastIndex != $velocityCount),#end
+        ${$javaField}: undefined#if($columnLastIndex != $foreach.count),#end
 
 #end
 #end
