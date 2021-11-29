@@ -160,3 +160,22 @@ export async function blobValidate (data) {
 		return true
 	}
 }
+
+/**
+ * 表格排序转换
+ *
+ * @param {*} sorter 排序
+ * @returns 转换结果
+ */
+export function tableSorter (sorter) {
+	let orderByColumn = null
+	let isAsc = null
+	if (sorter && sorter.order) {
+		orderByColumn = sorter.field
+		isAsc = sorter.order === 'descend' ? 'desc' : 'asc'
+	}
+	return {
+		orderByColumn,
+		isAsc
+	}
+}

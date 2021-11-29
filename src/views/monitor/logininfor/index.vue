@@ -69,7 +69,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        @change="handleTableChange">
         <span slot="status" slot-scope="text, record">
           {{ statusFormat(record) }}
         </span>
@@ -166,7 +167,8 @@ export default {
         {
           title: '登录时间',
           dataIndex: 'loginTime',
-          align: 'center'
+          align: 'center',
+          sorter: true
         }
       ]
     }
@@ -184,6 +186,12 @@ export default {
   watch: {
   },
   methods: {
+    handleTableChange (pagination, filters, sorter) {
+      const sort = this.tableSorter(sorter)
+      this.queryParam.orderByColumn = sort.orderByColumn
+      this.queryParam.isAsc = sort.isAsc
+      this.getList()
+    },
     /** 查询登录日志列表 */
     getList () {
       this.loading = true

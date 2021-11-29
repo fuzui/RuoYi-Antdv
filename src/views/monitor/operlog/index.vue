@@ -78,7 +78,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        @change="handleTableChange">
         <span slot="businessType" slot-scope="text, record">
           {{ typeFormat(record) }}
         </span>
@@ -166,7 +167,8 @@ export default {
         {
           title: '操作人员',
           dataIndex: 'operName',
-          align: 'center'
+          align: 'center',
+          sorter: true
         },
         {
           title: '主机',
@@ -187,7 +189,8 @@ export default {
         {
           title: '操作日期',
           dataIndex: 'operTime',
-          align: 'center'
+          align: 'center',
+          sorter: true
         },
         {
           title: '操作',
@@ -214,6 +217,12 @@ export default {
   watch: {
   },
   methods: {
+    handleTableChange (pagination, filters, sorter) {
+      const sort = this.tableSorter(sorter)
+      this.queryParam.orderByColumn = sort.orderByColumn
+      this.queryParam.isAsc = sort.isAsc
+      this.getList()
+    },
     /** 查询登录日志列表 */
     getList () {
       this.loading = true

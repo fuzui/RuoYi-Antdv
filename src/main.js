@@ -27,7 +27,7 @@ import './global.less' // global style
 import config from '@/config/defaultSettings'
 import { getDicts } from '@/api/system/dict/data'
 import { getConfigKey } from '@/api/system/config'
-import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree } from '@/utils/ruoyi'
+import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree, tableSorter } from '@/utils/ruoyi'
 import { download } from '@/utils/request'
 
 // 全局方法挂载
@@ -40,6 +40,7 @@ Vue.prototype.selectDictLabel = selectDictLabel
 Vue.prototype.selectDictLabels = selectDictLabels
 Vue.prototype.download = download
 Vue.prototype.handleTree = handleTree
+Vue.prototype.tableSorter = tableSorter
 Vue.prototype.tableSize = config.tableSize
 Vue.config.productionTip = false
 
