@@ -58,10 +58,10 @@ export default {
           description: 'An out-of-box UI solution for enterprise applications as a Vue boilerplate. based on Ant Design of Vue.'
         },
         {
-          title: 'vditor',
-          cover: 'https://oss.fuzui.net/img/20210116014834.png',
-          url: 'https://github.com/Vanessa219/vditor',
-          description: '一款浏览器端的 Markdown 编辑'
+          title: 'wangEditor',
+          cover: 'https://oss.fuzui.net/img/202112030159554.png',
+          url: 'https://github.com/wangeditor-team/wangEditor',
+          description: '轻量级web富文本框'
         }
       ],
       form: this.$form.createForm(this),

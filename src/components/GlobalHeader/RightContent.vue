@@ -14,6 +14,7 @@
         <a-icon type="question-circle-o" @click="toDoc" :style="{ fontSize: '20px' }"/>
       </a-tooltip>
       <screenfull />
+      <notice-icon v-hasPermi="['system:notice:list']" />
       <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
       <!-- 暂只支持中文，国际化可自行扩展 -->
       <select-lang :class="prefixCls" />
@@ -23,6 +24,7 @@
 
 <script>
 import AvatarDropdown from './AvatarDropdown'
+import NoticeIcon from '@/components/NoticeIcon'
 import Screenfull from '@/components/Screenfull'
 import SelectLang from '@/components/SelectLang'
 
@@ -30,6 +32,7 @@ export default {
   name: 'RightContent',
   components: {
     AvatarDropdown,
+    NoticeIcon,
     Screenfull,
     SelectLang
   },

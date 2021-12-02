@@ -76,7 +76,7 @@
               <a href="https://www.antdv.com/" target="_blank">Antdv</a>
               <a href="https://pro.antdv.com/" target="_blank">Antdv-pro</a>
               <a href="https://www.iconfont.cn/" target="_blank">阿里图标</a>
-              <a href="https://b3log.org/vditor/" target="_blank">vditor</a>
+              <a href="https://www.wangeditor.com/" target="_blank">wangEditor</a>
             </div>
           </a-card>
           <!-- Github卡片 -->

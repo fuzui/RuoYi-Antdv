@@ -1,15 +1,15 @@
 // eslint-disable-next-line
 import { getRouters } from '@/api/menu'
-import { UserLayout, BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
 import { indexRouterMap } from '@/config/router.config'
 import allIcon from '@/core/icons'
 import { validURL } from '@/utils/validate'
+import { UserLayout, BlankLayout, PageView } from '@/layouts'
 // 前端路由表
 const constantRouterComponents = {
   // 基础页面 layout 必须引入
-  BasicLayout: BasicLayout,
+  BasicLayout: () => import('@/layouts/BasicLayout'),
   BlankLayout: BlankLayout,
-  RouteView: RouteView,
+  RouteView: () => import('@/layouts/RouteView'),
   PageView: PageView,
   UserLayout: UserLayout, // 登陆注册页面的通用布局
 

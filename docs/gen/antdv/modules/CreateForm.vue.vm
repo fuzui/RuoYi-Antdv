@@ -73,7 +73,7 @@
         <file-upload v-model="form.${field}" type="file"></file-upload>
 #elseif($column.htmlType == "editor")
 #set($hasRichText=1)
-        <div id="${field}" name="${field}" ></div>
+        <editor ref="${field}Editor" v-model="form.${field}" />
 #elseif($column.htmlType == "select" && "" != $dictType)
         <a-select placeholder="请选择${comment}" v-model="form.${field}">
           <a-select-option v-for="(d, index) in ${field}Options" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
@@ -142,8 +142,7 @@ import { get${BusinessName}, add${BusinessName}, update${BusinessName} } from '@
 import SubTable from './SubTable'
 #end
 #if($hasRichText == 1)
-import Vditor from 'vditor'
-import 'vditor/dist/index.css'
+import Editor from '@/components/Editor'
 #end
 
 export default {
@@ -172,7 +171,10 @@ export default {
   },
   components: {
 #if($table.sub)
-    SubTable
+    SubTable#if($hasRichText == 1),#end
+#end
+#if($hasRichText == 1)
+    Editor
 #end
   },
   data () {
@@ -242,44 +244,10 @@ export default {
   mounted () {
   },
   methods: {
-#if($hasRichText == 1)
-    openEditor () {
-#foreach ($column in $columns)
-#if($column.insert || $column.edit)
-#if($column.htmlType == "editor")
-      this.$nextTick(() => {
-        this.${column.javaField}Editor = new Vditor('${column.javaField}', {
-          height: 360,
-          toolbarConfig: {
-            pin: true
-          },
-          cache: {
-            enable: false
-          },
-          after: () => {
-            let content = this.form.${column.javaField}
-            if (content === undefined || content === null) {
-              content = ''
-            }
-            this.${column.javaField}Editor.setValue(content)
-          }
-        })
-      })
-#end
-#end
-#end
-    },
-    closeEditor () {
-      this.noticeContentEditor.destroy()
-    },
-#end
     onClose () {
       this.open = false
 #if($table.sub)
       this.subList = []
-#end
-#if($hasRichText == 1)
-      this.closeEditor()
 #end
     },
     // 取消按钮
@@ -288,9 +256,6 @@ export default {
       this.reset()
 #if($table.sub)
       this.subList = []
-#end
-#if($hasRichText == 1)
-      this.closeEditor()
 #end
     },
     // 表单重置
@@ -324,9 +289,6 @@ export default {
 #end
       this.formType = 1
       this.open = true
-#if($hasRichText == 1)
-      this.openEditor()
-#end
       this.formTitle = '添加'
     },
 #if($table.sub)
@@ -369,9 +331,6 @@ export default {
 #end
         this.open = true
         this.formTitle = '修改'
-#if($hasRichText == 1)
-        this.openEditor()
-#end
       })
     },
     /** 提交按钮 */
@@ -400,9 +359,6 @@ export default {
                 3
               )
               this.open = false
-#if($hasRichText == 1)
-              this.closeEditor()
-#end
               this.$emit('ok')
             })
           } else {
@@ -412,9 +368,6 @@ export default {
                 3
               )
               this.open = false
-#if($hasRichText == 1)
-              this.closeEditor()
-#end
               this.$emit('ok')
             })
           }

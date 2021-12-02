@@ -10,11 +10,35 @@
     </template>
     <template v-slot:extraContent>
     </template>
+    <template v-slot:extra>
+      <a-space>
+        <a-button type="primary" @click="handleSubmit">
+          发布
+        </a-button>
+        <a-button type="dashed" @click="back">
+          取消
+        </a-button>
+      </a-space>
+    </template>
     <a-card :bordered="false">
-      <a-form-model ref="form" :model="form" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-form-model-item label="公告标题" prop="noticeTitle">
-          <a-input v-model="form.noticeTitle" placeholder="请输入" />
-        </a-form-model-item>
+      <a-row :gutter="12">
+        <a-col :span="24">
+          <a-form-model ref="form" :model="form" :rules="rules" :wrapper-col="wrapperCol">
+            <a-form-model-item prop="noticeTitle">
+              <a-input size="large" v-model="form.noticeTitle" placeholder="请输入标题" />
+            </a-form-model-item>
+            <a-form-model-item prop="noticeContent">
+              <editor ref="noticeContentEditor" v-model="form.noticeContent" />
+            </a-form-model-item>
+          </a-form-model>
+        </a-col>
+      </a-row>
+    </a-card>
+    <a-drawer width="30%" :label-col="4" :wrapper-col="14" :visible="open" @close="onClose">
+      <a-divider orientation="left">
+        <b>{{ formTitle }}</b>
+      </a-divider>
+      <a-form-model ref="form" :model="form" :rules="rules">
         <a-form-model-item label="公告类型" prop="noticeType">
           <a-select placeholder="请选择" v-model="form.noticeType">
             <a-select-option v-for="(d, index) in typeOptions" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
@@ -25,43 +49,39 @@
             <a-radio-button v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-radio-button>
           </a-radio-group>
         </a-form-model-item>
-        <a-form-model-item label="内容" prop="noticeContent">
-        </a-form-model-item>
-        <div id="vditor" name="description" ></div>
-        <footer-tool-bar>
+        <div class="bottom-control">
           <a-space>
             <a-button type="primary" @click="submitForm">
               发布
             </a-button>
-            <a-button type="dashed" @click="back">
+            <a-button type="dashed" @click="onClose">
               取消
             </a-button>
           </a-space>
-        </footer-tool-bar>
+        </div>
       </a-form-model>
-    </a-card>
+    </a-drawer>
   </page-header-wrapper>
 </template>
 
 <script>
 
 import { getNotice, addNotice, updateNotice } from '@/api/system/notice'
-import Vditor from 'vditor'
-import 'vditor/dist/index.css'
+import Editor from '@/components/Editor'
 
 export default {
   name: 'CreateForm',
   components: {
+    Editor
   },
   data () {
     return {
       labelCol: { span: 4 },
-      wrapperCol: { span: 14 },
+      wrapperCol: { span: 24 },
       loading: false,
       total: 0,
       id: undefined,
       formTitle: '',
-      contentEditor: '',
       // 状态数据字典
       statusOptions: [],
       typeOptions: [],
@@ -76,7 +96,8 @@ export default {
       rules: {
         noticeTitle: [{ required: true, message: '公告标题不能为空', trigger: 'blur' }],
         noticeType: [{ required: true, message: '公告类型不能为空', trigger: 'change' }]
-      }
+      },
+      open: false
     }
   },
   filters: {
@@ -96,18 +117,6 @@ export default {
   mounted () {
     this.id = this.$route.params.id
     this.formTitle = this.$route.params.formTitle
-    this.contentEditor = new Vditor('vditor', {
-      height: 360,
-      toolbarConfig: {
-        pin: true
-      },
-      cache: {
-        enable: false
-      },
-      after: () => {
-        this.contentEditor.setValue(this.form.noticeContent)
-      }
-    })
     if (this.id) {
       this.handleUpdate(this.id)
     } else {
@@ -137,12 +146,10 @@ export default {
       getNotice(noticeId).then(response => {
         this.form = response.data
         this.formTitle = '修改公告'
-        this.contentEditor.setValue(response.data.noticeContent)
       })
     },
     /** 提交按钮 */
     submitForm: function () {
-      this.form.noticeContent = this.contentEditor.getValue()
       this.$refs.form.validate(valid => {
         if (valid) {
           if (this.form.noticeId !== undefined) {
@@ -169,12 +176,13 @@ export default {
     },
     back () {
       this.$router.push('/system/notice')
+    },
+    onClose () {
+      this.open = false
+    },
+    handleSubmit () {
+      this.open = true
     }
   }
 }
 </script>
-<style lang="less" scoped>
-#vditor {
-  margin: 0 5% 5% 5%;
-}
-</style>

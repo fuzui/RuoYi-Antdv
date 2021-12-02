@@ -85,7 +85,7 @@
 * [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) 基于SpringBoot，Spring Security，JWT，Vue 的前后端分离权限管理系统
 * [Ant Design Vue](https://github.com/vueComponent/ant-design-vue/) An enterprise-class UI components based on Ant Design and Vue
 * [Ant Design Vue Pro](https://github.com/vueComponent/ant-design-vue-pro) Use Ant Design Vue like a Pro
-* [vditor](https://github.com/Vanessa219/vditor) 一款浏览器端的 Markdown 编辑
+* [wangEditor](https://github.com/wangeditor-team/wangEditor) 轻量级web富文本框
 
 
 
