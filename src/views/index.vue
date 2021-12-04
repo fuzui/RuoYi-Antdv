@@ -59,7 +59,7 @@
                 在线用户、定时任务、代码生成、系统接口、服务监控、在线构建器、连接池监视等功能。
               </p>
             </blockquote>
-            <i>当前暂不支持RuoYi中的在线构建器与前端代码生成功能。</i>
+            <i>当前暂不支持RuoYi中的在线构建器功能。</i>
           </a-card>
         </a-col>
         <a-col
@@ -85,49 +85,11 @@
               <img style="width:100%" src="https://github-readme-stats.vercel.app/api/pin/?username=fuzui&repo=RuoYi-Antdv" >
             </a>
           </a-card>
-          <!-- 贡献者 -->
-          <a-card title="贡献者" :bordered="false" style="margin-bottom: 24px">
-            <div class="members">
-              <a-row>
-                <a-col :span="12" v-for="(item, index) in contributors" :key="index">
-                  <a>
-                    <a-popover>
-                      <template slot="title">
-                        <a-space><a-tooltip title="用户名"><a-icon type="user-add" /></a-tooltip>{{ item.name }}</a-space>
-                      </template>
-                      <template slot="content">
-                        <p><a-space><a-tooltip title="邮箱"><a-icon type="mail" /></a-tooltip> {{ item.email }}</a-space></p>
-                      </template>
-                      <a-avatar size="small" :src="item.avatar"/>
-                      <span class="member">{{ item.name }}</span>
-                    </a-popover>
-                  </a>
-                </a-col>
-              </a-row>
-            </div>
-          </a-card>
-          <!-- 赞助 -->
-          <a-card
-            :bordered="false"
-            style="margin-bottom: 24px"
-            title="赞助"
-            :tab-list="sponsorList"
-            :active-tab-key="noTitleKey"
-            @tabChange="key => onSponsorTabChange(key , 'noTitleKey')"
-          >
-            <p v-if="noTitleKey === 'RuoYi'">
-              <img
-                style="width:100%"
-                src="https://oscimg.oschina.net/oscnet/up-d6695f82666e5018f715c41cb7ee60d3b73.png"
-              />
-            </p>
-            <p v-else-if="noTitleKey === 'Antdv'">
-              <img
-                style="width:100%"
-                src="https://qn.antdv.com/alipay-and-wechat.png"
-              />
-            </p>
-            <a slot="tabBarExtraContent" href="#">More</a>
+          <!-- Gitee卡片 -->
+          <a-card hoverable style="margin-bottom: 24px">
+            <a href="https://gitee.com/fuzui/RuoYi-Antdv" target="_blank" slot="cover">
+              <img style="width:100%" src="https://gitee.com/fuzui/RuoYi-Antdv/widgets/widget_card.svg?colors=4183c4,ffffff,ffffff,e3e9ed,666666,9b9b9b" >
+            </a>
           </a-card>
         </a-col>
       </a-row>
@@ -309,32 +271,6 @@ export default {
       font-size: 14px;
       margin-bottom: 13px;
       width: 25%;
-    }
-  }
-
-  .members {
-    a {
-      display: block;
-      margin: 12px 0;
-      line-height: 24px;
-      height: 24px;
-
-      .member {
-        font-size: 14px;
-        color: rgba(0, 0, 0, .65);
-        line-height: 24px;
-        max-width: 100px;
-        vertical-align: top;
-        margin-left: 12px;
-        transition: all 0.3s;
-        display: inline-block;
-      }
-
-      &:hover {
-        span {
-          color: #1890ff;
-        }
-      }
     }
   }
 
