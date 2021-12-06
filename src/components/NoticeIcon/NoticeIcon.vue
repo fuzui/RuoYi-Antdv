@@ -88,6 +88,7 @@ export default {
       )
     },
     fetchNotice () {
+      this.resetQuery()
       if (!this.visible) {
         if (this.typeOptions.length === 0) {
           this.getDicts('sys_notice_type').then(response => {
@@ -95,8 +96,6 @@ export default {
           })
         }
         this.getList()
-      } else {
-        this.resetQuery()
       }
       this.visible = !this.visible
     },
