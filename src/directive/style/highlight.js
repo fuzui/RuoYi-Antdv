@@ -5,14 +5,14 @@ export default {
     inserted: function (el) {
         const blocks = el.querySelectorAll('pre code')
         for (let i = 0; i < blocks.length; i++) {
-            Hljs.highlightBlock(blocks[i])
+            Hljs.highlightElement(blocks[i])
         }
     },
     // 指令所在组件的 VNode 及其子 VNode 全部更新后调用
     componentUpdated: function (el) {
         const blocks = el.querySelectorAll('pre code')
         for (let i = 0; i < blocks.length; i++) {
-            Hljs.highlightBlock(blocks[i])
+            Hljs.highlightElement(blocks[i])
         }
     }
 }
