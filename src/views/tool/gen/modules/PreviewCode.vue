@@ -14,7 +14,7 @@
           :key="key"
         >
           <div id="codeView" v-highlight>
-            <pre><code v-text="value"></code></pre>
+            <pre class="highlight-wrap"><code v-text="value"></code></pre>
           </div>
         </a-tab-pane>
       </a-tabs>
@@ -69,3 +69,30 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+  .highlight-wrap {
+    position: relative;
+    background: #21252b;
+    border-radius: 5px;
+    font: 15px/22px "Microsoft YaHei",Arial,Sans-Serif;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    text-shadow: none;
+    color: #000;
+    padding-top: 30px;
+    box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
+  }
+  .highlight-wrap:before {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #fc625d;
+    width: 12px;
+    height: 12px;
+    left: 12px;
+    margin-top: -18px;
+    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    z-index: 2;
+  }
+</style>
