@@ -6,8 +6,7 @@
  <a href="https://gitee.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://gitee.com/fuzui/RuoYi-Antdv/badge/star.svg?theme=dark" alt="Build Status"></a>&nbsp;
  <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://img.shields.io/github/stars/fuzui/RuoYi-Antdv.svg?style=social" alt="Build Status"></a>&nbsp;
  <a href="https://gitee.com/y_project/RuoYi-Vue" target="_blank"><img src="https://img.shields.io/badge/RuoYi Vue-3.8.0-brightgreen" alt="Build Status"></a>&nbsp;
- <a href="https://github.com/vueComponent/ant-design-vue" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue-1.7.2-brightgreen" alt="Build Status"></a>&nbsp;
- <a href="https://github.com/vueComponent/ant-design-vue-pro" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue Pro-3.0.0-brightgreen" alt="Build Status"></a>
+ <a href="https://github.com/vueComponent/ant-design-vue" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue-1.7.8-brightgreen" alt="Build Status"></a>
 </p>
 
 
@@ -39,7 +38,7 @@
    * 运行启动RuoYi-Vue，参考[RuoYi文档](https://doc.ruoyi.vip/ruoyi-vue/)
    * 安装[node](http://nodejs.org/)和[git](https://git-scm.com/)
 
-1. 安装
+2. 安装
 
    ```shell
    git clone git@gitee.com:fuzui/RuoYi-Antdv.git
@@ -51,7 +50,7 @@
    git clone git@github.com:fuzui/RuoYi-Antdv.git
    ```
 
-2. 本地开发
+3. 本地开发
 
    进入项目根目录
 
@@ -91,7 +90,7 @@
 
 ## 推荐
 
-*  [RuoYi-Cloud-Ant-Design](https://gitee.com/xuezipeng/ruoyi-cloud-ant-design) RuoYi-Cloud的Ant Design(Antdv)版前端
+* [RuoYi-Cloud-Ant-Design](https://gitee.com/xuezipeng/ruoyi-cloud-ant-design) RuoYi-Cloud的Ant Design(Antdv)版前端
 
 * [RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud) 基于Spring Boot、Spring Cloud & Alibaba的分布式微服务架构权限管理系统
 
