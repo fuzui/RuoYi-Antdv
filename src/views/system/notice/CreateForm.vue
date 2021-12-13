@@ -23,7 +23,7 @@
     <a-card :bordered="false">
       <a-row :gutter="12">
         <a-col :span="24">
-          <a-form-model ref="form" :model="form" :rules="rules" :wrapper-col="wrapperCol">
+          <a-form-model ref="baseForm" :model="form" :rules="baseRules" :wrapper-col="wrapperCol">
             <a-form-model-item prop="noticeTitle">
               <a-input size="large" v-model="form.noticeTitle" placeholder="请输入标题" />
             </a-form-model-item>
@@ -93,8 +93,10 @@ export default {
         noticeContent: '',
         status: '0'
       },
+      baseRules: {
+        noticeTitle: [{ required: true, message: '公告标题不能为空', trigger: 'blur' }]
+      },
       rules: {
-        noticeTitle: [{ required: true, message: '公告标题不能为空', trigger: 'blur' }],
         noticeType: [{ required: true, message: '公告类型不能为空', trigger: 'change' }]
       },
       open: false
@@ -181,7 +183,13 @@ export default {
       this.open = false
     },
     handleSubmit () {
-      this.open = true
+      this.$refs.baseForm.validate(valid => {
+        if (valid) {
+          this.open = true
+        } else {
+          return false
+        }
+      })
     }
   }
 }
