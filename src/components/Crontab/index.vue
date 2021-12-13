@@ -323,7 +323,7 @@ export default {
           insValue = 5
         } else {
           this.$refs[refName].checkboxList = value.split(',')
-          insValue = 7
+          insValue = 6
         }
       } else if (name === 'year') {
         if (value === '') {

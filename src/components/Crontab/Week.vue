@@ -63,7 +63,7 @@
           style="width: 100%"
           placeholder="可多选"
         >
-          <a-select-option v-for="(w, index) in weekList" :key="index" :value="w.key" >
+          <a-select-option v-for="(w, index) in weekList" :key="index" :value="String(w.key)" >
             {{ w.value }}
           </a-select-option>
         </a-select>
