@@ -98,7 +98,7 @@ import CreateDataScopeForm from './modules/CreateDataScopeForm'
 import SelectUser from './modules/SelectUser'
 
 export default {
-  name: 'Role',
+  name: 'AuthUser',
   components: {
     CreateForm,
     CreateDataScopeForm,
@@ -174,6 +174,8 @@ export default {
   filters: {
   },
   created () {
+  },
+  mounted () {
     const roleId = this.$route.query && this.$route.query.roleId
     if (roleId) {
       this.queryParam.roleId = roleId

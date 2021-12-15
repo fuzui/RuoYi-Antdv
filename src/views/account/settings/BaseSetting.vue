@@ -66,6 +66,7 @@ import { getUserProfile, updateUserProfile } from '@/api/system/user'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'BaseSettings',
   components: {
     AvatarModal
   },

@@ -70,7 +70,7 @@ import { getNotice, addNotice, updateNotice } from '@/api/system/notice'
 import Editor from '@/components/Editor'
 
 export default {
-  name: 'CreateForm',
+  name: 'NoticeForm',
   components: {
     Editor
   },

@@ -129,7 +129,7 @@
           是否缓存
           <a-tooltip>
             <template slot="title">
-              选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致
+              选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致，仅在多页签下有效。
             </template>
             <a-icon type="question-circle-o" />
           </a-tooltip>

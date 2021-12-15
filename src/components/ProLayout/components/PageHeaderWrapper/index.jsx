@@ -172,14 +172,16 @@ const PageHeaderWrapper = {
     let breadcrumb = {}
     const propsBreadcrumb = this.$props.breadcrumb
     if (propsBreadcrumb === true) {
-      const routes = $route.matched.concat().map(route => {
-        return {
-          path: route.path,
-          breadcrumbName: i18n(route.meta.title),
-          redirect: route.redirect
+      let routes = $route.matched.concat().filter(route => route && route.meta && route.meta.title)
+      routes = routes.map(route => {
+        if (route && route.meta && route.meta.title) {
+          return {
+            path: route.path,
+            breadcrumbName: i18n(route.meta.title),
+            redirect: route.redirect
+          }
         }
       })
-
       const defaultItemRender = ({ route, params, routes, paths, h }) => {
         return (route.redirect === 'noRedirect' || routes.indexOf(route) === routes.length - 1) && (
           <span>{route.breadcrumbName}</span>

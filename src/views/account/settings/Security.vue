@@ -30,6 +30,7 @@
 import UpdatePassword from './UpdatePassword'
 
 export default {
+  name: 'SecuritySettings',
   components: {
     UpdatePassword
   },

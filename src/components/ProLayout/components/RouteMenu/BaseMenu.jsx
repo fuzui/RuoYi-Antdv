@@ -30,7 +30,7 @@ const renderMenu = (h, item, i18nRender) => {
 
 const renderSubMenu = (h, item, i18nRender) => {
   return (
-    <SubMenu key={item.path} title={(
+    <SubMenu key={item.name} title={(
       <span>
         {renderIcon(h, item.meta.icon)}
         <span>{renderTitle(h, item.meta.title, i18nRender)}</span>
@@ -57,7 +57,7 @@ const renderMenuItem = (h, item, i18nRender) => {
     })
   }
   return (
-    <MenuItem key={item.path}>
+    <MenuItem key={item.name}>
       <CustomTag {...{ props, attrs }}>
         {renderIcon(h, meta.icon)}
         {renderTitle(h, meta.title, i18nRender)}
@@ -138,14 +138,14 @@ const RouteMenu = {
       const { hidden } = this.$route.meta
       if (routes.length >= 3 && hidden) {
         routes.pop()
-        this.selectedKeys = [routes[routes.length - 1].path]
+        this.selectedKeys = [routes[routes.length - 1].name]
       } else {
-        this.selectedKeys = [routes.pop().path]
+        this.selectedKeys = [routes.pop().name]
       }
       const openKeys = []
       if (this.mode === 'inline') {
         routes.forEach(item => {
-          item.path && openKeys.push(item.path)
+          item.name && openKeys.push(item.name)
         })
       }
 
@@ -155,7 +155,7 @@ const RouteMenu = {
   computed: {
     rootSubmenuKeys: vm => {
       const keys = []
-      vm.menus.forEach(item => keys.push(item.path))
+      vm.menus.forEach(item => keys.push(item.name))
       return keys
     }
   },

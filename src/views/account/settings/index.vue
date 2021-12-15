@@ -38,6 +38,7 @@ import { RouteView } from '@/layouts'
 import { baseMixin } from '@/store/app-mixin'
 
 export default {
+  name: 'Settings',
   components: {
     RouteView
   },

@@ -1,3 +1,9 @@
+<template>
+  <keep-alive :include="this.cachedViews">
+    <router-view :key="key" />
+  </keep-alive>
+  <!-- <router-view /> -->
+</template>
 <script>
 export default {
   name: 'RouteView',
@@ -7,20 +13,16 @@ export default {
       default: true
     }
   },
+  computed: {
+    cachedViews () {
+      return this.$store.state.tagsView.cachedViews
+    },
+    key () {
+      return this.$route.path
+    }
+  },
   data () {
     return {}
-  },
-  render () {
-    const { $route: { meta } } = this
-    const inKeep = (
-      <keep-alive>
-        <router-view />
-      </keep-alive>
-    )
-    const notKeep = (
-      <router-view />
-    )
-    return meta.keepAlive ? inKeep : notKeep
   }
 }
 </script>

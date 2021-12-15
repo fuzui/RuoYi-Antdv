@@ -87,6 +87,7 @@ import { getUserProfile } from '@/api/system/user'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'Center',
   components: {
     RouteView,
     PageView,

@@ -118,6 +118,15 @@ export default {
   },
   created () {
     const routes = this.mainMenu.find(item => item.path === '/')
+    // 适配ruoyi一级菜单
+    for (let index = 0; index < routes.children.length; index++) {
+      let route = routes.children[index]
+      if (route.children && route.children.length === 1 && !(route.children.children && route.children.children.length > 0) && !route.alwaysShow) {
+        route = route.children[0]
+        route.children = undefined
+      }
+      routes.children[index] = route
+    }
     this.menus = (routes && routes.children) || []
     // 处理侧栏展开状态
     this.$watch('collapsed', () => {

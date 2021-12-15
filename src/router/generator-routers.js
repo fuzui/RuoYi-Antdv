@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { getRouters } from '@/api/menu'
-import { indexRouterMap } from '@/config/router.config'
+import { indexRouterMap, otherRouterMap } from '@/config/router.config'
 import allIcon from '@/core/icons'
 import { validURL } from '@/utils/validate'
 import { UserLayout, BlankLayout, PageView } from '@/layouts'
@@ -49,6 +49,16 @@ const rootRouter = {
 }
 
 /**
+ * 为解决缓存问题，自定义页面添加一层父级
+ */
+const bashRouter = {
+  path: '/',
+  name: '',
+  component: 'Layout',
+  hidden: true
+}
+
+/**
  * 动态生成菜单
  * @param token
  * @returns {Promise<Router>}
@@ -58,7 +68,10 @@ export const generatorDynamicRouter = (token) => {
     // 向后端请求路由数据
     getRouters().then(res => {
       const menuNav = []
-      rootRouter.children = indexRouterMap.concat(res.data)
+      const routerData = res.data
+      bashRouter.children = otherRouterMap
+      routerData.unshift(bashRouter)
+      rootRouter.children = indexRouterMap.concat(routerData)
       menuNav.push(rootRouter)
       const routers = generator(menuNav)
       routers.push(notFoundRouter)
@@ -78,12 +91,6 @@ export const generatorDynamicRouter = (token) => {
  */
 export const generator = (routerMap, parent) => {
   return routerMap.map(item => {
-    // 适配ruoyi路由规则
-    if (item.children && item.children.length === 1 && !(item.children.children && item.children.children.length > 0) && !item.alwaysShow) {
-      parent = undefined
-      item = item.children[0]
-      item.children = []
-    }
     const { title, show, hideChildren, hiddenHeaderContent, hidden, icon, noCache } = item.meta || {}
     if (item.component) {
       // Layout ParentView 组件特殊处理
@@ -117,7 +124,7 @@ export const generator = (routerMap, parent) => {
         // 目前只能通过判断path的http链接来判断是否外链，适配若依
         target: validURL(item.path) ? '_blank' : '',
         permission: item.name,
-        keepAlive: !noCache,
+        keepAlive: noCache === undefined ? false : !noCache,
         hidden: hidden
       },
       redirect: item.redirect
