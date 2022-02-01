@@ -53,24 +53,8 @@ export const otherRouterMap = [
     path: '/account/settings',
     name: 'Settings',
     component: 'AccountSettings',
-    meta: { title: '个人设置', hideHeader: true },
-    redirect: '/account/settings/base',
-    hidden: true,
-    children: [
-      {
-        path: '/account/settings/base',
-        name: 'BaseSettings',
-        component: 'BaseSettings',
-        hidden: true,
-        meta: { title: '基本设置', hidden: true, noCache: true }
-      },
-      {
-        path: '/account/settings/security',
-        name: 'SecuritySettings',
-        component: 'SecuritySettings',
-        meta: { title: '安全设置', hidden: true, noCache: true }
-      }
-    ]
+    meta: { title: '个人设置', noCache: true },
+    hidden: true
   },
   {
     path: '/monitor/job/log',

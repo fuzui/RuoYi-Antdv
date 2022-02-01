@@ -18,9 +18,7 @@ const constantRouterComponents = {
   'Index': () => import('@/views/index'),
   // account
   'AccountCenter': () => import('@/views/account/center'),
-  'AccountSettings': () => import('@/views/account/settings/index'),
-  'BaseSettings': () => import('@/views/account/settings/BaseSetting'),
-  'SecuritySettings': () => import('@/views/account/settings/Security'),
+  'AccountSettings': () => import('@/views/account/settings'),
   // job log
   'JobLog': () => import('@/views/monitor/job/log'),
   // 授权用户
@@ -88,7 +86,6 @@ export const generatorDynamicRouter = (token) => {
 export function filterDynamicRoutes (routes) {
   const res = []
   routes.forEach(route => {
-    console.log(route)
     if (route.permissions) {
       if (auth.hasPermiOr(route.permissions)) {
         res.push(route)

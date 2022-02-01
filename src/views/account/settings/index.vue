@@ -5,28 +5,24 @@
         <div class="account-settings-info-left">
           <a-menu
             :mode="isMobile ? 'horizontal' : 'inline'"
+            v-model="currentKey"
             :style="{ border: '0', width: isMobile ? '560px' : 'auto'}"
-            :selectedKeys="selectedKeys"
             type="inner"
-            @openChange="onOpenChange"
           >
-            <a-menu-item key="/account/settings/base">
-              <router-link :to="{ name: 'BaseSettings' }">
-                基本设置
-              </router-link>
+            <a-menu-item key="base">
+              基本设置
             </a-menu-item>
-            <a-menu-item key="/account/settings/security">
-              <router-link :to="{ name: 'SecuritySettings' }">
-                安全设置
-              </router-link>
+            <a-menu-item key="security">
+              安全设置
             </a-menu-item>
           </a-menu>
         </div>
         <div class="account-settings-info-right">
           <div class="account-settings-info-title">
-            <span>{{ $route.meta.title }}</span>
+            <span>{{ currentKey.indexOf('base') > -1 ? '基本设置' : '安全设置' }}</span>
           </div>
-          <route-view></route-view>
+          <base-setting v-if="currentKey.indexOf('base') > -1" />
+          <security v-if="currentKey.indexOf('security') > -1" />
         </div>
       </div>
     </a-card>
@@ -34,45 +30,29 @@
 </template>
 
 <script>
-import { RouteView } from '@/layouts'
 import { baseMixin } from '@/store/app-mixin'
+import Security from './Security'
+import BaseSetting from './BaseSetting'
 
 export default {
   name: 'Settings',
   components: {
-    RouteView
+    Security,
+    BaseSetting
   },
   mixins: [baseMixin],
   data () {
     return {
       // horizontal  inline
       mode: 'inline',
-
-      openKeys: [],
-      selectedKeys: [],
-
-      // cropper
-      preview: {},
-
-      pageTitle: ''
+      currentKey: ['base']
     }
   },
   mounted () {
-    this.updateMenu()
   },
   methods: {
-    onOpenChange (openKeys) {
-      this.openKeys = openKeys
-    },
-    updateMenu () {
-      const routes = this.$route.matched.concat()
-      this.selectedKeys = [ routes.pop().path ]
-    }
   },
   watch: {
-    '$route' (val) {
-      this.updateMenu()
-    }
   }
 }
 </script>
