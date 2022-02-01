@@ -340,7 +340,7 @@ export default {
     },
     clickDeptNode (deptId) {
       this.queryParam.deptId = deptId
-      this.getList()
+      this.handleQuery()
     },
     /* 用户状态修改 */
     confirmHandleStatus (row) {
