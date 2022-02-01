@@ -4,6 +4,7 @@ import { indexRouterMap, otherRouterMap } from '@/config/router.config'
 import allIcon from '@/core/icons'
 import { validURL } from '@/utils/validate'
 import { UserLayout, BlankLayout, PageView } from '@/layouts'
+import auth from '@/plugins/auth'
 // 前端路由表
 const constantRouterComponents = {
   // 基础页面 layout 必须引入
@@ -69,7 +70,8 @@ export const generatorDynamicRouter = (token) => {
     getRouters().then(res => {
       const menuNav = []
       const routerData = res.data
-      bashRouter.children = otherRouterMap
+      const asyncRoutes = filterDynamicRoutes(otherRouterMap)
+      bashRouter.children = asyncRoutes
       routerData.unshift(bashRouter)
       rootRouter.children = indexRouterMap.concat(routerData)
       menuNav.push(rootRouter)
@@ -80,6 +82,23 @@ export const generatorDynamicRouter = (token) => {
       reject(err)
     })
   })
+}
+
+// 动态路由遍历，验证是否具备权限
+export function filterDynamicRoutes (routes) {
+  const res = []
+  routes.forEach(route => {
+    if (route.permissions) {
+      if (auth.hasPermiOr(route.permissions)) {
+        res.push(route)
+      }
+    } else if (route.roles) {
+      if (auth.hasRoleOr(route.roles)) {
+        res.push(route)
+      }
+    }
+  })
+  return res
 }
 
 /**

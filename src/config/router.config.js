@@ -77,6 +77,7 @@ export const otherRouterMap = [
     name: 'JobLog',
     component: 'JobLog',
     meta: { title: '调度日志', noCache: true },
+    permissions: ['monitor:job:list'],
     hidden: true
   },
   {
@@ -84,6 +85,7 @@ export const otherRouterMap = [
     name: 'AuthUser',
     component: 'AuthUser',
     meta: { title: '分配用户', noCache: true },
+    permissions: ['system:role:edit'],
     hidden: true
   },
   {
@@ -91,6 +93,7 @@ export const otherRouterMap = [
     name: 'NoticeForm',
     component: 'NoticeForm',
     meta: { title: '公告编辑', noCache: true },
+    permissions: ['system:notice:edit'],
     hidden: true
   },
   {
@@ -98,6 +101,7 @@ export const otherRouterMap = [
     name: 'GenEdit',
     component: 'GenEdit',
     meta: { title: '修改生成配置', noCache: true },
+    permissions: ['tool:gen:edit'],
     hidden: true
   }
 ]
