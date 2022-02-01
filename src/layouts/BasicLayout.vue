@@ -51,7 +51,7 @@ import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
 import {
   CONTENT_WIDTH_TYPE,
-  SIDEBAR_TYPE,
+  SIDE_COLLAPSED,
   TOGGLE_MOBILE_TYPE,
   TOGGLE_CONTENT_WIDTH,
   TOGGLE_FIXED_HEADER,
@@ -130,7 +130,7 @@ export default {
     this.menus = (routes && routes.children) || []
     // 处理侧栏展开状态
     this.$watch('collapsed', () => {
-      this.$store.commit(SIDEBAR_TYPE, this.collapsed)
+      this.$store.commit(SIDE_COLLAPSED, this.collapsed)
     })
     this.$watch('isMobile', () => {
       this.$store.commit(TOGGLE_MOBILE_TYPE, this.isMobile)
@@ -147,6 +147,7 @@ export default {
       this.settings.multiTab = this.multiTab
       this.settings.colorWeak = this.colorWeak
     }
+    this.collapsed = this.sideCollapsed
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {

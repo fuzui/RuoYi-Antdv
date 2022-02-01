@@ -1,6 +1,6 @@
 export const ACCESS_TOKEN = 'access_token'
 
-export const SIDEBAR_TYPE = 'sidebar_type'
+export const SIDE_COLLAPSED = 'side_collapsed'
 export const TOGGLE_MOBILE_TYPE = 'is_mobile'
 export const TOGGLE_NAV_THEME = 'nav_theme'
 export const TOGGLE_LAYOUT = 'layout'

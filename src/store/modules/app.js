@@ -1,6 +1,6 @@
 import storage from 'store'
 import {
-  SIDEBAR_TYPE,
+  SIDE_COLLAPSED,
   TOGGLE_MOBILE_TYPE,
   TOGGLE_NAV_THEME,
   TOGGLE_LAYOUT,
@@ -33,9 +33,9 @@ const app = {
     _antLocale: {}
   },
   mutations: {
-    [SIDEBAR_TYPE]: (state, type) => {
+    [SIDE_COLLAPSED]: (state, type) => {
       state.sideCollapsed = type
-      storage.set(SIDEBAR_TYPE, type)
+      storage.set(SIDE_COLLAPSED, type)
     },
     [TOGGLE_MOBILE_TYPE]: (state, isMobile) => {
       state.isMobile = isMobile

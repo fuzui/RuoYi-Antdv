@@ -1,6 +1,7 @@
 import store from '@/store'
 import storage from 'store'
 import {
+  SIDE_COLLAPSED,
   ACCESS_TOKEN,
   APP_LANGUAGE,
   TOGGLE_CONTENT_WIDTH,
@@ -15,6 +16,7 @@ import defaultSettings from '@/config/defaultSettings'
 export default function Initializer () {
   printANSI() // 请自行移除该行.  please remove this line
 
+  store.commit(SIDE_COLLAPSED, storage.get(SIDE_COLLAPSED, false))
   store.commit(TOGGLE_LAYOUT, storage.get(TOGGLE_LAYOUT, defaultSettings.layout))
   store.commit(TOGGLE_FIXED_HEADER, storage.get(TOGGLE_FIXED_HEADER, defaultSettings.fixedHeader))
   store.commit(TOGGLE_FIXED_SIDEBAR, storage.get(TOGGLE_FIXED_SIDEBAR, defaultSettings.fixSiderbar))
