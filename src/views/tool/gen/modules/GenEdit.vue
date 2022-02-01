@@ -49,6 +49,7 @@
                 <a-select-option value="Double">Double</a-select-option>
                 <a-select-option value="BigDecimal">BigDecimal</a-select-option>
                 <a-select-option value="Date">Date</a-select-option>
+                <a-select-option value="Boolean">Boolean</a-select-option>
               </a-select>
             </template>
             <!-- Java属性 -->
