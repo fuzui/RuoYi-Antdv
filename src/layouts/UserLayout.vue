@@ -22,8 +22,18 @@
           <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank">条款</a>
         </div>
         <div class="copyright">
-          Copyright &copy; 2021 <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank">RuoYi-Antdv</a>
+          Copyright &copy; 2022 <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank">RuoYi-Antdv</a><br/>
         </div>
+        <a-space size="large">
+          <a href="https://beian.miit.gov.cn/" target="_blank">
+            <img src="https://cdn.fuzui.net/icon/beian.png?x-oss-process=style/ys" style="width:18px">
+            宁ICP备 2020001732号-1
+          </a>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11011202003445" target="_blank">
+            <img src="https://oss.fuzui.net/img/202202010105048.png" style="width:18px">
+            京公网安备 11011202003445号
+          </a>
+        </a-space>
       </div>
     </div>
   </div>
