@@ -88,6 +88,7 @@ export const generatorDynamicRouter = (token) => {
 export function filterDynamicRoutes (routes) {
   const res = []
   routes.forEach(route => {
+    console.log(route)
     if (route.permissions) {
       if (auth.hasPermiOr(route.permissions)) {
         res.push(route)
@@ -96,6 +97,8 @@ export function filterDynamicRoutes (routes) {
       if (auth.hasRoleOr(route.roles)) {
         res.push(route)
       }
+    } else {
+      res.push(route)
     }
   })
   return res
