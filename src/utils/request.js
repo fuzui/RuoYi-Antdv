@@ -10,6 +10,9 @@ import qs from 'qs'
 import { blobValidate } from '@/utils/ruoyi'
 import { saveAs } from 'file-saver'
 
+// 是否显示重新登录
+let isReloginShow
+
 // 创建 axios 实例
 const request = axios.create({
   // API 请求的默认前缀
@@ -67,31 +70,37 @@ request.interceptors.response.use((res) => {
     return res.data
   }
   if (code === 401) {
-    notification.open({
-      message: '系统提示',
-      description: '登录状态已过期，请重新登录',
-      btn: h => {
-        return h(
-          'a-button',
-          {
-            props: {
-              type: 'primary',
-              size: 'small'
-            },
-            on: {
-              click: () => {
-                store.dispatch('Logout').then(() => {
-                  location.href = '/index'
-                })
+    if (!isReloginShow) {
+      isReloginShow = true
+      notification.open({
+        message: '系统提示',
+        description: '登录状态已过期，请重新登录',
+        btn: h => {
+          return h(
+            'a-button',
+            {
+              props: {
+                type: 'primary',
+                size: 'small'
+              },
+              on: {
+                click: () => {
+                  store.dispatch('Logout').then(() => {
+                    isReloginShow = false
+                    location.href = '/index'
+                  })
+                }
               }
-            }
-          },
-          '确认'
-        )
-      },
-      duration: 0,
-      onClose: close
-    })
+            },
+            '确认'
+          )
+        },
+        duration: 0,
+        onClose: () => {
+          isReloginShow = false
+        }
+      })
+    }
   } else if (code === 500) {
     if (requestUrl !== '/login') {
       notification.error({
