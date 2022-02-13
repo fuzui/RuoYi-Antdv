@@ -20,8 +20,6 @@
 >
 > 拥有用户管理、部门管理、岗位管理、菜单管理、角色管理、字典管理、参数管理、通知公告、操作日志、登录日志、在线用户、定时任务、代码生成、系统接口、服务监控、在线构建器、连接池监视等功能。
 
-*当前暂不支持RuoYi中的在线构建器功能。*
-
 * 预览：[https://ruoyi.setworld.net/](https://ruoyi.setworld.net/)
 
 * 文档：[https://docs.geekera.cn/RuoYi-Antdv/](https://docs.geekera.cn/RuoYi-Antdv/)

@@ -1,14 +1,9 @@
 <template>
-  <a-result title="该功能尚未开发!">
-    <template #icon>
-      <a-icon type="smile" theme="twoTone" />
-    </template>
-    <template #extra>
-      <a-button type="primary" @click="returnIndex">
-        返回首页
-      </a-button>
-    </template>
-  </a-result>
+  <a-spin :spinning="loading" tip="加载中...">
+    <div :style="'height:'+ height">
+      <iframe :src="src" frameborder="no" style="width: 100%;height: 100%" scrolling="auto" />
+    </div>
+  </a-spin>
 </template>
 
 <script>
@@ -19,6 +14,9 @@ export default {
   },
   data () {
     return {
+      src: 'https://fga.setworld.net/',
+      height: document.documentElement.clientHeight - 130 + 'px;',
+      loading: true
     }
   },
   filters: {
@@ -30,11 +28,15 @@ export default {
   watch: {
   },
   mounted: function () {
+    setTimeout(() => {
+      this.loading = false
+    }, 230)
+    const that = this
+    window.onresize = function temp () {
+      that.height = document.documentElement.clientHeight - 130 + 'px;'
+    }
   },
   methods: {
-    returnIndex () {
-      this.$router.push({ path: '/index' })
-    }
   }
 }
 </script>
