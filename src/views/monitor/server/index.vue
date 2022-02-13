@@ -1,6 +1,6 @@
 <template>
   <page-header-wrapper>
-    <a-space direction="vertical">
+    <a-space direction="vertical" style="width: 100%">
       <a-row :gutter="24">
         <a-col :span="12">
           <a-card :loading="loading" title="CPU" :bordered="false">
