@@ -123,7 +123,7 @@
       <a-form label-width="100px">
         <footer-tool-bar>
           <a-space>
-            <a-button type="primary" @click="submitForm">
+            <a-button type="primary" :loading="submitLoading" @click="submitForm">
               保存
             </a-button>
             <a-button type="dashed" @click="back">
@@ -154,6 +154,7 @@ export default {
       formTitle: '修改生成配置',
       // 表格加载
       tableLoading: false,
+      submitLoading: false,
       // 字典信息
       dictOptions: [],
       // 菜单信息
@@ -307,6 +308,7 @@ export default {
       const genForm = this.$refs.genInfo.info
 
       if (basicForm && genForm) {
+        this.submitLoading = true
         const genTable = Object.assign({}, basicForm, genForm)
         const tableList = this.tableList
         tableList.forEach(e => {
@@ -330,6 +332,8 @@ export default {
           } else {
             this.$message.error(res.msg)
           }
+        }).finally(() => {
+          this.submitLoading = false
         })
       } else {
         this.msgError('表单校验未通过，请重新检查提交内容')

@@ -51,7 +51,7 @@
         </a-form-model-item>
         <div class="bottom-control">
           <a-space>
-            <a-button type="primary" @click="submitForm">
+            <a-button type="primary" :loading="submitLoading" @click="submitForm">
               发布
             </a-button>
             <a-button type="dashed" @click="onClose">
@@ -78,7 +78,7 @@ export default {
     return {
       labelCol: { span: 4 },
       wrapperCol: { span: 24 },
-      loading: false,
+      submitLoading: false,
       total: 0,
       id: undefined,
       formTitle: '',
@@ -154,6 +154,7 @@ export default {
     submitForm: function () {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.submitLoading = true
           if (this.form.noticeId !== undefined) {
             updateNotice(this.form).then(response => {
               this.$message.success(
@@ -161,6 +162,8 @@ export default {
                 3
               )
               this.back()
+            }).finally(() => {
+              this.submitLoading = false
             })
           } else {
             addNotice(this.form).then(response => {
@@ -169,6 +172,8 @@ export default {
                 3
               )
               this.back()
+            }).finally(() => {
+              this.submitLoading = false
             })
           }
         } else {

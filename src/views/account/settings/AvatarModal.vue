@@ -4,7 +4,7 @@
     title="修改头像"
     :visible="visible"
     :maskClosable="false"
-    :confirmLoading="confirmLoading"
+    :confirm-loading="submitLoading"
     :width="800"
     :footer="null"
     @cancel="cancelHandel">
@@ -48,7 +48,7 @@
         <a-button icon="redo" @click="rotateRight"/>
       </a-col>
       <a-col :lg="{span: 2, offset: 6}" :md="2">
-        <a-button type="primary" @click="finish('blob')">保存</a-button>
+        <a-button type="primary" :loading="uploading" @click="finish('blob')">保存</a-button>
       </a-col>
     </a-row>
   </a-modal>
@@ -64,7 +64,7 @@ export default {
     return {
       visible: false,
       id: null,
-      confirmLoading: false,
+      submitLoading: false,
       fileList: [],
       uploading: false,
       options: {
@@ -122,6 +122,7 @@ export default {
     // 上传图片（点击上传按钮）
     finish (type) {
       const _this = this
+      this.uploading = true
       const formData = new FormData()
       // 输出
       if (type === 'blob') {
@@ -144,13 +145,14 @@ export default {
           this.modelSrc = data
         })
       }
+      this.uploading = false
     },
     okHandel () {
       const vm = this
 
-      vm.confirmLoading = true
+      vm.submitLoading = true
       setTimeout(() => {
-        vm.confirmLoading = false
+        vm.submitLoading = false
         vm.close()
         vm.$message.success('上传头像成功')
       }, 2000)

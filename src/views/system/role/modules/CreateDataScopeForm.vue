@@ -43,7 +43,7 @@
       </a-form-model-item>
       <div class="bottom-control">
         <a-space>
-          <a-button type="primary" @click="submitDataScope">
+          <a-button type="primary" :loading="submitLoading" @click="submitDataScope">
             保存
           </a-button>
           <a-button type="dashed" @click="cancel">
@@ -66,7 +66,7 @@ export default {
   },
   data () {
     return {
-      loading: false,
+      submitLoading: false,
       // 数据范围选项
       dataScopeOptions: [
         {
@@ -273,6 +273,7 @@ export default {
     submitDataScope: function () {
       if (this.form.roleId !== undefined) {
         this.form.deptIds = this.getDeptAllCheckedKeys()
+        this.submitLoading = true
         dataScope(this.form).then(response => {
           this.$message.success(
             '修改成功',
@@ -280,6 +281,8 @@ export default {
           )
           this.openDataScope = false
           this.$emit('ok')
+        }).finally(() => {
+          this.submitLoading = false
         })
       }
     }

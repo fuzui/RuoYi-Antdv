@@ -4,9 +4,9 @@
     :title="'导入代码'"
     :width="900"
     :visible="visible"
+    :confirm-loading="submitLoading"
     @cancel="close"
     @ok="confirm"
-    :confirmLoading="confirmLoading"
   >
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
@@ -83,7 +83,7 @@ export default {
       loading: false,
       total: 0,
       // 当前控件配置:
-      confirmLoading: false,
+      submitLoading: false,
       visible: false,
       // 查询参数
       queryParam: {
@@ -155,10 +155,13 @@ export default {
     },
     // 确认导入
     confirm () {
+      this.submitLoading = true
       importTable({ tables: this.tableNames.join(',') }).then(res => {
         this.$message.success(res.msg)
         this.visible = false
         this.$emit('ok')
+      }).finally(() => {
+        this.submitLoading = false
       })
     },
     /** 搜索按钮操作 */

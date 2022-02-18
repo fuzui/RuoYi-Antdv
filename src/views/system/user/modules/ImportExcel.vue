@@ -2,7 +2,7 @@
   <a-modal
     :title="title"
     :visible="open"
-    :confirmLoading="uploading"
+    :confirm-loading="uploading"
     @cancel="importExcelHandleCancel"
     @ok="importExcelHandleChange"
   >
@@ -96,8 +96,9 @@ export default {
         this.$message.success(response.msg)
         this.open = false
         this.$emit('ok')
+      }).finally(() => {
+        this.uploading = false
       })
-      this.uploading = false
     },
     handleCheckedUpdateSupport () {
       this.updateSupport = this.updateSupport === 0 ? 1 : 0

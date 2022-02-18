@@ -4,9 +4,9 @@
     :title="'Cron表达式生成器'"
     :width="900"
     :visible="visible"
+    :confirm-loading="submitLoading"
     @cancel="close"
     @ok="confirm"
-    :confirmLoading="confirmLoading"
   >
     <crontab v-if="visible" ref="crontab" :expression="expression"> </crontab>
   </a-modal>
@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       // 当前控件配置:
-      confirmLoading: false,
+      submitLoading: false,
       visible: false,
       expression: ''
     }

@@ -54,7 +54,7 @@
       </a-form-model-item>
       <div class="bottom-control">
         <a-space>
-          <a-button type="primary" @click="submitForm">
+          <a-button type="primary" :loading="submitLoading" @click="submitForm">
             保存
           </a-button>
           <a-button type="dashed" @click="cancel">
@@ -83,7 +83,7 @@ export default {
   },
   data () {
     return {
-      loading: false,
+      submitLoading: false,
       menuExpandedKeys: [],
       autoExpandParent: false,
       menuCheckedKeys: [],
@@ -282,6 +282,7 @@ export default {
     submitForm: function () {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.submitLoading = true
           if (this.form.roleId !== undefined) {
             this.form.menuIds = this.getMenuAllCheckedKeys()
             updateRole(this.form).then(response => {
@@ -291,6 +292,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           } else {
             this.form.menuIds = this.getMenuAllCheckedKeys()
@@ -301,6 +304,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           }
         } else {

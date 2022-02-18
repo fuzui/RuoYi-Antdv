@@ -54,7 +54,7 @@
       </a-form-model-item>
       <div class="bottom-control">
         <a-space>
-          <a-button type="primary" @click="submitForm">
+          <a-button type="primary" :loading="submitLoading" @click="submitForm">
             保存
           </a-button>
           <a-button type="dashed" @click="cancel">
@@ -89,7 +89,7 @@ export default {
   },
   data () {
     return {
-      loading: false,
+      submitLoading: false,
       formTitle: '',
       // 表单参数
       form: {
@@ -170,6 +170,7 @@ export default {
     submitForm: function () {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.submitLoading = true
           if (this.form.jobId !== undefined) {
             updateJob(this.form).then(response => {
               this.$message.success(
@@ -178,6 +179,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           } else {
             addJob(this.form).then(response => {
@@ -187,6 +190,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           }
         } else {

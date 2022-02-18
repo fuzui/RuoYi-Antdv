@@ -4,7 +4,6 @@
       title="代码预览"
       :width="800"
       :visible="visible"
-      :confirmLoading="loading"
       @close="close"
     >
       <a-tabs v-if="isShowCodeTabs">
@@ -36,7 +35,6 @@ export default {
       isShowCodeTabs: false,
       previewData: {},
       visible: false,
-      loading: false,
       // 模态框数据
       data: {},
       labelCol: {

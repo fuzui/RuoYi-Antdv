@@ -2,6 +2,7 @@
   <a-modal
     :title="title"
     :visible="open"
+    :confirm-loading="submitLoading"
     @ok="submitForm"
     @cancel="cancel"
   >
@@ -48,6 +49,7 @@ export default {
       }
     }
     return {
+      submitLoading: false,
       title: '重置密码',
       open: false,
       childrenDrawer: false,
@@ -93,12 +95,15 @@ export default {
     submitForm: function () {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.submitLoading = true
           resetUserPwd(this.form.userId, this.form.newPassword).then(response => {
             this.$message.success(
               '重置成功',
               3
             )
             this.open = false
+          }).finally(() => {
+            this.submitLoading = false
           })
         } else {
           return false

@@ -30,7 +30,7 @@
           <a-icon type="plus" />
           添加用户
         </a-button>
-        <a-button type="danger" :disabled="multiple" @click="cancelAuthUserAll" v-hasPermi="['system:role:remove']">
+        <a-button type="danger" :loading="authing" :disabled="multiple" @click="cancelAuthUserAll" v-hasPermi="['system:role:remove']">
           <a-icon type="delete" />
           取消批量授权
         </a-button>
@@ -115,6 +115,7 @@ export default {
       multiple: true,
       ids: [],
       loading: false,
+      authing: false,
       total: 0,
       // 状态数据字典
       statusOptions: [],
@@ -248,14 +249,13 @@ export default {
             userId: row.userId,
             roleId: roleId
           }
-          return authUserCancel(param)
-            .then(() => {
-              that.onSelectChange([], [])
-              that.getList()
-              that.$message.success(
-                '取消授权成功',
-                3
-              )
+          return authUserCancel(param).then(() => {
+            that.onSelectChange([], [])
+            that.getList()
+            that.$message.success(
+              '取消授权成功',
+              3
+            )
           })
         },
         onCancel () {}
@@ -272,14 +272,16 @@ export default {
             roleId: roleId,
             userIds: that.ids
           }
-          return authUserCancelAll(param)
-            .then(() => {
-              that.onSelectChange([], [])
-              that.getList()
-              that.$message.success(
-                '取消授权成功',
-                3
-              )
+          that.authing = true
+          return authUserCancelAll(param).then(() => {
+            that.onSelectChange([], [])
+            that.getList()
+            that.$message.success(
+              '取消授权成功',
+              3
+            )
+          }).finally(() => {
+            this.authing = false
           })
         },
         onCancel () {}

@@ -69,7 +69,7 @@
       </a-form-model-item>
       <div class="bottom-control">
         <a-space>
-          <a-button type="primary" @click="submitForm">
+          <a-button type="primary" :loading="submitLoading" @click="submitForm">
             保存
           </a-button>
           <a-button type="dashed" @click="cancel">
@@ -105,6 +105,7 @@ export default {
   },
   data () {
     return {
+      submitLoading: false,
       replaceFields: { children: 'children', title: 'label', key: 'id', value: 'id' },
       // 岗位选项
       postOptions: [],
@@ -231,6 +232,7 @@ export default {
     submitForm: function () {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.submitLoading = true
           if (this.form.userId !== undefined) {
             updateUser(this.form).then(response => {
               this.$message.success(
@@ -239,6 +241,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           } else {
             addUser(this.form).then(response => {
@@ -248,6 +252,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           }
         } else {

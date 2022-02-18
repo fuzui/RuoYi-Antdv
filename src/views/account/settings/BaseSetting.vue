@@ -38,7 +38,7 @@
             </a-radio-group>
           </a-form-model-item>
           <a-form-model-item>
-            <a-button type="primary" @click="submit">保存</a-button>
+            <a-button type="primary" :loading="submitLoading" @click="submit">保存</a-button>
           </a-form-model-item>
         </a-form-model>
 
@@ -72,6 +72,7 @@ export default {
   },
   data () {
     return {
+      submitLoading: false,
       // cropper
       sexValue: {
         men: '0',
@@ -135,6 +136,7 @@ export default {
       this.option.img = url
     },
     submit () {
+      this.submitLoading = true
       updateUserProfile(this.user).then(response => {
         this.$notification.open({
           message: '提示',
@@ -143,6 +145,8 @@ export default {
           icon: <a-icon type="check" style="color: #1890FF" />,
           duration: 3
         })
+      }).finally(() => {
+        this.submitLoading = false
       })
     }
   }

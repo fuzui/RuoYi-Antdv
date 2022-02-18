@@ -56,7 +56,7 @@
         <a-button type="primary" @click="handleExport" v-hasPermi="['system:config:export']">
           <a-icon type="download" />导出
         </a-button>
-        <a-button type="dashed" @click="handleRefreshCache" v-hasPermi="['system:config:remove']">
+        <a-button type="dashed" :loading="refreshing" @click="handleRefreshCache" v-hasPermi="['system:config:remove']">
           <a-icon type="redo" />刷新缓存
         </a-button>
         <a-button
@@ -137,6 +137,7 @@ export default {
       multiple: true,
       ids: [],
       loading: false,
+      refreshing: false,
       total: 0,
       // 状态数据字典
       typeOptions: [],
@@ -302,11 +303,14 @@ export default {
     },
     /** 刷新缓存按钮操作 */
     handleRefreshCache () {
-      refreshCache().then(response => {
+      this.refreshing = true
+      refreshCache().then(() => {
         this.$message.success(
           '刷新成功',
           3
         )
+      }).finally(() => {
+        this.refreshing = false
       })
     }
   }

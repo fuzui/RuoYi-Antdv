@@ -4,9 +4,9 @@
     :title="'选择用户'"
     :width="900"
     :visible="visible"
+    :confirm-loading="submitLoading"
     @cancel="close"
     @ok="confirm"
-    :confirmLoading="confirmLoading"
   >
 
     <div class="page-header-content">
@@ -99,7 +99,7 @@ export default {
       loading: false,
       total: 0,
       // 当前控件配置:
-      confirmLoading: false,
+      submitLoading: false,
       visible: false,
       queryParam: {
         pageNum: 1,
@@ -177,10 +177,13 @@ export default {
         roleId: this.queryParam.roleId,
         userIds: this.userIds
       }
+      this.submitLoading = true
       authUserSelectAll(param).then(res => {
         this.$message.success(res.msg)
         this.visible = false
         this.$emit('ok')
+      }).finally(() => {
+        this.submitLoading = false
       })
     },
     statusFormat (row) {

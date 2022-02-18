@@ -4,9 +4,9 @@
     :title="'分配角色'"
     :width="900"
     :visible="visible"
+    :confirm-loading="submitLoading"
     @cancel="close"
     @ok="confirm"
-    :confirmLoading="confirmLoading"
   >
 
     <div class="page-header-content">
@@ -52,7 +52,7 @@ export default {
       roleIds: [],
       loading: false,
       // 当前控件配置:
-      confirmLoading: false,
+      submitLoading: false,
       visible: false,
       // 表格属性
       columns: [
@@ -115,10 +115,13 @@ export default {
     },
     // 确认
     confirm () {
+      this.submitLoading = true
       updateAuthRole({ userId: this.user.userId, roleIds: this.roleIds }).then(res => {
         this.$message.success(res.msg)
         this.visible = false
         this.$emit('ok')
+      }).finally(() => {
+        this.submitLoading = false
       })
     },
     onSelectChange (selectedRowKeys, selectedRows) {

@@ -124,7 +124,7 @@
 #end
       <div class="bottom-control">
         <a-space>
-          <a-button type="primary" @click="submitForm">
+          <a-button type="primary" :loading="submitLoading" @click="submitForm">
             保存
           </a-button>
           <a-button type="dashed" @click="cancel">
@@ -179,7 +179,7 @@ export default {
   },
   data () {
     return {
-      loading: false,
+      submitLoading: false,
 #if($table.sub)
       subList: [],
 #end
@@ -344,6 +344,7 @@ export default {
 #end
       this.#[[$]]#refs.form.validate(valid => {
         if (valid) {
+          this.submitLoading = true
 #foreach ($column in $columns)
 #if($column.htmlType == "checkbox")
           this.form.$column.javaField = this.form.${column.javaField}.join(',')
@@ -360,6 +361,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           } else {
             add${BusinessName}(this.form).then(response => {
@@ -369,6 +372,8 @@ export default {
               )
               this.open = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           }
         } else {
