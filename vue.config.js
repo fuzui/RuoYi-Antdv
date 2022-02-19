@@ -43,15 +43,15 @@ const vueConfig = {
     // webpack plugins
     plugins: [
       // Ignore all locale files of moment.js
-      // new webpack.IgnorePlugin({
-      //   resourceRegExp: /^\.\/locale$/,
-      //   contextRegExp: /moment$/,
-      // }),
-      // new webpack.DefinePlugin({
-      //   APP_VERSION: `"${require('./package.json').version}"`,
-      //   GIT_HASH: JSON.stringify(getGitHash()),
-      //   BUILD_DATE: buildDate
-      // })
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/locale$/,
+        contextRegExp: /moment$/
+      }),
+      new webpack.DefinePlugin({
+        APP_VERSION: `"${require('./package.json').version}"`,
+        GIT_HASH: JSON.stringify(getGitHash()),
+        BUILD_DATE: buildDate
+      })
     ],
     // if prod, add externals
     externals: isProd ? assetsCDN.externals : {}
@@ -106,7 +106,6 @@ const vueConfig = {
   devServer: {
     // development server port 8000
     port: 8000,
-    // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {

@@ -13,7 +13,6 @@ const GlobalSearch = {
       e.preventDefault()
       e.stopPropagation()
       const { ctrlKey, shiftKey, altKey, keyCode } = e
-      console.log('keyCode:', e.keyCode, e)
       // key is `K` and hold ctrl
       if (keyCode === 75 && ctrlKey && !shiftKey && !altKey) {
         this.visible = !this.visible

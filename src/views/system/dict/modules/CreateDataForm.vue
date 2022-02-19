@@ -133,7 +133,6 @@ export default {
                 '修改成功',
                 3
               )
-              console.log(this.submitLoading)
               this.open = false
               this.$emit('ok')
             }).finally(() => {
