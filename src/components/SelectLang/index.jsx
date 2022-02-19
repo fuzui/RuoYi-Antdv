@@ -7,7 +7,7 @@ import i18nMixin from '@/store/i18n-mixin'
 const locales = ['zh-CN', 'en-US']
 const languageLabels = {
   'zh-CN': '简体中文',
-  'en-US': 'English(暂不支持)'
+  'en-US': 'English'
 }
 // eslint-disable-next-line
 const languageIcons = {
@@ -32,7 +32,7 @@ const SelectLang = {
     const langMenu = (
       <Menu class={['menu', 'ant-pro-header-menu']} selectedKeys={[this.currentLang]} onClick={changeLang}>
         {locales.map(locale => (
-          <Menu.Item key={locale}>
+          <Menu.Item key={locale} disabled={locale !== 'zh-CN'}>
             <span role="img" aria-label={languageLabels[locale]}>
               {languageIcons[locale]}
             </span>{' '}
