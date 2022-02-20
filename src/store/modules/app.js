@@ -12,7 +12,8 @@ import {
   TOGGLE_MULTI_TAB,
   APP_LANGUAGE,
   TABLE_SIZE,
-  TABLE_BORDERED
+  TABLE_BORDERED,
+  HIDE_FOOTER
 } from '@/store/mutation-types'
 import { loadLanguageAsync } from '@/locales'
 
@@ -31,7 +32,8 @@ const app = {
     lang: 'zh-CN',
     _antLocale: {},
     tableSize: 'default',
-    tableBordered: false
+    tableBordered: false,
+    hideFooter: false
   },
   mutations: {
     [SIDE_COLLAPSED]: (state, type) => {
@@ -85,6 +87,10 @@ const app = {
     [TABLE_BORDERED]: (state, tableBordered) => {
       state.tableBordered = tableBordered
       storage.set(TABLE_BORDERED, tableBordered)
+    },
+    [HIDE_FOOTER]: (state, hideFooter) => {
+      state.hideFooter = hideFooter
+      storage.set(HIDE_FOOTER, hideFooter)
     }
   },
   actions: {

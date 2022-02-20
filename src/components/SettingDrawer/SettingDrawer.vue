@@ -101,6 +101,10 @@
                 <a-switch slot="actions" size="small" :disabled="(layout === 'topmenu')" :checked="fixedSidebar" @change="(checked) => handleChange('fixSiderbar', checked)" />
               </a-list-item>
               <a-list-item>
+                <span>隐藏 Footer</span>
+                <a-switch slot="actions" size="small" :defaultChecked="hideFooter" @change="(checked) => handleChange('hideFooter', checked)" />
+              </a-list-item>
+              <a-list-item>
                 <span>多页签模式</span>
                 <a-switch slot="actions" size="small" :defaultChecked="multiTab" @change="(checked) => handleChange('multiTab', checked)" />
               </a-list-item>
@@ -212,6 +216,7 @@ export default {
   multiTab: ${this.multiTab},
   tableSize: '${this.tableSize}',
   tableBordered: ${this.tableBordered},
+  hideFooter: ${this.hideFooter},
   title: '若依管理系统',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }`

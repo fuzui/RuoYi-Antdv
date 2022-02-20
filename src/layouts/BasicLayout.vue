@@ -37,7 +37,7 @@
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
-    <template v-slot:footerRender>
+    <template v-slot:footerRender v-if="!hideFooter">
       <global-footer />
     </template>
     <router-view />
@@ -63,7 +63,8 @@ import {
   TOGGLE_COLOR,
   TOGGLE_MULTI_TAB,
   TABLE_SIZE,
-  TABLE_BORDERED
+  TABLE_BORDERED,
+  HIDE_FOOTER
 } from '@/store/mutation-types'
 
 import defaultSettings from '@/config/defaultSettings'
@@ -109,7 +110,8 @@ export default {
         hideHintAlert: true,
         hideCopyButton: false,
         tableSize: defaultSettings.tableSize,
-        tableBordered: defaultSettings.tableBordered
+        tableBordered: defaultSettings.tableBordered,
+        hideFooter: defaultSettings.hideFooter
       },
       // 媒体查询
       query: {}
@@ -153,6 +155,7 @@ export default {
       this.settings.colorWeak = this.colorWeak
       this.settings.tableSize = this.tableSize
       this.settings.tableBordered = this.tableBordered
+      this.settings.hideFooter = this.hideFooter
     }
     this.collapsed = this.sideCollapsed
     const userAgent = navigator.userAgent
@@ -231,6 +234,9 @@ export default {
           break
         case 'tableBordered':
           this.$store.commit(TABLE_BORDERED, value)
+          break
+        case 'hideFooter':
+          this.$store.commit(HIDE_FOOTER, value)
           break
       }
     }

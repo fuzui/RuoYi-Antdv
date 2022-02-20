@@ -23,6 +23,7 @@ export default {
   multiTab: true,
   tableSize: 'middle',
   tableBordered: false,
+  hideFooter: false,
   title: '若依管理系统',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }

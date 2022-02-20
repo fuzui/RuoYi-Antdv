@@ -13,7 +13,8 @@ const baseMixin = {
 
       isMobile: state => state.app.isMobile,
       sideCollapsed: state => state.app.sideCollapsed,
-      multiTab: state => state.app.multiTab
+      multiTab: state => state.app.multiTab,
+      hideFooter: state => state.app.hideFooter
     }),
     isTopMenu () {
       return this.layout === 'topmenu'

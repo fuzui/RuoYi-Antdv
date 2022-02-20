@@ -12,7 +12,8 @@ import {
   TOGGLE_COLOR,
   TOGGLE_MULTI_TAB,
   TABLE_SIZE,
-  TABLE_BORDERED
+  TABLE_BORDERED,
+  HIDE_FOOTER
 } from '@/store/mutation-types'
 import { printANSI } from '@/utils/screenLog'
 import defaultSettings from '@/config/defaultSettings'
@@ -35,5 +36,6 @@ export default function Initializer () {
   store.dispatch('setLang', storage.get(APP_LANGUAGE, 'zh-CN'))
   store.commit(TABLE_SIZE, storage.get(TABLE_SIZE, defaultSettings.tableSize))
   store.commit(TABLE_BORDERED, storage.get(TABLE_BORDERED, defaultSettings.tableBordered))
+  store.commit(HIDE_FOOTER, storage.get(HIDE_FOOTER, defaultSettings.hideFooter))
   // last step
 }
