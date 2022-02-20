@@ -20,7 +20,6 @@ import './core/lazy_use' // use lazy load components
 import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less' // global style
-import config from '@/config/defaultSettings'
 import { getDicts } from '@/api/system/dict/data'
 import { getConfigKey } from '@/api/system/config'
 import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree, tableSorter } from '@/utils/ruoyi'
@@ -37,7 +36,6 @@ Vue.prototype.selectDictLabels = selectDictLabels
 Vue.prototype.download = download
 Vue.prototype.handleTree = handleTree
 Vue.prototype.tableSorter = tableSorter
-Vue.prototype.tableSize = config.tableSize
 Vue.config.productionTip = false
 
 // mount axios to `Vue.$http` and `this.$http`

@@ -64,7 +64,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="createTime" slot-scope="text, record">
           {{ parseTime(record.createTime) }}
         </span>
@@ -135,12 +136,14 @@ import { delTable, listTable, synchDb, genCode } from '@/api/tool/gen'
 import PreviewCode from './modules/PreviewCode'
 import ImportTable from './modules/ImportTable'
 import { downLoadZip } from '@/utils/zipdownload'
+import { tableMixin } from '@/store/table-mixin'
 export default {
   name: 'Gen',
   components: {
     PreviewCode,
     ImportTable
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

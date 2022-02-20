@@ -7,12 +7,12 @@ import {
   TOGGLE_FIXED_HEADER,
   TOGGLE_FIXED_SIDEBAR,
   TOGGLE_CONTENT_WIDTH,
-  TOGGLE_HIDE_HEADER,
   TOGGLE_COLOR,
   TOGGLE_WEAK,
   TOGGLE_MULTI_TAB,
-  // i18n
-  APP_LANGUAGE
+  APP_LANGUAGE,
+  TABLE_SIZE,
+  TABLE_BORDERED
 } from '@/store/mutation-types'
 import { loadLanguageAsync } from '@/locales'
 
@@ -25,12 +25,13 @@ const app = {
     contentWidth: '',
     fixedHeader: false,
     fixedSidebar: false,
-    autoHideHeader: false,
     color: '',
     weak: false,
     multiTab: true,
     lang: 'zh-CN',
-    _antLocale: {}
+    _antLocale: {},
+    tableSize: 'default',
+    tableBordered: false
   },
   mutations: {
     [SIDE_COLLAPSED]: (state, type) => {
@@ -60,10 +61,6 @@ const app = {
       state.contentWidth = type
       storage.set(TOGGLE_CONTENT_WIDTH, type)
     },
-    [TOGGLE_HIDE_HEADER]: (state, type) => {
-      state.autoHideHeader = type
-      storage.set(TOGGLE_HIDE_HEADER, type)
-    },
     [TOGGLE_COLOR]: (state, color) => {
       state.color = color
       storage.set(TOGGLE_COLOR, color)
@@ -80,6 +77,14 @@ const app = {
     [TOGGLE_MULTI_TAB]: (state, bool) => {
       storage.set(TOGGLE_MULTI_TAB, bool)
       state.multiTab = bool
+    },
+    [TABLE_SIZE]: (state, tableSize) => {
+      state.tableSize = tableSize
+      storage.set(TABLE_SIZE, tableSize)
+    },
+    [TABLE_BORDERED]: (state, tableBordered) => {
+      state.tableBordered = tableBordered
+      storage.set(TABLE_BORDERED, tableBordered)
     }
   },
   actions: {

@@ -21,12 +21,8 @@ export default {
   fixSiderbar: true, // sticky siderbar
   colorWeak: false,
   multiTab: true,
-  menu: {
-    locale: true
-  },
+  tableSize: 'middle',
+  tableBordered: false,
   title: '若依管理系统',
-  pwa: false,
-  iconfontUrl: '',
-  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
-  tableSize: 'middle'
+  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }

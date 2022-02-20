@@ -46,7 +46,8 @@
 
 <script>
 import MultiTab from '@/components/MultiTab'
-import { SettingDrawer, updateTheme } from '@/components/ProLayout'
+import { updateTheme } from '@/components/ProLayout'
+import SettingDrawer from '@/components/SettingDrawer'
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
 import {
@@ -60,7 +61,9 @@ import {
   TOGGLE_NAV_THEME,
   TOGGLE_WEAK,
   TOGGLE_COLOR,
-  TOGGLE_MULTI_TAB
+  TOGGLE_MULTI_TAB,
+  TABLE_SIZE,
+  TABLE_BORDERED
 } from '@/store/mutation-types'
 
 import defaultSettings from '@/config/defaultSettings'
@@ -104,7 +107,9 @@ export default {
         colorWeak: defaultSettings.colorWeak,
 
         hideHintAlert: true,
-        hideCopyButton: false
+        hideCopyButton: false,
+        tableSize: defaultSettings.tableSize,
+        tableBordered: defaultSettings.tableBordered
       },
       // 媒体查询
       query: {}
@@ -146,6 +151,8 @@ export default {
       this.settings.fixSiderbar = this.fixedSidebar
       this.settings.multiTab = this.multiTab
       this.settings.colorWeak = this.colorWeak
+      this.settings.tableSize = this.tableSize
+      this.settings.tableBordered = this.tableBordered
     }
     this.collapsed = this.sideCollapsed
     const userAgent = navigator.userAgent
@@ -218,6 +225,12 @@ export default {
           break
         case 'colorWeak':
           this.$store.commit(TOGGLE_WEAK, value)
+          break
+        case 'tableSize':
+          this.$store.commit(TABLE_SIZE, value)
+          break
+        case 'tableBordered':
+          this.$store.commit(TABLE_BORDERED, value)
           break
       }
     }

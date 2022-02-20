@@ -84,7 +84,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="status" slot-scope="text, record">
           <a-popconfirm
             ok-text="是"
@@ -153,6 +154,7 @@
 import { listRole, delRole, changeRoleStatus } from '@/api/system/role'
 import CreateForm from './modules/CreateForm'
 import CreateDataScopeForm from './modules/CreateDataScopeForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Role',
@@ -160,6 +162,7 @@ export default {
     CreateForm,
     CreateDataScopeForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

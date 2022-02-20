@@ -83,7 +83,8 @@
         @expand="onExpandCurrent"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span
           slot="expandedRowRender"
           slot-scope="text"
@@ -132,6 +133,7 @@ import { listType, delType, refreshCache } from '@/api/system/dict/type'
 import CreateForm from './modules/CreateForm'
 import DictData from './modules/DictData'
 import CreateDataForm from './modules/CreateDataForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Dict',
@@ -140,6 +142,7 @@ export default {
     DictData,
     CreateDataForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

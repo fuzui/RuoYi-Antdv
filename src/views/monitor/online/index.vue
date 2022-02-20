@@ -41,7 +41,9 @@
         rowKey="tokenId"
         :columns="columns"
         :data-source="list"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered"
+      >
         <span slot="loginTime" slot-scope="text, record">
           {{ parseTime(record.loginTime) }}
         </span>
@@ -76,11 +78,13 @@
 <script>
 
 import { list, forceLogout } from '@/api/monitor/online'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Online',
   components: {
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

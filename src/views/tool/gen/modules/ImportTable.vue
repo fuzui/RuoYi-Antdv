@@ -40,7 +40,8 @@
           :data-source="list"
           :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
           :scroll="{ y: tableHeight }"
-          :pagination="false">
+          :pagination="false"
+          :bordered="tableBordered">
           <span slot="createTime" slot-scope="text, record">
             {{ parseTime(record.createTime) }}
           </span>
@@ -66,10 +67,12 @@
 </template>
 <script>
 import { listDbTable, importTable } from '@/api/tool/gen'
+import { tableMixin } from '@/store/table-mixin'
 export default {
   name: 'ImportTable',
   props: {
   },
+  mixins: [tableMixin],
   data () {
     return {
       // 表格数据

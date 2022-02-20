@@ -81,7 +81,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="configType" slot-scope="text, record">
           {{ typeFormat(record) }}
         </span>
@@ -118,12 +119,14 @@
 
 import { listConfig, delConfig, refreshCache } from '@/api/system/config'
 import CreateForm from './modules/CreateForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Config',
   components: {
     CreateForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

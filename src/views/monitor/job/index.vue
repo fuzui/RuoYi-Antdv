@@ -79,7 +79,9 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered"
+      >
         <span slot="jobGroup" slot-scope="text, record">
           {{ jobGroupFormat(record) }}
         </span>
@@ -156,6 +158,7 @@
 import { listJob, delJob, runJob, changeJobStatus } from '@/api/monitor/job'
 import CreateForm from './modules/CreateForm'
 import ViewForm from './modules/ViewForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Job',
@@ -163,6 +166,7 @@ export default {
     CreateForm,
     ViewForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

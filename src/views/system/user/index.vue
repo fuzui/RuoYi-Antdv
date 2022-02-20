@@ -108,7 +108,8 @@
             :columns="columns"
             :data-source="list"
             :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-            :pagination="false">
+            :pagination="false"
+            :bordered="tableBordered">
             <span slot="status" slot-scope="text, record">
               <a-popconfirm
                 ok-text="是"
@@ -183,6 +184,7 @@ import ResetPassword from './modules/ResetPassword'
 import CreateForm from './modules/CreateForm'
 import ImportExcel from './modules/ImportExcel'
 import DeptTree from './modules/DeptTree'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'User',
@@ -193,6 +195,7 @@ export default {
     ImportExcel,
     DeptTree
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

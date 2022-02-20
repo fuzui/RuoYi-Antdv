@@ -6,20 +6,17 @@
       @close="onClose"
       :closable="false"
       :visible="visible"
-      :drawer-style="{ position: 'absolute' }"
-      style="position: absolute"
+      style="z-index: 999"
     >
       <div class="setting-drawer-index-content">
 
-        <div :style="{ marginBottom: '24px' }">
-          <h3 class="setting-drawer-index-title">整体风格设置</h3>
-
+        <setting-item title="整体风格设置">
           <div class="setting-drawer-index-blockChecbox">
             <a-tooltip>
               <template slot="title">
-                暗色菜单风格1
+                暗色菜单风格
               </template>
-              <div class="setting-drawer-index-item" @click="handleMenuTheme('dark')">
+              <div class="setting-drawer-index-blockChecbox-item" @click="handleChange('theme', 'dark')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg" alt="dark">
                 <div class="setting-drawer-index-selectIcon" v-if="navTheme === 'dark'">
                   <a-icon type="check"/>
@@ -31,7 +28,7 @@
               <template slot="title">
                 亮色菜单风格
               </template>
-              <div class="setting-drawer-index-item" @click="handleMenuTheme('light')">
+              <div class="setting-drawer-index-blockChecbox-item" @click="handleChange('theme', 'light')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg" alt="light">
                 <div class="setting-drawer-index-selectIcon" v-if="navTheme !== 'dark'">
                   <a-icon type="check"/>
@@ -39,36 +36,31 @@
               </div>
             </a-tooltip>
           </div>
-        </div>
+        </setting-item>
 
-        <div :style="{ marginBottom: '24px' }">
-          <h3 class="setting-drawer-index-title">主题色</h3>
-
+        <setting-item title="主题色" divider>
           <div style="height: 20px">
             <a-tooltip class="setting-drawer-theme-color-colorBlock" v-for="(item, index) in colorList" :key="index">
               <template slot="title">
                 {{ item.key }}
               </template>
-              <a-tag :color="item.color" @click="changeColor(item.color)">
+              <a-tag :color="item.color" @click="handleChange('primaryColor', item.color)">
                 <a-icon type="check" v-if="item.color === primaryColor"></a-icon>
               </a-tag>
             </a-tooltip>
 
           </div>
-        </div>
-        <a-divider />
+        </setting-item>
 
-        <div :style="{ marginBottom: '24px' }">
-          <h3 class="setting-drawer-index-title">导航模式</h3>
-
+        <setting-item title="导航模式" divider>
           <div class="setting-drawer-index-blockChecbox">
             <a-tooltip>
               <template slot="title">
                 侧边栏导航
               </template>
-              <div class="setting-drawer-index-item" @click="handleLayout('sidemenu')">
+              <div class="setting-drawer-index-blockChecbox-item" @click="handleChange('layout', 'sidemenu')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg" alt="sidemenu">
-                <div class="setting-drawer-index-selectIcon" v-if="layoutMode === 'sidemenu'">
+                <div class="setting-drawer-index-selectIcon" v-if="layout === 'sidemenu'">
                   <a-icon type="check"/>
                 </div>
               </div>
@@ -78,89 +70,85 @@
               <template slot="title">
                 顶部栏导航
               </template>
-              <div class="setting-drawer-index-item" @click="handleLayout('topmenu')">
+              <div class="setting-drawer-index-blockChecbox-item" @click="handleChange('layout', 'topmenu')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg" alt="topmenu">
-                <div class="setting-drawer-index-selectIcon" v-if="layoutMode !== 'sidemenu'">
+                <div class="setting-drawer-index-selectIcon" v-if="layout === 'topmenu'">
                   <a-icon type="check"/>
                 </div>
               </div>
             </a-tooltip>
           </div>
-          <div :style="{ marginTop: '24px' }">
+          <div>
             <a-list :split="false">
               <a-list-item>
+                <span>内容区域宽度</span>
                 <a-tooltip slot="actions">
                   <template slot="title">
                     该设定仅 [顶部栏导航] 时有效
                   </template>
-                  <a-select size="small" style="width: 80px;" :defaultValue="contentWidth" @change="handleContentWidthChange">
-                    <a-select-option value="Fixed">固定</a-select-option>
-                    <a-select-option value="Fluid" v-if="layoutMode !== 'sidemenu'">流式</a-select-option>
+                  <a-select size="small" style="width: 80px;" :default-value="contentWidth" @change="(value) => handleChange('contentWidth', value)">
+                    <a-select-option value="Fixed" v-if="layout === 'sidemenu'">固定</a-select-option>
+                    <a-select-option value="Fluid">流式</a-select-option>
                   </a-select>
                 </a-tooltip>
-                <a-list-item-meta>
-                  <div slot="title">内容区域宽度</div>
-                </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="fixedHeader" @change="handleFixedHeader" />
-                <a-list-item-meta>
-                  <div slot="title">固定 Header</div>
-                </a-list-item-meta>
-              </a-list-item>
-              <a-list-item>
-                <a-switch slot="actions" size="small" :disabled="!fixedHeader" :defaultChecked="autoHideHeader" @change="handleFixedHeaderHidden" />
-                <a-list-item-meta>
-                  <a-tooltip slot="title" placement="left">
-                    <template slot="title">固定 Header 时可配置</template>
-                    <div :style="{ opacity: !fixedHeader ? '0.5' : '1' }">下滑时隐藏 Header</div>
-                  </a-tooltip>
-                </a-list-item-meta>
+                <span>固定 Header</span>
+                <a-switch slot="actions" size="small" :checked="fixedHeader" @change="(checked) => handleChange('fixedHeader', checked)" />
               </a-list-item>
               <a-list-item >
-                <a-switch slot="actions" size="small" :disabled="(layoutMode === 'topmenu')" :defaultChecked="fixSiderbar" @change="handleFixSiderbar" />
-                <a-list-item-meta>
-                  <div slot="title" :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">固定侧边菜单</div>
-                </a-list-item-meta>
+                <span :style="{ opacity: layout === 'topmenu' ? 0.5 : 1 }">固定侧边菜单</span>
+                <a-switch slot="actions" size="small" :disabled="(layout === 'topmenu')" :checked="fixedSidebar" @change="(checked) => handleChange('fixSiderbar', checked)" />
+              </a-list-item>
+              <a-list-item>
+                <span>多页签模式</span>
+                <a-switch slot="actions" size="small" :defaultChecked="multiTab" @change="(checked) => handleChange('multiTab', checked)" />
               </a-list-item>
             </a-list>
           </div>
-        </div>
-        <a-divider />
+        </setting-item>
 
-        <div :style="{ marginBottom: '24px' }">
-          <h3 class="setting-drawer-index-title">其他设置</h3>
+        <setting-item title="表格通用样式" divider>
           <div>
             <a-list :split="false">
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="colorWeak" @change="onColorWeak" />
-                <a-list-item-meta>
-                  <div slot="title">色弱模式</div>
-                </a-list-item-meta>
+                <span>表格大小</span>
+                <a-radio-group slot="actions" :default-value="tableSize" size="small" button-style="solid" @change="(e) => handleChange('tableSize', e.target.value)">
+                  <a-radio-button value="default">
+                    默认
+                  </a-radio-button>
+                  <a-radio-button value="middle">
+                    中等
+                  </a-radio-button>
+                  <a-radio-button value="small">
+                    紧凑
+                  </a-radio-button>
+                </a-radio-group>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="multiTab" @change="onMultiTab" />
-                <a-list-item-meta>
-                  <div slot="title">多页签模式</div>
-                </a-list-item-meta>
+                <span>显示边框</span>
+                <a-switch slot="actions" size="small" :checked="tableBordered" @change="(checked) => handleChange('tableBordered', checked)" />
               </a-list-item>
             </a-list>
           </div>
-        </div>
-        <a-divider />
-        <div :style="{ marginBottom: '24px' }">
-          <a-button
-            @click="doCopy"
-            icon="copy"
-            block
-          >拷贝设置</a-button>
-          <a-alert type="warning" :style="{ marginTop: '24px' }">
-            <span slot="message">
-              配置栏只在开发环境用于预览，生产环境不会展现，请手动修改配置文件。修改配置文件后，需要清空本地缓存和LocalStorage
-              <a href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/config/defaultSettings.js" target="_blank">src/config/defaultSettings.js</a>
-            </span>
-          </a-alert>
-        </div>
+        </setting-item>
+
+        <setting-item title="其他设置" divider>
+          <div>
+            <a-list :split="false">
+              <a-list-item>
+                <span>色弱模式</span>
+                <a-switch slot="actions" size="small" :checked="colorWeak" @change="(checked) => handleChange('colorWeak', checked)" />
+              </a-list-item>
+            </a-list>
+          </div>
+        </setting-item>
+
+        <a-button
+          @click="doCopy"
+          icon="copy"
+          block
+        >拷贝设置</a-button>
       </div>
       <div class="setting-drawer-index-handle" @click="toggle" slot="handle">
         <a-icon type="setting" v-if="!visible"/>
@@ -172,14 +160,15 @@
 
 <script>
 import SettingItem from './SettingItem'
-import config from '@/config/defaultSettings'
 import { updateTheme, updateColorWeak, colorList } from './settingConfig'
+import { baseMixin } from '@/store/app-mixin'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   components: {
     SettingItem
   },
-  mixins: [],
+  mixins: [baseMixin, tableMixin],
   data () {
     return {
       visible: false,
@@ -187,15 +176,20 @@ export default {
     }
   },
   watch: {
-
   },
   mounted () {
-    updateTheme(this.primaryColor)
-    if (this.colorWeak !== config.colorWeak) {
-      updateColorWeak(this.colorWeak)
-    }
   },
   methods: {
+    handleChange (type, value) {
+      if (type === 'primaryColor') {
+        // 更新主色调
+        updateTheme(value)
+      }
+      if (type === 'colorWeak') {
+        updateColorWeak(value)
+      }
+      this.$emit('change', { type, value })
+    },
     showDrawer () {
       this.visible = true
     },
@@ -205,28 +199,20 @@ export default {
     toggle () {
       this.visible = !this.visible
     },
-    onColorWeak (checked) {
-      this.$store.dispatch('ToggleWeak', checked)
-      updateColorWeak(checked)
-    },
-    onMultiTab (checked) {
-      this.$store.dispatch('ToggleMultiTab', checked)
-    },
-    handleMenuTheme (theme) {
-      this.$store.dispatch('ToggleTheme', theme)
-    },
     doCopy () {
       // get current settings from mixin or this.$store.state.app, pay attention to the property name
       const text = `export default {
-  primaryColor: '${this.primaryColor}', // primary color of ant design
   navTheme: '${this.navTheme}', // theme for nav menu
-  layout: '${this.layoutMode}', // nav menu position: sidemenu or topmenu
+  primaryColor: '${this.primaryColor}', // primary color of ant design
+  layout: '${this.layout}', // nav menu position: sidemenu or topmenu
   contentWidth: '${this.contentWidth}', // layout of content: Fluid or Fixed, only works when layout is topmenu
   fixedHeader: ${this.fixedHeader}, // sticky header
-  fixSiderbar: ${this.fixSiderbar}, // sticky siderbar
-  autoHideHeader: ${this.autoHideHeader}, //  auto hide header
+  fixSiderbar: ${this.fixedSidebar}, // sticky siderbar
   colorWeak: ${this.colorWeak},
   multiTab: ${this.multiTab},
+  tableSize: '${this.tableSize}',
+  tableBordered: ${this.tableBordered},
+  title: '若依管理系统',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }`
       this.$copyText(text).then(message => {
@@ -236,33 +222,6 @@ export default {
         console.log('copy.err', err)
         this.$message.error('复制失败')
       })
-    },
-    handleLayout (mode) {
-      this.$store.dispatch('ToggleLayoutMode', mode)
-      // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
-      this.handleFixSiderbar(false)
-    },
-    handleContentWidthChange (type) {
-      this.$store.dispatch('ToggleContentWidth', type)
-    },
-    changeColor (color) {
-      if (this.primaryColor !== color) {
-        this.$store.dispatch('ToggleColor', color)
-        updateTheme(color)
-      }
-    },
-    handleFixedHeader (fixed) {
-      this.$store.dispatch('ToggleFixedHeader', fixed)
-    },
-    handleFixedHeaderHidden (autoHidden) {
-      this.$store.dispatch('ToggleFixedHeaderHidden', autoHidden)
-    },
-    handleFixSiderbar (fixed) {
-      if (this.layoutMode === 'topmenu') {
-        this.$store.dispatch('ToggleFixSiderbar', false)
-        return
-      }
-      this.$store.dispatch('ToggleFixSiderbar', fixed)
     }
   }
 }
@@ -271,11 +230,13 @@ export default {
 <style lang="less" scoped>
 
   .setting-drawer-index-content {
+    position: relative;
+    min-height: 100%;
 
     .setting-drawer-index-blockChecbox {
       display: flex;
 
-      .setting-drawer-index-item {
+      .setting-drawer-index-blockChecbox-item {
         margin-right: 16px;
         position: relative;
         border-radius: 4px;

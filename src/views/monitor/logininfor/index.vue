@@ -70,7 +70,9 @@
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
         :pagination="false"
-        @change="handleTableChange">
+        @change="handleTableChange"
+        :bordered="tableBordered"
+      >
         <span slot="status" slot-scope="text, record">
           {{ statusFormat(record) }}
         </span>
@@ -94,11 +96,13 @@
 <script>
 
 import { list, delLogininfor, cleanLogininfor } from '@/api/monitor/logininfor'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Logininfor',
   components: {
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

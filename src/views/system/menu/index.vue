@@ -55,7 +55,8 @@
         rowKey="menuId"
         :columns="columns"
         :data-source="list"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="icon" slot-scope="text">
           <a-icon :component="allIcon[text + 'Icon']" v-if="allIcon[text + 'Icon']"/>
           <a-icon :type="text" v-if="!allIcon[text + 'Icon']"/>
@@ -89,12 +90,14 @@
 import { listMenu, delMenu } from '@/api/system/menu'
 import CreateForm from './modules/CreateForm'
 import allIcon from '@/core/icons'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Menu',
   components: {
     CreateForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       allIcon,

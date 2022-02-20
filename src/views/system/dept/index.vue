@@ -54,7 +54,8 @@
         rowKey="deptId"
         :columns="columns"
         :data-source="list"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="status" slot-scope="text, record">
           {{ statusFormat(record) }}
         </span>
@@ -83,12 +84,14 @@
 
 import { listDept, delDept, listDeptExcludeChild } from '@/api/system/dept'
 import CreateForm from './modules/CreateForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Dept',
   components: {
     CreateForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

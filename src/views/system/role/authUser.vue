@@ -60,7 +60,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="status" slot-scope="text, record">
           {{ statusFormat(record) }}
         </span>
@@ -96,6 +97,7 @@ import { allocatedUserList, authUserCancel, authUserCancelAll } from '@/api/syst
 import CreateForm from './modules/CreateForm'
 import CreateDataScopeForm from './modules/CreateDataScopeForm'
 import SelectUser from './modules/SelectUser'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'AuthUser',
@@ -104,6 +106,7 @@ export default {
     CreateDataScopeForm,
     SelectUser
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

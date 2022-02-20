@@ -19,7 +19,8 @@
           :data-source="list"
           :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
           :scroll="{ y: tableHeight }"
-          :pagination="false">
+          :pagination="false"
+          :bordered="tableBordered">
           <span slot="createTime" slot-scope="text, record">
             {{ parseTime(record.createTime) }}
           </span>
@@ -32,6 +33,7 @@
 <script>
 
 import { getAuthRole, updateAuthRole } from '@/api/system/user'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'AuthRole',
@@ -39,6 +41,7 @@ export default {
   },
   components: {
   },
+  mixins: [tableMixin],
   data () {
     return {
       // 表格数据

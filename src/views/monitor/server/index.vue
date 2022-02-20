@@ -146,7 +146,9 @@
               rowKey="dirName"
               :columns="sysColumns"
               :data-source="sysData"
-              :pagination="false">
+              :pagination="false"
+              :bordered="tableBordered"
+            >
               <span slot="total" slot-scope="text">
                 {{ text }}
               </span>
@@ -173,9 +175,11 @@
 <script>
 
 import { getServer } from '@/api/monitor/server'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Server',
+  mixins: [tableMixin],
   data () {
     return {
       server: [],

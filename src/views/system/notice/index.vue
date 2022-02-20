@@ -64,7 +64,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="noticeType" slot-scope="text, record">
           {{ typeFormat(record) }}
         </span>
@@ -103,11 +104,13 @@
 <script>
 
 import { listNotice, delNotice } from '@/api/system/notice'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Notice',
   components: {
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

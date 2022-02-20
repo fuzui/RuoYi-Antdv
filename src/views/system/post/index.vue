@@ -73,7 +73,8 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered">
         <span slot="status" slot-scope="text, record">
           {{ statusFormat(record) }}
         </span>
@@ -110,12 +111,14 @@
 
 import { listPost, delPost } from '@/api/system/post'
 import CreateForm from './modules/CreateForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Post',
   components: {
     CreateForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

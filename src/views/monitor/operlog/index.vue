@@ -79,7 +79,9 @@
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
         :pagination="false"
-        @change="handleTableChange">
+        :bordered="tableBordered"
+        @change="handleTableChange"
+      >
         <span slot="businessType" slot-scope="text, record">
           {{ typeFormat(record) }}
         </span>
@@ -112,12 +114,14 @@
 
 import { list, delOperlog, cleanOperlog } from '@/api/monitor/operlog'
 import ViewForm from './modules/ViewForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'Operlog',
   components: {
     ViewForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],

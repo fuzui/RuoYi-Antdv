@@ -7,7 +7,6 @@ export const TOGGLE_LAYOUT = 'layout'
 export const TOGGLE_FIXED_HEADER = 'fixed_header'
 export const TOGGLE_FIXED_SIDEBAR = 'fixed_sidebar'
 export const TOGGLE_CONTENT_WIDTH = 'content_width'
-export const TOGGLE_HIDE_HEADER = 'auto_hide_header'
 export const TOGGLE_COLOR = 'color'
 export const TOGGLE_WEAK = 'weak'
 export const TOGGLE_MULTI_TAB = 'multi_tab'
@@ -26,3 +25,6 @@ export const NAV_THEME = {
   LIGHT: 'light',
   DARK: 'dark'
 }
+
+export const TABLE_SIZE = 'table_size'
+export const TABLE_BORDERED = 'table_bordered'

@@ -73,7 +73,9 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered"
+      >
         <span slot="jobGroup" slot-scope="text, record">
           {{ jobGroupFormat(record) }}
         </span>
@@ -106,12 +108,14 @@
 
 import { listJobLog, delJobLog, cleanJobLog } from '@/api/monitor/jobLog'
 import LogViewForm from './modules/LogViewForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'JobLog',
   components: {
     LogViewForm
   },
+  mixins: [tableMixin],
   data () {
     return {
       list: [],
