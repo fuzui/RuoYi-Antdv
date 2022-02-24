@@ -94,7 +94,7 @@
             <a-icon type="question-circle-o" />
           </a-tooltip>
         </span>
-        <a-input v-model="form.perms" placeholder="请输入" maxLength="100" />
+        <a-input v-model="form.perms" placeholder="请输入" :maxLength="100" />
       </a-form-model-item>
       <a-form-model-item prop="visible" v-if="form.menuType != 'F'">
         <span slot="label">
