@@ -34,7 +34,9 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        :pagination="false">
+        :pagination="false"
+        :bordered="tableBordered"
+      >
         <span slot="operation" slot-scope="text, record">
           <a-divider type="vertical" />
           <a @click="handleDelete(record)">
@@ -48,6 +50,7 @@
 
 <script>
 import CreateSubForm from './CreateSubForm'
+import { tableMixin } from '@/store/table-mixin'
 
 export default {
   name: 'SubTable',
@@ -60,6 +63,7 @@ export default {
       required: true
     }
   },
+  mixins: [tableMixin],
   data () {
     return {
       visible: false,
