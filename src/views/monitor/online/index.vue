@@ -26,13 +26,12 @@
       </div>
       <!-- 操作 -->
       <div class="table-operations">
-        <a-button
-          type="dashed"
-          shape="circle"
-          :loading="loading"
+        <table-setting
           :style="{float: 'right'}"
-          icon="reload"
-          @click="getList" />
+          :table-size.sync="tableSize"
+          v-model="columns"
+          :refresh-loading="loading"
+          @refresh="getList" />
       </div>
       <!-- 数据展示 -->
       <a-table

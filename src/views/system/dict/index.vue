@@ -59,13 +59,12 @@
         <a-button type="dashed" :loading="refreshing" @click="handleRefreshCache" v-hasPermi="['system:dict:remove']">
           <a-icon type="redo" />刷新缓存
         </a-button>
-        <a-button
-          type="dashed"
-          shape="circle"
-          :loading="loading"
+        <table-setting
           :style="{float: 'right'}"
-          icon="reload"
-          @click="getList" />
+          :table-size.sync="tableSize"
+          v-model="columns"
+          :refresh-loading="loading"
+          @refresh="getList" />
       </div>
       <!-- 增加修改 -->
       <create-form

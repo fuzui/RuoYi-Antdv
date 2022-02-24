@@ -54,13 +54,12 @@
         <a-button type="dashed" @click="handleJobLog" v-hasPermi="['monitor:job:query']">
           <a-icon type="snippets" />日志
         </a-button>
-        <a-button
-          type="dashed"
-          shape="circle"
-          :loading="loading"
+        <table-setting
           :style="{float: 'right'}"
-          icon="reload"
-          @click="getList" />
+          :table-size.sync="tableSize"
+          v-model="columns"
+          :refresh-loading="loading"
+          @refresh="getList" />
       </div>
       <!-- 详细信息 -->
       <view-form ref="viewForm" :jobGroupOptions="jobGroupOptions" />

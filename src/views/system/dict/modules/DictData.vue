@@ -20,19 +20,17 @@
           ghost>
           <a-icon type="delete" />删除
         </a-button>
-        <a-button
-          type="dashed"
-          shape="circle"
-          :loading="loading"
+        <table-setting
           :style="{float: 'right'}"
-          icon="reload"
-          size="small"
-          @click="getList" />
+          :table-size.sync="tableSize"
+          v-model="columns"
+          :refresh-loading="loading"
+          @refresh="getList" />
       </div>
       <a-table
         :loading="loading"
         rowKey="dictCode"
-        size="small"
+        :size="tableSize"
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
@@ -80,6 +78,7 @@ export default {
   data () {
     return {
       list: [],
+      tableSize: 'small',
       selectedRowKeys: [],
       selectedRows: [],
       // 高级搜索 展开/关闭

@@ -31,13 +31,12 @@
         <a-button type="primary" @click="$refs.createForm.handleAdd()" v-hasPermi="['system:menu:add']">
           <a-icon type="plus" />新增
         </a-button>
-        <a-button
-          type="dashed"
-          shape="circle"
-          :loading="loading"
+        <table-setting
           :style="{float: 'right'}"
-          icon="reload"
-          @click="getList" />
+          :table-size.sync="tableSize"
+          v-model="columns"
+          :refresh-loading="loading"
+          @refresh="getList" />
       </div>
       <!-- 增加修改 -->
       <create-form

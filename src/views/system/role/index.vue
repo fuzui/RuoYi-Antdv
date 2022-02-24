@@ -56,13 +56,12 @@
         <a-button type="primary" @click="handleExport" v-hasPermi="['system:role:export']">
           <a-icon type="download" />导出
         </a-button>
-        <a-button
-          type="dashed"
-          shape="circle"
-          :loading="loading"
+        <table-setting
           :style="{float: 'right'}"
-          icon="reload"
-          @click="getList" />
+          :table-size.sync="tableSize"
+          v-model="columns"
+          :refresh-loading="loading"
+          @refresh="getList" />
       </div>
       <!-- 增加修改 -->
       <create-form

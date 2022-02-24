@@ -14,6 +14,7 @@ import ProLayout, { PageHeaderWrapper } from '@/components/ProLayout'
 import FooterToolBar from '@/components/FooterToolbar'
 import FileUpload from '@/components/FileUpload'
 import themePluginConfig from '../config/themePluginConfig'
+import { TableSetting } from '@/components'
 
 import bootstrap from './core/bootstrap'
 import './core/lazy_use' // use lazy load components
@@ -46,6 +47,7 @@ Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)
 Vue.component('footer-tool-bar', FooterToolBar)
 Vue.component('file-upload', FileUpload)
+Vue.component('table-setting', TableSetting)
 
 Vue.use(permission)
 Vue.use(style)

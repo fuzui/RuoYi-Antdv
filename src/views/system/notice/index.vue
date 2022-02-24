@@ -48,13 +48,12 @@
         <a-button type="danger" :disabled="multiple" @click="handleDelete" v-hasPermi="['system:notice:remove']">
           <a-icon type="delete" />删除
         </a-button>
-        <a-button
-          type="dashed"
-          shape="circle"
-          :loading="loading"
+        <table-setting
           :style="{float: 'right'}"
-          icon="reload"
-          @click="getList" />
+          :table-size.sync="tableSize"
+          v-model="columns"
+          :refresh-loading="loading"
+          @refresh="getList" />
       </div>
       <!-- 数据展示 -->
       <a-table

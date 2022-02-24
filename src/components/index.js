@@ -1,8 +1,8 @@
-// pro components
 import AvatarList from '@/components/AvatarList'
 import Ellipsis from '@/components/Ellipsis'
 import FooterToolbar from '@/components/FooterToolbar'
 import NumberInfo from '@/components/NumberInfo'
+import TableSetting from '@/components/TableSetting'
 import Tree from '@/components/Tree/Tree'
 import Trend from '@/components/Trend'
 import MultiTab from '@/components/MultiTab'
@@ -23,6 +23,7 @@ export {
   Ellipsis,
   FooterToolbar,
   NumberInfo,
+  TableSetting,
   Tree,
   MultiTab,
   IconSelector,
