@@ -25,8 +25,8 @@
       </a-form-model-item>
       <a-form-model-item label="图标" prop="icon" v-if="form.menuType != 'F'">
         <a-space size="large">
-          <a-icon :component="allIcon[form.icon + 'Icon']" v-if="allIcon[form.icon + 'Icon']"/>
-          <a-icon :type="form.icon" v-if="!allIcon[form.icon + 'Icon']"/>
+          <a-icon :component="allIcon[form.icon + 'Icon']" v-if="form.icon && allIcon[form.icon + 'Icon']"/>
+          <a-icon :type="form.icon" v-if="form.icon && !allIcon[form.icon + 'Icon']"/>
           <a-button type="dashed" @click="selectIcon">
             选择图标
           </a-button>
