@@ -88,6 +88,8 @@
 
 ## 推荐
 
+* [Form-Generator-Antdv](https://github.com/fuzui/form-generator-antdv) Ant Design Vue表单设计及代码生成器
+
 * [RuoYi-Cloud-Ant-Design](https://gitee.com/xuezipeng/ruoyi-cloud-ant-design) RuoYi-Cloud的Ant Design(Antdv)版前端
 
 * [RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud) 基于Spring Boot、Spring Cloud & Alibaba的分布式微服务架构权限管理系统
