@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { getRouters } from '@/api/menu'
-import { indexRouterMap, otherRouterMap } from '@/config/router.config'
+import { indexRouterMap } from '@/config/router.config'
 import allIcon from '@/core/icons'
 import { validURL } from '@/utils/validate'
 import { UserLayout, BlankLayout, PageView } from '@/layouts'
@@ -35,7 +35,7 @@ const notFoundRouter = {
 }
 
 // 根级菜单
-const rootRouter = {
+const rootMenu = {
   key: '',
   name: 'index',
   path: '',
@@ -47,14 +47,17 @@ const rootRouter = {
   children: []
 }
 
-/**
- * 为解决缓存问题，自定义页面添加一层父级
- */
-const bashRouter = {
-  path: '/',
-  name: '',
-  component: 'Layout',
-  hidden: true
+// 根级路由
+const rootRouter = {
+  key: '',
+  name: 'index',
+  path: '',
+  component: constantRouterComponents.BasicLayout,
+  redirect: '/index',
+  meta: {
+    title: '首页'
+  },
+  children: []
 }
 
 /**
@@ -66,16 +69,17 @@ export const generatorDynamicRouter = (token) => {
   return new Promise((resolve, reject) => {
     // 向后端请求路由数据
     getRouters().then(res => {
+      // 路由菜单分离，路由全部为二级，解决多级菜单缓存问题
+      const routers = []
       const menuNav = []
       const routerData = res.data
-      const asyncRoutes = filterDynamicRoutes(otherRouterMap)
-      bashRouter.children = asyncRoutes
-      routerData.unshift(bashRouter)
-      rootRouter.children = indexRouterMap.concat(routerData)
-      menuNav.push(rootRouter)
-      const routers = generator(menuNav)
-      routers.push(notFoundRouter)
-      resolve(routers)
+      const asyncRoutes = filterDynamicRoutes(indexRouterMap)
+      rootMenu.children = asyncRoutes.concat(routerData)
+      menuNav.push(rootMenu)
+      const menus = generator(menuNav, null, routers)
+      menus.push(notFoundRouter)
+      rootRouter.children = routers
+      resolve({ menus, routers: rootRouter })
     }).catch(err => {
       reject(err)
     })
@@ -106,32 +110,29 @@ export function filterDynamicRoutes (routes) {
  *
  * @param routerMap
  * @param parent
+ * @param routers
  * @returns {*}
  */
-export const generator = (routerMap, parent) => {
+export const generator = (routerMap, parent, routers) => {
+  const names = parent ? parent.meta.names : []
   return routerMap.map(item => {
+    // 适配ruoyi一级菜单
+    if (item.path === '/' && item.children && item.children.length === 1) {
+      item = item.children[0]
+      item.children = undefined
+    }
+
     const { title, show, hideChildren, hiddenHeaderContent, hidden, icon, noCache } = item.meta || {}
-    if (item.component) {
-      // Layout ParentView 组件特殊处理
-      if (item.component === 'Layout') {
-        item.component = 'RouteView'
-      } else if (item.component === 'ParentView') {
-        // 三级菜单处理
-        item.component = 'RouteView'
-        item.path = '/' + item.path
-      }
-    }
-    if (item.path) {
-      // item.path = '/' + item.path
-    }
     if (item.isFrame === 0) {
       item.target = '_blank'
     }
+    const name = item.name || item.key || ''
+    const isRouter = item.component && item.component !== 'Layout' && item.component !== 'ParentView'
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
       path: item.path || `${parent && parent.path || ''}/${item.path}`,
       // 路由名称，建议唯一
-      name: item.name || item.key || '',
+      name: name,
       // 该路由对应页面的 组件(动态加载)
       component: (constantRouterComponents[item.component || item.key]) || (() => import(`@/views/${item.component}`)),
       hidden: item.hidden,
@@ -144,7 +145,9 @@ export const generator = (routerMap, parent) => {
         target: validURL(item.path) ? '_blank' : '',
         permission: item.name,
         keepAlive: noCache === undefined ? false : !noCache,
-        hidden: hidden
+        hidden: hidden,
+        // 因菜单路由分离，通过此names确定菜单树的展开
+        names: names.concat([name])
       },
       redirect: item.redirect
     }
@@ -154,16 +157,32 @@ export const generator = (routerMap, parent) => {
     }
     // 适配若依，若依为缩写路径，而antdv-pro的pro-layout要求每个路径需为全路径
     if (!constantRouterComponents[item.component || item.key]) {
-      currentRouter.path = `${parent && parent.path || ''}/${item.path}`
+      // currentRouter.path = `${parent && parent.path !== '/' && parent.path || ''}/${item.path}`
+      currentRouter.path = `${parent && parent.path !== '/' && parent.path + '/' || ''}${item.path}`
     }
     // 是否设置了隐藏子菜单
     if (hideChildren) {
       currentRouter.hideChildrenInMenu = true
     }
+    // const names = parent.names
+    const router = {
+      path: currentRouter.path,
+      // 路由名称，建议唯一
+      name: currentRouter.name,
+      // 该路由对应页面的 组件(动态加载)
+      component: currentRouter.component,
+      hidden: currentRouter.hidden,
+      // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
+      meta: currentRouter.meta,
+      redirect: currentRouter.redirect
+    }
+    if (router.component && isRouter) {
+      routers.push(router)
+    }
     // 是否有子菜单，并递归处理，并将父path传入
     if (item.children && item.children.length > 0) {
       // Recursion
-      currentRouter.children = generator(item.children, currentRouter)
+      currentRouter.children = generator(item.children, currentRouter, routers)
     }
     return currentRouter
   })

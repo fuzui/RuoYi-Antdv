@@ -40,7 +40,9 @@
     <template v-slot:footerRender v-if="!hideFooter">
       <global-footer />
     </template>
-    <router-view />
+    <keep-alive :include="this.cachedViews">
+      <router-view :key="key" />
+    </keep-alive>
   </pro-layout>
 </template>
 
@@ -120,20 +122,18 @@ export default {
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.permission.addRouters
-    })
+      mainMenu: state => state.permission.menus
+    }),
+    cachedViews () {
+      return this.$store.state.tagsView.cachedViews
+    },
+    key () {
+      return this.$route.path
+    }
   },
   created () {
     const routes = this.mainMenu.find(item => item.path === '/')
-    // 适配ruoyi一级菜单
-    for (let index = 0; index < routes.children.length; index++) {
-      let route = routes.children[index]
-      if (route.children && route.children.length === 1 && !(route.children.children && route.children.children.length > 0) && !route.alwaysShow) {
-        route = route.children[0]
-        route.children = undefined
-      }
-      routes.children[index] = route
-    }
+
     this.menus = (routes && routes.children) || []
     // 处理侧栏展开状态
     this.$watch('collapsed', () => {
