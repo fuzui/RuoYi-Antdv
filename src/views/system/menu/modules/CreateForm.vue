@@ -287,6 +287,8 @@ export default {
               this.open = false
               this.iconVisible = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           } else {
             addMenu(this.form).then(response => {
@@ -297,6 +299,8 @@ export default {
               this.open = false
               this.iconVisible = false
               this.$emit('ok')
+            }).finally(() => {
+              this.submitLoading = false
             })
           }
         } else {
