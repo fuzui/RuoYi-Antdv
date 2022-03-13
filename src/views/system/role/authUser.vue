@@ -126,6 +126,7 @@ export default {
       queryParam: {
         pageNum: 1,
         pageSize: 10,
+        roleId: '',
         userName: undefined,
         phonenumber: undefined
       },
