@@ -6,7 +6,7 @@
       :dictType="dictType"
       @ok="getList"
     />
-    <a-card :bordered="false" :style="{ background: 'rgb(190, 200, 200)'}">
+    <a-card :bordered="false" :style="{ background: '#f2f4f5'}">
       <div class="table-operations">
         <a-button type="primary" size="small" @click="$refs.createDataForm.handleAdd()" v-hasPermi="['system:dict:add']" ghost>
           <a-icon type="plus" />新增
@@ -34,6 +34,7 @@
         :columns="columns"
         :data-source="list"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+        :scroll="{ y: 300 }"
         :pagination="false">
         <span slot="status" slot-scope="text, record">
           {{ statusFormat(record) }}
@@ -93,8 +94,6 @@ export default {
       // 状态数据字典
       statusOptions: [],
       queryParam: {
-        pageNum: 1,
-        pageSize: 10,
         dictName: undefined,
         dictType: undefined,
         status: undefined
@@ -188,22 +187,11 @@ export default {
     resetQuery () {
       this.dateRange = []
       this.queryParam = {
-        pageNum: 1,
-        pageSize: 10,
         dictName: undefined,
         dictType: undefined,
         status: undefined
       }
       this.handleQuery()
-    },
-    onShowSizeChange (current, pageSize) {
-      this.queryParam.pageSize = pageSize
-      this.getList()
-    },
-    changeSize (current, pageSize) {
-      this.queryParam.pageNum = current
-      this.queryParam.pageSize = pageSize
-      this.getList()
     },
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
@@ -229,20 +217,6 @@ export default {
                 3
               )
           })
-        },
-        onCancel () {}
-      })
-    },
-    /** 导出按钮操作 */
-    handleExport () {
-      var that = this
-      this.$confirm({
-        title: '是否确认导出?',
-        content: '此操作将导出当前条件下所有数据而非选中数据',
-        onOk () {
-          this.download('system/dict/data/export', {
-            ...that.queryParam
-          }, `data_${new Date().getTime()}.xlsx`)
         },
         onCancel () {}
       })
