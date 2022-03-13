@@ -86,8 +86,8 @@
                   <template slot="title">
                     该设定仅 [顶部栏导航] 时有效
                   </template>
-                  <a-select size="small" style="width: 80px;" :default-value="contentWidth" @change="(value) => handleChange('contentWidth', value)">
-                    <a-select-option value="Fixed" v-if="layout === 'sidemenu'">固定</a-select-option>
+                  <a-select size="small" style="width: 80px;" v-model="contentWidth" @change="(value) => handleChange('contentWidth', value)">
+                    <a-select-option value="Fixed" v-if="layout === 'topmenu'">固定</a-select-option>
                     <a-select-option value="Fluid">流式</a-select-option>
                   </a-select>
                 </a-tooltip>
