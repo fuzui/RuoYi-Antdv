@@ -130,6 +130,7 @@ export default {
         {
           title: '手机',
           dataIndex: 'phonenumber',
+          ellipsis: true,
           align: 'center'
         },
         {
@@ -142,6 +143,7 @@ export default {
           title: '创建时间',
           dataIndex: 'createTime',
           scopedSlots: { customRender: 'createTime' },
+          ellipsis: true,
           align: 'center'
         }
       ]
