@@ -139,9 +139,6 @@ export default {
     this.$watch('collapsed', () => {
       this.$store.commit(SIDE_COLLAPSED, this.collapsed)
     })
-    this.$watch('isMobile', () => {
-      this.$store.commit(TOGGLE_MOBILE_TYPE, this.isMobile)
-    })
   },
   mounted () {
     if (this.isProPreviewSite) {
@@ -179,12 +176,12 @@ export default {
     handleMediaQuery (val) {
       this.query = val
       if (this.isMobile && !val['screen-xs']) {
-        this.isMobile = false
+        this.$store.commit(TOGGLE_MOBILE_TYPE, false)
         return
       }
       if (!this.isMobile && val['screen-xs']) {
-        this.isMobile = true
-        this.collapsed = false
+        this.$store.commit(TOGGLE_MOBILE_TYPE, true)
+        this.collapsed = true
         this.settings.contentWidth = CONTENT_WIDTH_TYPE.Fluid
         // this.settings.fixSiderbar = false
       }
