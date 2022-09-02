@@ -57,8 +57,7 @@
 
 <script>
 
-import { getRole, dataScope } from '@/api/system/role'
-import { treeselect as deptTreeselect, roleDeptTreeselect } from '@/api/system/dept'
+import { getRole, dataScope, deptTreeSelect } from '@/api/system/role'
 
 export default {
   name: 'CreateDataScopeForm',
@@ -132,12 +131,6 @@ export default {
       this.deptExpandedKeys = expandedKeys
       this.autoExpandParent = false
     },
-    /** 查询部门树结构 */
-    getDeptTreeselect () {
-      deptTreeselect().then(response => {
-        this.deptOptions = response.data
-      })
-    },
     // 所有部门节点数据
     getDeptAllCheckedKeys () {
       // 全选与半选
@@ -201,8 +194,8 @@ export default {
       this.form.deptCheckStrictly = !this.form.deptCheckStrictly
     },
     /** 根据角色ID查询部门树结构 */
-    getRoleDeptTreeselect (roleId) {
-      return roleDeptTreeselect(roleId).then(response => {
+    getDeptTree (roleId) {
+      return deptTreeSelect(roleId).then(response => {
         this.deptOptions = response.depts
         return response
       })
@@ -253,12 +246,12 @@ export default {
     /** 分配数据权限操作 */
     handleDataScope (row) {
       this.reset()
-      const roleDeptTreeselect = this.getRoleDeptTreeselect(row.roleId)
+      const deptTreeSelect = this.getDeptTree(row.roleId)
       getRole(row.roleId).then(response => {
         this.form = response.data
         this.openDataScope = true
         this.$nextTick(() => {
-          roleDeptTreeselect.then(res => {
+          deptTreeSelect.then(res => {
             this.deptCheckedKeys = res.checkedKeys
             // 过滤回显时的半选中node(父)
             if (this.form.deptCheckStrictly) {
