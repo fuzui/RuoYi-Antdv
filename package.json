@@ -40,6 +40,7 @@
   "devDependencies": {
     "@ant-design/colors": "^6.0.0",
     "@vue/cli-plugin-babel": "^4.0.4",
+    "@vue/cli-plugin-eslint": "^4.0.4",
     "@vue/cli-plugin-router": "^4.0.4",
     "@vue/cli-plugin-unit-jest": "^4.0.4",
     "@vue/cli-plugin-vuex": "^4.0.4",
