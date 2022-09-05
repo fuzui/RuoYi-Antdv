@@ -19,7 +19,7 @@
               <a-col :md="8" :sm="24">
                 <a-form-item label="参数类型">
                   <a-select placeholder="请选择" v-model="queryParam.configType" style="width: 100%" allow-clear>
-                    <a-select-option v-for="(d, index) in typeOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                    <a-select-option v-for="(d, index) in dict.type['sys_yes_no']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -69,7 +69,7 @@
       <!-- 增加修改 -->
       <create-form
         ref="createForm"
-        :typeOptions="typeOptions"
+        :typeOptions="dict.type['sys_yes_no']"
         @ok="getList"
       />
       <!-- 数据展示 -->
@@ -83,7 +83,7 @@
         :pagination="false"
         :bordered="tableBordered">
         <span slot="configType" slot-scope="text, record">
-          {{ typeFormat(record) }}
+          <dict-tag :options="dict.type['sys_yes_no']" :value="record.configType" />
         </span>
         <span slot="createTime" slot-scope="text, record">
           {{ parseTime(record.createTime) }}
@@ -126,6 +126,7 @@ export default {
     CreateForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_yes_no'],
   data () {
     return {
       list: [],
@@ -141,8 +142,6 @@ export default {
       loading: false,
       refreshing: false,
       total: 0,
-      // 状态数据字典
-      typeOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -209,9 +208,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_yes_no').then(response => {
-      this.typeOptions = response.data
-    })
   },
   computed: {
   },
@@ -227,10 +223,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 参数系统内置字典翻译
-    typeFormat (row) {
-      return this.selectDictLabel(this.typeOptions, row.configType)
     },
     /** 搜索按钮操作 */
     handleQuery () {

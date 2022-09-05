@@ -12,14 +12,14 @@
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="字典类型">
-                <a-input v-model="queryParam.dictType" placeholder="请选择字典类型" allow-clear/>
+                <a-input v-model="queryParam.dictType" placeholder="请输入字典类型" allow-clear/>
               </a-form-item>
             </a-col>
             <template v-if="advanced">
               <a-col :md="8" :sm="24">
                 <a-form-item label="状态">
                   <a-select placeholder="字典状态" v-model="queryParam.status" style="width: 100%">
-                    <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                    <a-select-option v-for="(d, index) in dict.type['sys_normal_disable']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -69,7 +69,7 @@
       <!-- 增加修改 -->
       <create-form
         ref="createForm"
-        :statusOptions="statusOptions"
+        :statusOptions="dict.type['sys_normal_disable']"
         @ok="getList"
       />
       <!-- 数据展示 -->
@@ -95,7 +95,7 @@
           />
         </span>
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_normal_disable']" :value="record.status" />
         </span>
         <span slot="createTime" slot-scope="text, record">
           {{ parseTime(record.createTime) }}
@@ -142,6 +142,7 @@ export default {
     CreateDataForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_normal_disable'],
   data () {
     return {
       list: [],
@@ -157,8 +158,6 @@ export default {
       loading: false,
       refreshing: false,
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -220,9 +219,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_normal_disable').then(response => {
-      this.statusOptions = response.data
-    })
   },
   computed: {
   },
@@ -238,10 +234,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 参数系统内置字典翻译
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
     },
     /** 搜索按钮操作 */
     handleQuery () {
@@ -319,6 +311,7 @@ export default {
       this.refreshing = true
       refreshCache().then(() => {
         this.$message.success('刷新成功')
+        this.$store.dispatch('dict/cleanDict')
       }).finally(() => {
         this.refreshing = false
       })

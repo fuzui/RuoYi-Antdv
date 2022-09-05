@@ -34,12 +34,12 @@
       </a-form-model-item>
       <a-form-model-item label="性别" prop="sex">
         <a-radio-group v-model="form.sex" button-style="solid">
-          <a-radio-button v-for="(d, index) in sexOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio-button>
+          <a-radio-button v-for="(d, index) in sexOptions" :key="index" :value="d.value">{{ d.label }}</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
       <a-form-model-item label="状态" prop="status">
         <a-radio-group v-model="form.status" button-style="solid">
-          <a-radio-button v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio-button>
+          <a-radio-button v-for="(d, index) in statusOptions" :key="index" :value="d.value">{{ d.label }}</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
       <a-form-model-item label="岗位" prop="postIds">

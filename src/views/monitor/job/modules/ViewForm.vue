@@ -5,7 +5,7 @@
         {{ form.jobId }}
       </a-descriptions-item>
       <a-descriptions-item label="任务分组">
-        {{ jobGroupFormat(form.jobGroup) }}
+        <dict-tag :options="jobGroupOptions" :value="form.jobGroup" />
       </a-descriptions-item>
       <a-descriptions-item label="任务名称">
         {{ form.jobName }}
@@ -79,9 +79,6 @@ export default {
   watch: {
   },
   methods: {
-    jobGroupFormat (jobGroup) {
-      return this.selectDictLabel(this.jobGroupOptions, jobGroup)
-    },
     handleView (row) {
       getJob(row.jobId).then(response => {
         this.form = response.data

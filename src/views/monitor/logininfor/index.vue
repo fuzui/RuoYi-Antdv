@@ -13,7 +13,7 @@
             <a-col :md="8" :sm="24">
               <a-form-item label="使用状态">
                 <a-select placeholder="请选择状态" v-model="queryParam.status" style="width: 100%" allow-clear>
-                  <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                  <a-select-option v-for="(d, index) in dict.type['sys_common_status']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -73,7 +73,7 @@
         :bordered="tableBordered"
       >
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_common_status']" :value="record.status" />
         </span>
       </a-table>
       <!-- 分页 -->
@@ -102,6 +102,7 @@ export default {
   components: {
   },
   mixins: [tableMixin],
+  dicts: ['sys_common_status'],
   data () {
     return {
       list: [],
@@ -114,8 +115,6 @@ export default {
       multiple: true,
       ids: [],
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -180,9 +179,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_common_status').then(response => {
-      this.statusOptions = response.data
-    })
   },
   computed: {
   },
@@ -204,10 +200,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 执行状态字典翻译
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
     },
     /** 搜索按钮操作 */
     handleQuery () {

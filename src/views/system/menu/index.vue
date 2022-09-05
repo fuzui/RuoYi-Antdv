@@ -13,7 +13,7 @@
             <a-col :md="8" :sm="24">
               <a-form-item label="状态">
                 <a-select placeholder="请选择" v-model="queryParam.status" style="width: 100%" allow-clear>
-                  <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                  <a-select-option v-for="(d, index) in dict.type['sys_normal_disable']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -42,8 +42,8 @@
       <create-form
         ref="createForm"
         :menuOptions="menuOptions"
-        :statusOptions="statusOptions"
-        :visibleOptions="visibleOptions"
+        :statusOptions="dict.type['sys_normal_disable']"
+        :visibleOptions="dict.type['sys_show_hide']"
         @ok="getList"
         @select-tree="getTreeselect"
       />
@@ -61,7 +61,7 @@
           <a-icon :type="text" v-if="!allIcon[text + 'Icon']"/>
         </span>
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_normal_disable']" :value="record.status" />
         </span>
         <span slot="createTime" slot-scope="text, record">
           {{ parseTime(record.createTime) }}
@@ -97,6 +97,7 @@ export default {
     CreateForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_normal_disable', 'sys_show_hide'],
   data () {
     return {
       allIcon,
@@ -105,9 +106,6 @@ export default {
       // 部门树选项
       menuOptions: [],
       loading: false,
-      // 状态数据字典
-      statusOptions: [],
-      visibleOptions: [],
       queryParam: {
         menuName: undefined,
         visible: undefined
@@ -172,12 +170,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_normal_disable').then(response => {
-      this.statusOptions = response.data
-    })
-    this.getDicts('sys_show_hide').then(response => {
-      this.visibleOptions = response.data
-    })
   },
   computed: {
   },
@@ -192,16 +184,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 字典状态字典翻译
-    visibleFormat (row) {
-      if (row.menuType === 'F') {
-        return ''
-      }
-      return this.selectDictLabel(this.visibleOptions, row.visible)
-    },
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
     },
     /** 搜索按钮操作 */
     handleQuery () {

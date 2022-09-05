@@ -71,8 +71,8 @@ export function addDateRange (params, dateRange, propName) {
 export function selectDictLabel (datas, value) {
 	var actions = []
 	Object.keys(datas).some((key) => {
-		if (datas[key].dictValue === ('' + value)) {
-			actions.push(datas[key].dictLabel)
+		if (datas[key].value === ('' + value)) {
+			actions.push(datas[key].label)
 			return true
 		}
 	})
@@ -86,8 +86,8 @@ export function selectDictLabels (datas, value, separator) {
 	var temp = value.split(currentSeparator)
 	Object.keys(value.split(currentSeparator)).some((val) => {
 		Object.keys(datas).some((key) => {
-			if (datas[key].dictValue === ('' + temp[val])) {
-				actions.push(datas[key].dictLabel + currentSeparator)
+			if (datas[key].value === ('' + temp[val])) {
+				actions.push(datas[key].label + currentSeparator)
 			}
 		})
 	})
@@ -160,6 +160,27 @@ export async function blobValidate (data) {
 		return true
 	}
 }
+
+/**
+ * 数据合并
+ * @param {*} source
+ * @param {*} target
+ * @returns
+ */
+export function mergeRecursive (source, target) {
+  for (var p in target) {
+    try {
+      if (target[p].constructor === Object) {
+        source[p] = mergeRecursive(source[p], target[p])
+      } else {
+        source[p] = target[p]
+      }
+    } catch (e) {
+      source[p] = target[p]
+    }
+  }
+  return source
+};
 
 /**
  * 表格排序转换

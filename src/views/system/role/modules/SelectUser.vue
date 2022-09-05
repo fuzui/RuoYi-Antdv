@@ -44,7 +44,7 @@
           :scroll="{ y: tableHeight }"
           :pagination="false">
           <span slot="status" slot-scope="text, record">
-            {{ statusFormat(record) }}
+            <dict-tag :options="statusOptions" :value="record.status"/>
           </span>
           <span slot="createTime" slot-scope="text, record">
             {{ parseTime(record.createTime) }}
@@ -187,9 +187,6 @@ export default {
       }).finally(() => {
         this.submitLoading = false
       })
-    },
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
     },
     /** 搜索按钮操作 */
     handleQuery () {

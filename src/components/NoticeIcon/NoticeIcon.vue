@@ -13,7 +13,7 @@
       <template slot="content">
         <a-spin :spinning="loading">
           <a-tabs v-model="queryParam.noticeType" @change="changeType">
-            <a-tab-pane v-for="d in typeOptions" :key="d.dictValue" :tab="d.dictLabel">
+            <a-tab-pane v-for="d in typeOptions" :key="d.value" :tab="d.label">
               <a-list style="max-height: 300px; overflow:auto;">
                 <div
                   v-if="showLoadingMore"

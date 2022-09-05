@@ -9,7 +9,7 @@
       </a-form-model-item>
       <a-form-model-item label="任务分组" prop="jobGroup">
         <a-select placeholder="请选择" v-model="form.jobGroup">
-          <a-select-option v-for="(d, index) in jobGroupOptions" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
+          <a-select-option v-for="(d, index) in jobGroupOptions" :key="index" :value="d.value" >{{ d.label }}</a-select-option>
         </a-select>
       </a-form-model-item>
       <a-form-model-item prop="invokeTarget">
@@ -49,7 +49,7 @@
       </a-form-model-item>
       <a-form-model-item label="状态" prop="status">
         <a-radio-group v-model="form.status" button-style="solid">
-          <a-radio v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio>
+          <a-radio v-for="(d, index) in statusOptions" :key="index" :value="d.value">{{ d.label }}</a-radio>
         </a-radio-group>
       </a-form-model-item>
       <div class="bottom-control">

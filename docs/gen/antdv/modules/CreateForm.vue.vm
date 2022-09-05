@@ -76,7 +76,7 @@
         <editor ref="${field}Editor" v-model="form.${field}" />
 #elseif($column.htmlType == "select" && "" != $dictType)
         <a-select placeholder="请选择${comment}" v-model="form.${field}">
-          <a-select-option v-for="(d, index) in ${field}Options" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
+          <a-select-option v-for="(d, index) in ${field}Options" :key="index" :value="d.value" >{{ d.label }}</a-select-option>
         </a-select>
 #elseif($column.htmlType == "select" && $dictType)
         <a-select placeholder="请选择${comment}" v-model="form.${field}">
@@ -88,7 +88,7 @@
           v-model="form.${field}"
           placeholder="请选择${comment}"
         >
-          <a-select-option v-for="(d, index) in ${field}Options" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
+          <a-select-option v-for="(d, index) in ${field}Options" :key="index" :value="d.value" >{{ d.label }}</a-select-option>
         </a-select>
 #elseif($column.htmlType == "checkbox" && $dictType)
         <a-select placeholder="请选择${comment}" v-model="form.${field}">
@@ -96,7 +96,7 @@
         </a-select>
 #elseif($column.htmlType == "radio" && "" != $dictType)
         <a-radio-group v-model="form.${field}" button-style="solid">
-          <a-radio-button v-for="(d, index) in ${field}Options" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio-button>
+          <a-radio-button v-for="(d, index) in ${field}Options" :key="index" :value="d.value">{{ d.label }}</a-radio-button>
         </a-radio-group>
 #elseif($column.htmlType == "radio" && $dictType)
         <a-radio-group v-model="form.${field}" button-style="solid">

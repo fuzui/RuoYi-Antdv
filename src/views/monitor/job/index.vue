@@ -12,14 +12,16 @@
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="任务组名">
-                <a-input v-model="queryParam.jobGroup" placeholder="请选择任务组名" allow-clear/>
+                <a-select placeholder="请选择任务组名" v-model="queryParam.jobGroup" style="width: 100%" allow-clear>
+                  <a-select-option v-for="(d, index) in dict.type['sys_job_group']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
+                </a-select>
               </a-form-item>
             </a-col>
             <template v-if="advanced">
               <a-col :md="8" :sm="24">
                 <a-form-item label="任务状态">
                   <a-select placeholder="请选择任务状态" v-model="queryParam.status" style="width: 100%" allow-clear>
-                    <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                    <a-select-option v-for="(d, index) in dict.type['sys_job_status']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -62,12 +64,12 @@
           @refresh="getList" />
       </div>
       <!-- 详细信息 -->
-      <view-form ref="viewForm" :jobGroupOptions="jobGroupOptions" />
+      <view-form ref="viewForm" :jobGroupOptions="dict.type['sys_job_group']" />
       <!-- 增加修改 -->
       <create-form
         ref="createForm"
-        :statusOptions="statusOptions"
-        :jobGroupOptions="jobGroupOptions"
+        :statusOptions="dict.type['sys_job_status']"
+        :jobGroupOptions="dict.type['sys_job_group']"
         @ok="getList"
       />
       <!-- 数据展示 -->
@@ -82,7 +84,7 @@
         :bordered="tableBordered"
       >
         <span slot="jobGroup" slot-scope="text, record">
-          {{ jobGroupFormat(record) }}
+          <dict-tag :options="dict.type['sys_job_group']" :value="record.jobGroup"/>
         </span>
         <span slot="status" slot-scope="text, record">
           <a-popconfirm
@@ -166,6 +168,7 @@ export default {
     ViewForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_job_group', 'sys_job_status'],
   data () {
     return {
       list: [],
@@ -180,9 +183,6 @@ export default {
       ids: [],
       loading: false,
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
-      jobGroupOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -242,12 +242,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_job_status').then(response => {
-      this.statusOptions = response.data
-    })
-    this.getDicts('sys_job_group').then(response => {
-      this.jobGroupOptions = response.data
-    })
   },
   computed: {
   },
@@ -263,14 +257,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 执行状态字典翻译
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
-    },
-    // 任务组名字典翻译
-    jobGroupFormat (row) {
-      return this.selectDictLabel(this.jobGroupOptions, row.jobGroup)
     },
     /** 搜索按钮操作 */
     handleQuery () {

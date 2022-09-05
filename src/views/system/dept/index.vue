@@ -13,7 +13,7 @@
             <a-col :md="8" :sm="24">
               <a-form-item label="状态">
                 <a-select placeholder="请选择" v-model="queryParam.status" style="width: 100%" allow-clear>
-                  <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                  <a-select-option v-for="(d, index) in dict.type['sys_normal_disable']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -42,7 +42,7 @@
       <create-form
         ref="createForm"
         :deptOptions="deptOptions"
-        :statusOptions="statusOptions"
+        :statusOptions="dict.type['sys_normal_disable']"
         @ok="getList"
         @select-tree="getTreeselect"
       />
@@ -56,7 +56,7 @@
         :pagination="false"
         :bordered="tableBordered">
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_normal_disable']" :value="record.status" />
         </span>
         <span slot="createTime" slot-scope="text, record">
           {{ parseTime(record.createTime) }}
@@ -91,14 +91,13 @@ export default {
     CreateForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_normal_disable'],
   data () {
     return {
       list: [],
       // 部门树选项
       deptOptions: [],
       loading: false,
-      // 状态数据字典
-      statusOptions: [],
       queryParam: {
         deptName: undefined,
         status: undefined
@@ -140,9 +139,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_normal_disable').then(response => {
-      this.statusOptions = response.data
-    })
   },
   computed: {
   },
@@ -169,10 +165,6 @@ export default {
           this.deptOptions = this.handleTree(response.data, 'deptId')
         })
       }
-    },
-    // 字典状态字典翻译
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
     },
     /** 搜索按钮操作 */
     handleQuery () {

@@ -13,7 +13,7 @@
             <a-col :md="8" :sm="24">
               <a-form-item label="任务组名">
                 <a-select placeholder="请选择任务组名" v-model="queryParam.jobGroup" style="width: 100%" allow-clear>
-                  <a-select-option v-for="(d, index) in jobGroupOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                  <a-select-option v-for="(d, index) in dict.type['sys_job_group']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -21,7 +21,7 @@
               <a-col :md="8" :sm="24">
                 <a-form-item label="执行状态">
                   <a-select placeholder="请选择执行状态" v-model="queryParam.status" style="width: 100%" allow-clear>
-                    <a-select-option v-for="(d, index) in typeOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                    <a-select-option v-for="(d, index) in dict.type['sys_common_status']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -63,7 +63,7 @@
           @refresh="getList" />
       </div>
       <!-- 详细信息 -->
-      <log-view-form ref="logViewForm" :jobGroupOptions="jobGroupOptions" />
+      <log-view-form ref="logViewForm" :jobGroupOptions="dict.type['sys_job_group']" />
       <!-- 数据展示 -->
       <a-table
         :loading="loading"
@@ -76,10 +76,10 @@
         :bordered="tableBordered"
       >
         <span slot="jobGroup" slot-scope="text, record">
-          {{ jobGroupFormat(record) }}
+          <dict-tag :options="dict.type['sys_job_group']" :value="record.jobGroup" />
         </span>
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_common_status']" :value="record.status" />
         </span>
         <span slot="operation" slot-scope="text, record">
           <a @click="$refs.logViewForm.handleView(record)" v-hasPermi="['monitor:job:query']">
@@ -115,13 +115,11 @@ export default {
     LogViewForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_job_group', 'sys_common_status'],
   data () {
     return {
       list: [],
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
-      jobGroupOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -194,12 +192,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_common_status').then(response => {
-      this.statusOptions = response.data
-    })
-    this.getDicts('sys_job_group').then(response => {
-      this.jobGroupOptions = response.data
-    })
   },
   computed: {
   },
@@ -215,14 +207,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 执行状态字典翻译
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
-    },
-    // 任务组名字典翻译
-    jobGroupFormat (row) {
-      return this.selectDictLabel(this.jobGroupOptions, row.jobGroup)
     },
     /** 搜索按钮操作 */
     handleQuery () {

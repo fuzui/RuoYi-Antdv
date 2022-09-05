@@ -13,7 +13,8 @@ const getters = {
   menus: state => state.permission.menus,
   routers: state => state.permission.routers,
   multiTab: state => state.app.multiTab,
-  cachedViews: state => state.tagsView.cachedViews
+  cachedViews: state => state.tagsView.cachedViews,
+  dict: state => state.dict.dict
 }
 
 export default getters

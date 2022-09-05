@@ -18,7 +18,7 @@
       </a-form-model-item>
       <a-form-model-item label="状态" prop="status">
         <a-select placeholder="请选择" v-model="form.status">
-          <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
+          <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.value" >{{ d.label }}</a-select-option>
         </a-select>
       </a-form-model-item>
       <a-form-model-item label="备注" prop="remark">
@@ -133,6 +133,7 @@ export default {
                 '修改成功',
                 3
               )
+              this.$store.dispatch('dict/removeDict', this.dictType)
               this.open = false
               this.$emit('ok')
             }).finally(() => {
@@ -144,6 +145,7 @@ export default {
                 '新增成功',
                 3
               )
+              this.$store.dispatch('dict/removeDict', this.dictType)
               this.open = false
               this.$emit('ok')
             }).finally(() => {

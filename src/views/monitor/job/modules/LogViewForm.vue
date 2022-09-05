@@ -8,7 +8,7 @@
         {{ form.jobName }}
       </a-descriptions-item>
       <a-descriptions-item label="任务分组">
-        {{ jobGroupFormat(form) }}
+        <dict-tag :options="jobGroupOptions" :value="form.jobGroup" />
       </a-descriptions-item>
       <a-descriptions-item label="执行状态">
         <a-badge v-if="form.status == 0" status="processing" text="正常" />
@@ -66,9 +66,6 @@ export default {
   watch: {
   },
   methods: {
-    jobGroupFormat (row) {
-      return this.selectDictLabel(this.jobGroupOptions, row.jobGroup)
-    },
     handleView (row) {
       this.openView = true
       this.form = row

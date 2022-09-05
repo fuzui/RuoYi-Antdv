@@ -15,6 +15,10 @@ import FooterToolBar from '@/components/FooterToolbar'
 import FileUpload from '@/components/FileUpload'
 import themePluginConfig from '../config/themePluginConfig'
 import { TableSetting } from '@/components'
+// 字典数据组件
+import DictData from '@/components/DictData'
+// 字典标签组件
+import DictTag from '@/components/DictTag'
 
 import bootstrap from './core/bootstrap'
 import './core/lazy_use' // use lazy load components
@@ -48,9 +52,11 @@ Vue.component('page-header-wrapper', PageHeaderWrapper)
 Vue.component('footer-tool-bar', FooterToolBar)
 Vue.component('file-upload', FileUpload)
 Vue.component('table-setting', TableSetting)
+Vue.component('dict-tag', DictTag)
 
 Vue.use(permission)
 Vue.use(style)
+DictData.install()
 
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 new Vue({

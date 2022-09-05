@@ -41,12 +41,12 @@
       <a-form-model ref="form" :model="form" :rules="rules">
         <a-form-model-item label="公告类型" prop="noticeType">
           <a-select placeholder="请选择" v-model="form.noticeType">
-            <a-select-option v-for="(d, index) in typeOptions" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-select-option>
+            <a-select-option v-for="(d, index) in dict.type['sys_notice_type']" :key="index" :value="d.value" >{{ d.label }}</a-select-option>
           </a-select>
         </a-form-model-item>
         <a-form-model-item label="状态" prop="status">
           <a-radio-group v-model="form.status" button-style="solid">
-            <a-radio-button v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue" >{{ d.dictLabel }}</a-radio-button>
+            <a-radio-button v-for="(d, index) in dict.type['sys_notice_status']" :key="index" :value="d.value" >{{ d.label }}</a-radio-button>
           </a-radio-group>
         </a-form-model-item>
         <div class="bottom-control">
@@ -74,6 +74,7 @@ export default {
   components: {
     Editor
   },
+  dicts: ['sys_notice_status', 'sys_notice_type'],
   data () {
     return {
       labelCol: { span: 4 },
@@ -82,9 +83,6 @@ export default {
       total: 0,
       id: undefined,
       formTitle: '',
-      // 状态数据字典
-      statusOptions: [],
-      typeOptions: [],
       // 表单参数
       form: {
         noticeId: undefined,
@@ -105,12 +103,6 @@ export default {
   filters: {
   },
   created () {
-    this.getDicts('sys_notice_status').then(response => {
-      this.statusOptions = response.data
-    })
-    this.getDicts('sys_notice_type').then(response => {
-      this.typeOptions = response.data
-    })
   },
   computed: {
   },

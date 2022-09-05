@@ -107,7 +107,7 @@
           </a-tooltip>
         </span>
         <a-radio-group v-model="form.visible" button-style="solid">
-          <a-radio-button v-for="(d, index) in visibleOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio-button>
+          <a-radio-button v-for="(d, index) in visibleOptions" :key="index" :value="d.value">{{ d.label }}</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
       <a-form-model-item prop="status" v-if="form.menuType != 'F'">
@@ -121,7 +121,7 @@
           </a-tooltip>
         </span>
         <a-radio-group v-model="form.status" button-style="solid">
-          <a-radio-button v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-radio-button>
+          <a-radio-button v-for="(d, index) in statusOptions" :key="index" :value="d.value">{{ d.label }}</a-radio-button>
         </a-radio-group>
       </a-form-model-item>
       <a-form-model-item prop="isCache" v-if="form.menuType == 'C'">

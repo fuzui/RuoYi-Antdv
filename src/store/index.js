@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import app from './modules/app'
 import user from './modules/user'
 import tagsView from './modules/tagsView'
+import dict from './modules/dict'
 
 // default router permission control
 // import permission from './modules/permission'
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     app,
     user,
     tagsView,
+    dict,
     permission
   },
   state: {

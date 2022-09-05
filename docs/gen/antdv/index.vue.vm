@@ -40,7 +40,7 @@
             ${querySpace}<a-col :md="8" :sm="24">
               ${querySpace}<a-form-item label="${comment}" prop="${column.javaField}">
                 ${querySpace}<a-select placeholder="请选择${comment}" v-model="queryParam.${column.javaField}" style="width: 100%" allow-clear>
-                  ${querySpace}<a-select-option v-for="(d, index) in ${column.javaField}Options" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                  ${querySpace}<a-select-option v-for="(d, index) in dict.type.${dictType}" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                 ${querySpace}</a-select>
               ${querySpace}</a-form-item>
             ${querySpace}</a-col>
@@ -116,7 +116,7 @@
         ref="createForm"
 #foreach ($column in $columns)
 #if(${column.dictType} != '')
-        :${column.javaField}Options="${column.javaField}Options"
+        :${column.javaField}Options="dict.type.${column.dictType}"
 #end
 #end
 #if($tplCategory == 'tree')
@@ -151,7 +151,7 @@
         </span>
 #elseif($column.list && "" != $column.dictType)
         <span slot="${javaField}" slot-scope="text, record">
-          {{ ${javaField}Format(record) }}
+          <dict-tag :options="dict.type['${column.dictType}']" :value="record.${javaField}"/>
         </span>
 #end
 #end
@@ -205,6 +205,9 @@ export default {
 #end
   },
   mixins: [tableMixin],
+#if(${dicts} != '')
+  dicts: [${dicts}],
+#end
   data () {
     return {
       list: [],
@@ -223,16 +226,7 @@ export default {
       ${businessName}Options: [],
 #end
 #foreach ($column in $columns)
-#set($parentheseIndex=$column.columnComment.indexOf("（"))
-#if($parentheseIndex != -1)
-#set($comment=$column.columnComment.substring(0, $parentheseIndex))
-#else
-#set($comment=$column.columnComment)
-#end
-#if(${column.dictType} != '')
-      // $comment字典
-      ${column.javaField}Options: [],
-#elseif($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
       // $comment时间范围
       daterange${AttrName}: [],
@@ -295,13 +289,6 @@ export default {
   },
   created () {
     this.getList()
-#foreach ($column in $columns)
-#if(${column.dictType} != '')
-    this.getDicts('${column.dictType}').then(response => {
-      this.${column.javaField}Options = response.data
-    })
-#end
-#end
   },
   computed: {
   },
@@ -336,25 +323,7 @@ export default {
         this.loading = false
       })
     },
-#foreach ($column in $columns)
-#if(${column.dictType} != '')
-#set($parentheseIndex=$column.columnComment.indexOf("（"))
-#if($parentheseIndex != -1)
-#set($comment=$column.columnComment.substring(0, $parentheseIndex))
-#else
-#set($comment=$column.columnComment)
-#end
-    // $comment字典翻译
-    ${column.javaField}Format (row, column) {
-#if($column.htmlType == "checkbox")
-      if (row.${column.javaField} === null || row.${column.javaField} === undefined) {
-        return null
-      }
-#end
-      return this.selectDictLabel#if($column.htmlType == "checkbox")s#end(this.${column.javaField}Options, row.${column.javaField})
-    },
-#end
-#end
+
     /** 搜索按钮操作 */
     handleQuery () {
       this.queryParam.pageNum = 1

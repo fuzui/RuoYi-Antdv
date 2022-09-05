@@ -7,7 +7,7 @@
     :footer="null"
   >
     <template slot="title" >
-      <center><a-tag color="red">{{ typeFormat(form.noticeType) }}</a-tag>{{ form.noticeTitle }}</center>
+      <center><a-tag color="red"><dict-tag :options="typeOptions" :value="form.noticeType" /></a-tag>{{ form.noticeTitle }}</center>
     </template>
     <div class="notice-detail" v-html="form.noticeContent" v-highlight>
     </div>
@@ -50,10 +50,6 @@ export default {
     close () {
       this.visible = false
       this.form = {}
-    },
-    // 公告类型字典翻译
-    typeFormat (noticeType) {
-      return this.selectDictLabel(this.typeOptions, noticeType)
     }
   }
 }

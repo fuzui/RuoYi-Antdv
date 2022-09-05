@@ -19,14 +19,14 @@
               <a-col :md="8" :sm="24">
                 <a-form-item label="类型">
                   <a-select placeholder="操作类型" v-model="queryParam.businessType" style="width: 100%" allow-clear>
-                    <a-select-option v-for="(d, index) in typeOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                    <a-select-option v-for="(d, index) in dict.type['sys_oper_type']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :md="8" :sm="24">
                 <a-form-item label="状态">
                   <a-select placeholder="操作状态" v-model="queryParam.status" style="width: 100%" allow-clear>
-                    <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                    <a-select-option v-for="(d, index) in dict.type['sys_common_status']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -82,10 +82,10 @@
         @change="handleTableChange"
       >
         <span slot="businessType" slot-scope="text, record">
-          {{ typeFormat(record) }}
+          <dict-tag :options="dict.type['sys_oper_type']" :value="record.businessType" />
         </span>
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_common_status']" :value="record.status" />
         </span>
         <span slot="operation" slot-scope="text, record">
           <a @click="$refs.viewForm.handleView(record)" v-hasPermi="['monitor:operlog:query']">
@@ -121,6 +121,7 @@ export default {
     ViewForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_common_status', 'sys_oper_type'],
   data () {
     return {
       list: [],
@@ -132,9 +133,6 @@ export default {
       // 非多个禁用
       multiple: true,
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
-      typeOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -208,12 +206,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_common_status').then(response => {
-      this.statusOptions = response.data
-    })
-    this.getDicts('sys_oper_type').then(response => {
-      this.typeOptions = response.data
-    })
   },
   computed: {
   },
@@ -235,14 +227,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 操作日志状态字典翻译
-    statusFormat (row, column) {
-      return this.selectDictLabel(this.statusOptions, row.status)
-    },
-    // 操作日志类型字典翻译
-    typeFormat (row, column) {
-      return this.selectDictLabel(this.typeOptions, row.businessType)
     },
     /** 搜索按钮操作 */
     handleQuery () {

@@ -48,7 +48,7 @@
       <select-user
         ref="selectUser"
         :roleId="queryParam.roleId"
-        :statusOptions="statusOptions"
+        :statusOptions="dict.type['sys_normal_disable']"
         @ok="getList"
       />
       <!-- 数据展示 -->
@@ -62,7 +62,7 @@
         :pagination="false"
         :bordered="tableBordered">
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_normal_disable']" :value="record.status"/>
         </span>
         <span slot="createTime" slot-scope="text, record">
           {{ parseTime(record.createTime) }}
@@ -106,6 +106,7 @@ export default {
     SelectUser
   },
   mixins: [tableMixin],
+  dicts: ['sys_normal_disable'],
   data () {
     return {
       list: [],
@@ -119,8 +120,6 @@ export default {
       loading: false,
       authing: false,
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -184,9 +183,6 @@ export default {
     if (roleId) {
       this.queryParam.roleId = roleId
       this.getList()
-      this.getDicts('sys_normal_disable').then(response => {
-        this.statusOptions = response.data
-      })
     }
   },
   computed: {
@@ -202,9 +198,6 @@ export default {
         this.total = response.total
         this.loading = false
       })
-    },
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
     },
     /** 搜索按钮操作 */
     handleQuery () {

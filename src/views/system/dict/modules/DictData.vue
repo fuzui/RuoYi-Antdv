@@ -2,7 +2,7 @@
   <div>
     <create-data-form
       ref="createDataForm"
-      :statusOptions="statusOptions"
+      :statusOptions="dict.type['sys_normal_disable']"
       :dictType="dictType"
       @ok="getList"
     />
@@ -37,7 +37,7 @@
         :scroll="{ y: 300 }"
         :pagination="false">
         <span slot="status" slot-scope="text, record">
-          {{ statusFormat(record) }}
+          <dict-tag :options="dict.type['sys_normal_disable']" :value="record.status" />
         </span>
         <span slot="createTime" slot-scope="text, record">
           {{ parseTime(record.createTime) }}
@@ -76,6 +76,7 @@ export default {
   components: {
     CreateDataForm
   },
+  dicts: ['sys_normal_disable'],
   data () {
     return {
       list: [],
@@ -91,8 +92,6 @@ export default {
       ids: [],
       loading: false,
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
       queryParam: {
         dictName: undefined,
         dictType: undefined,
@@ -156,9 +155,6 @@ export default {
   created () {
     this.queryParam.dictType = this.dictType
     this.getList()
-    this.getDicts('sys_normal_disable').then(response => {
-      this.statusOptions = response.data
-    })
   },
   computed: {
   },
@@ -173,10 +169,6 @@ export default {
           this.loading = false
         }
       )
-    },
-    // 状态字典翻译
-    statusFormat (row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
     },
     /** 搜索按钮操作 */
     handleQuery () {
@@ -216,6 +208,7 @@ export default {
                 '删除成功',
                 3
               )
+              that.$store.dispatch('dict/removeDict', row.dictType)
           })
         },
         onCancel () {}

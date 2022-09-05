@@ -29,7 +29,7 @@
                   <a-col :md="8" :sm="24">
                     <a-form-item label="状态" prop="status">
                       <a-select placeholder="请选择状态" style="width: 100%" allow-clear>
-                        <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                        <a-select-option v-for="(d, index) in dict.type['sys_normal_disable']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                       </a-select>
                     </a-form-item>
                   </a-col>
@@ -81,8 +81,8 @@
           <create-form
             ref="createForm"
             :deptOptions="deptOptions"
-            :statusOptions="statusOptions"
-            :sexOptions="sexOptions"
+            :statusOptions="dict.type['sys_normal_disable']"
+            :sexOptions="dict.type['sys_user_sex']"
             @ok="getList"
             @select-tree="getTreeselect"
           />
@@ -194,6 +194,7 @@ export default {
     DeptTree
   },
   mixins: [tableMixin],
+  dicts: ['sys_normal_disable', 'sys_user_sex'],
   data () {
     return {
       list: [],
@@ -208,9 +209,6 @@ export default {
       ids: [],
       loading: false,
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
-      sexOptions: [],
       // 部门树选项
       deptOptions: [{
         id: 0,
@@ -274,12 +272,6 @@ export default {
   created () {
     this.getList()
     this.getDeptTree()
-    this.getDicts('sys_normal_disable').then(response => {
-      this.statusOptions = response.data
-    })
-    this.getDicts('sys_user_sex').then(response => {
-      this.sexOptions = response.data
-    })
   },
   computed: {
   },

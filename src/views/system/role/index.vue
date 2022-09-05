@@ -19,7 +19,7 @@
               <a-col :md="8" :sm="24">
                 <a-form-item label="状态">
                   <a-select placeholder="请选择" v-model="queryParam.status" style="width: 100%" allow-clear>
-                    <a-select-option v-for="(d, index) in statusOptions" :key="index" :value="d.dictValue">{{ d.dictLabel }}</a-select-option>
+                    <a-select-option v-for="(d, index) in dict.type['sys_normal_disable']" :key="index" :value="d.value">{{ d.label }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -66,7 +66,7 @@
       <!-- 增加修改 -->
       <create-form
         ref="createForm"
-        :statusOptions="statusOptions"
+        :statusOptions="dict.type['sys_normal_disable']"
         @ok="getList"
       />
 
@@ -162,6 +162,7 @@ export default {
     CreateDataScopeForm
   },
   mixins: [tableMixin],
+  dicts: ['sys_normal_disable'],
   data () {
     return {
       list: [],
@@ -176,8 +177,6 @@ export default {
       ids: [],
       loading: false,
       total: 0,
-      // 状态数据字典
-      statusOptions: [],
       // 日期范围
       dateRange: [],
       queryParam: {
@@ -236,9 +235,6 @@ export default {
   },
   created () {
     this.getList()
-    this.getDicts('sys_normal_disable').then(response => {
-      this.statusOptions = response.data
-    })
   },
   computed: {
   },
