@@ -5,7 +5,7 @@
 <p align="center">
  <a href="https://gitee.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://gitee.com/fuzui/RuoYi-Antdv/badge/star.svg?theme=dark" alt="Build Status"></a>&nbsp;
  <a href="https://github.com/fuzui/RuoYi-Antdv" target="_blank"><img src="https://img.shields.io/github/stars/fuzui/RuoYi-Antdv.svg?style=social" alt="Build Status"></a>&nbsp;
- <a href="https://gitee.com/y_project/RuoYi-Vue" target="_blank"><img src="https://img.shields.io/badge/RuoYi Vue-3.8.2-brightgreen" alt="Build Status"></a>&nbsp;
+ <a href="https://gitee.com/y_project/RuoYi-Vue" target="_blank"><img src="https://img.shields.io/badge/RuoYi Vue-latest-brightgreen" alt="Build Status"></a>&nbsp;
  <a href="https://github.com/vueComponent/ant-design-vue" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue-1.7.8-brightgreen" alt="Build Status"></a>
 </p>
 
@@ -106,7 +106,7 @@
 
 如果讨论后端，推荐添加若依前后端分离交流群（官方）：
 
- [![加入QQ群](https://img.shields.io/badge/Q群-264312783-blue.svg)](https://jq.qq.com/?_wv=1027&k=EI9an8lJ)
+ [![加入QQ群](https://img.shields.io/badge/Q群-160110482-blue.svg)](https://jq.qq.com/?_wv=1027&k=0fsNiYZt)
 
 
 
