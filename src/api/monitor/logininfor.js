@@ -24,3 +24,11 @@ export function cleanLogininfor () {
     method: 'delete'
   })
 }
+
+// 解锁用户登录状态
+export function unlockLogininfor (userName) {
+  return request({
+    url: '/monitor/logininfor/unlock/' + userName,
+    method: 'get'
+  })
+}

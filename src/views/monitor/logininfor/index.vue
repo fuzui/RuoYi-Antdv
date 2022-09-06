@@ -44,6 +44,9 @@
       </div>
       <!-- 操作 -->
       <div class="table-operations">
+        <a-button type="dashed" :disabled="single" @click="handleUnlock" v-hasPermi="['monitor:logininfor:unlock']">
+          <a-icon type="unlock" />解锁
+        </a-button>
         <a-button type="danger" :disabled="multiple" @click="handleDelete" v-hasPermi="['monitor:logininfor:remove']">
           <a-icon type="delete" />删除
         </a-button>
@@ -94,7 +97,7 @@
 
 <script>
 
-import { list, delLogininfor, cleanLogininfor } from '@/api/monitor/logininfor'
+import { list, delLogininfor, cleanLogininfor, unlockLogininfor } from '@/api/monitor/logininfor'
 import { tableMixin } from '@/store/table-mixin'
 
 export default {
@@ -111,6 +114,10 @@ export default {
       // 高级搜索 展开/关闭
       advanced: false,
       loading: false,
+      // 非单个禁用
+      single: true,
+      // 选择用户名
+      selectName: '',
       // 非多个禁用
       multiple: true,
       ids: [],
@@ -232,6 +239,10 @@ export default {
       this.selectedRows = selectedRows
       this.ids = this.selectedRows.map(item => item.infoId)
       this.multiple = !selectedRowKeys.length
+      this.single = selectedRowKeys.length !== 1
+      if (this.single) {
+        this.selectName = this.selectedRows.map(item => item.userName)
+      }
     },
     toggleAdvanced () {
       this.advanced = !this.advanced
@@ -270,6 +281,27 @@ export default {
               that.getList()
               that.$message.success(
                 '清空成功',
+                3
+              )
+          })
+        },
+        onCancel () {}
+      })
+    },
+    /** 解锁按钮操作 */
+    handleUnlock () {
+      var that = this
+      const username = this.selectName
+      this.$confirm({
+        title: '是否确认解锁用户:' + username + '?',
+        onOk () {
+          return unlockLogininfor(username)
+            .then(() => {
+              that.onSelectChange([], [])
+              this.selectName = ''
+              that.getList()
+              that.$message.success(
+                '解锁成功',
                 3
               )
           })
