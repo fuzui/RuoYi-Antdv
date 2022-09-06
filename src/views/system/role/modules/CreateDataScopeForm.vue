@@ -148,13 +148,14 @@ export default {
     // 回显过滤
     selectNodefilter (nodes, parentIds) {
       if (!nodes || nodes.length === 0) {
-        return []
+        return
       }
       nodes.forEach(node => {
         // 父子关联模式且当前元素有父级
         const currentIndex = this.deptCheckedKeys.indexOf(node.id)
         // 当前节点存在,且父节点不存在，则说明父节点应是半选中状态
-        if (currentIndex !== -1) {
+        // parentIds没有数据的时候认为是顶级菜单，不用给半选中状态
+        if (currentIndex > -1 && parentIds && parentIds.length > 0) {
           parentIds.forEach(parentId => {
             if (this.halfCheckedKeys.indexOf(parentId) === -1) {
               this.halfCheckedKeys.push(parentId)
@@ -165,10 +166,11 @@ export default {
         // 防重
         const isExist = this.halfCheckedKeys.indexOf(node.id)
         const isExistParentIds = parentIds.indexOf(node.id)
+        const newParentIds = [...parentIds]
         if (isExist === -1 && isExistParentIds === -1 && currentIndex === -1) {
-          parentIds.push(node.id)
+          newParentIds.push(node.id)
         }
-        return this.selectNodefilter(node.children, parentIds)
+        this.selectNodefilter(node.children, parentIds)
       })
     },
     handleCheckedTreeNodeAll (value) {
