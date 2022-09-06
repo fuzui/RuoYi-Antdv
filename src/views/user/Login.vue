@@ -20,7 +20,7 @@
           <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
         </a-input-password>
       </a-form-model-item>
-      <a-row :gutter="16" v-if="captchaOnOff">
+      <a-row :gutter="16" v-if="captchaEnabled">
         <a-col class="gutter-row" :span="16">
           <a-form-model-item prop="code">
             <a-input v-model="form.code" size="large" type="text" autocomplete="off" placeholder="验证码">
@@ -85,7 +85,7 @@ export default {
         code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
       },
       logining: false,
-      captchaOnOff: true
+      captchaEnabled: true
     }
   },
   created () {
@@ -95,8 +95,8 @@ export default {
   methods: {
     getCode () {
       getCodeImg().then(res => {
-        this.captchaOnOff = res.captchaOnOff === undefined ? true : res.captchaOnOff
-        if (this.captchaOnOff) {
+        this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled
+        if (this.captchaEnabled) {
           this.codeUrl = 'data:image/gif;base64,' + res.img
           this.form.uuid = res.uuid
         }
@@ -159,7 +159,7 @@ export default {
       this.isLoginError = true
       this.loginErrorInfo = err
       this.form.code = undefined
-      if (this.captchaOnOff) {
+      if (this.captchaEnabled) {
         this.getCode()
       }
     },

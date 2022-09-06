@@ -20,7 +20,7 @@
       <a-form-model-item has-feedback prop="confirmPassword">
         <a-input-password v-model="form.confirmPassword" size="large" autocomplete="off" placeholder="确认密码" :maxLength="20" />
       </a-form-model-item>
-      <a-row :gutter="16" v-if="captchaOnOff">
+      <a-row :gutter="16" v-if="captchaEnabled">
         <a-col class="gutter-row" :span="16">
           <a-form-model-item prop="code">
             <a-input v-model="form.code" size="large" type="text" autocomplete="off" placeholder="验证码">
@@ -105,7 +105,7 @@ export default {
       },
       registerBtn: false,
       registering: false,
-      captchaOnOff: true
+      captchaEnabled: true
     }
   },
   computed: {},
@@ -115,8 +115,8 @@ export default {
   methods: {
     getCode () {
       getCodeImg().then((res) => {
-        this.captchaOnOff = res.captchaOnOff === undefined ? true : res.captchaOnOff
-        if (this.captchaOnOff) {
+        this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled
+        if (this.captchaEnabled) {
           this.codeUrl = 'data:image/gif;base64,' + res.img
           this.form.uuid = res.uuid
         }
@@ -154,7 +154,7 @@ export default {
       this.isRegisterError = true
       this.registerErrorInfo = err
       this.form.code = undefined
-      if (this.captchaOnOff) {
+      if (this.captchaEnabled) {
         this.getCode()
       }
     },
