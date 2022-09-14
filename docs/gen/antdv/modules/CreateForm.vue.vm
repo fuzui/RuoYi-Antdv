@@ -338,7 +338,7 @@ export default {
 #foreach ($column in $columns)
 #if($column.insert || $column.edit)
 #if($column.htmlType == "editor")
-      this.form.${column.javaField} = this.${column.javaField}Editor.getValue()
+      this.form.${column.javaField} = this.#[[$]]#refs.${column.javaField}Editor.getValue()
 #end
 #end
 #end
