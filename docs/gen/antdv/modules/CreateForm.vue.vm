@@ -73,7 +73,7 @@
         <file-upload v-model="form.${field}" type="file"></file-upload>
 #elseif($column.htmlType == "editor")
 #set($hasRichText=1)
-        <editor ref="${field}Editor" v-model="form.${field}" />
+        <editor v-model="form.${field}" />
 #elseif($column.htmlType == "select" && "" != $dictType)
         <a-select placeholder="请选择${comment}" v-model="form.${field}">
           <a-select-option v-for="(d, index) in ${field}Options" :key="index" :value="d.value" >{{ d.label }}</a-select-option>
@@ -184,13 +184,6 @@ export default {
       subList: [],
 #end
       formTitle: '',
-#foreach ($column in $columns)
-#if($column.insert || $column.edit)
-#if($column.htmlType == "editor")
-      ${column.javaField}Editor: '',
-#end
-#end
-#end
       // 表单参数
       form: {
 #foreach ($column in $columns)
@@ -335,13 +328,6 @@ export default {
     },
     /** 提交按钮 */
     submitForm: function () {
-#foreach ($column in $columns)
-#if($column.insert || $column.edit)
-#if($column.htmlType == "editor")
-      this.form.${column.javaField} = this.${column.javaField}Editor.getValue()
-#end
-#end
-#end
       this.#[[$]]#refs.form.validate(valid => {
         if (valid) {
           this.submitLoading = true
