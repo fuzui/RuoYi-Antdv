@@ -3,7 +3,7 @@
     <a-popover
       v-model="visible"
       trigger="click"
-      placement="bottomRight"
+      placement="bottomLeft"
       overlayClassName="header-notice-wrapper"
       :getPopupContainer="() => $refs.noticeRef.parentElement"
       :autoAdjustOverflow="true"
@@ -13,7 +13,7 @@
       <template slot="content">
         <a-spin :spinning="loading">
           <a-tabs v-model="queryParam.noticeType" @change="changeType">
-            <a-tab-pane v-for="d in typeOptions" :key="d.value" :tab="d.label">
+            <a-tab-pane v-for="d in typeOptions" :key="d.dictValue" :tab="d.dictLabel">
               <a-list style="max-height: 300px; overflow:auto;">
                 <div
                   v-if="showLoadingMore"
