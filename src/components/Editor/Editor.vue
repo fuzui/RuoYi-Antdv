@@ -139,9 +139,6 @@ export default {
     },
     handleUploadError () {
       this.$message.error('图片插入失败')
-    },
-    getValue () {
-      return this.currentValue
     }
   }
 }

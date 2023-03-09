@@ -28,7 +28,7 @@
               <a-input size="large" v-model="form.noticeTitle" placeholder="请输入标题" />
             </a-form-model-item>
             <a-form-model-item prop="noticeContent">
-              <editor ref="noticeContentEditor" v-model="form.noticeContent" />
+              <editor v-model="form.noticeContent" />
             </a-form-model-item>
           </a-form-model>
         </a-col>
