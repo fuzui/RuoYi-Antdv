@@ -188,6 +188,12 @@ export default {
           align: 'center'
         },
         {
+          title: '消耗时间(ms)',
+          dataIndex: 'costTime',
+          align: 'center',
+          sorter: true
+        },
+        {
           title: '操作日期',
           dataIndex: 'operTime',
           align: 'center',

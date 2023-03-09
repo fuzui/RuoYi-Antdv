@@ -24,11 +24,14 @@
       <a-descriptions-item label="返回参数" span="3">
         {{ form.jsonResult }}
       </a-descriptions-item>
-      <a-descriptions-item label="操作状态" span="2">
+      <a-descriptions-item label="操作状态" span="1">
         <a-badge v-if="form.status === 0" status="processing" text="正常" />
         <a-badge v-if="form.status === 1" status="error" text="失败" />
       </a-descriptions-item>
-      <a-descriptions-item label="操作时间" span="2">
+      <a-descriptions-item label="消耗时间" span="1">
+        {{ form.costTime }} 毫秒
+      </a-descriptions-item>
+      <a-descriptions-item label="操作日期" span="1">
         {{ parseTime(form.operTime) }}
       </a-descriptions-item>
       <a-descriptions-item label="异常信息" span="3" v-if="form.status === 1">
