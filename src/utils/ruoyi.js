@@ -200,3 +200,28 @@ export function tableSorter (sorter) {
 		isAsc
 	}
 }
+
+/**
+ * 根据子节点id获取父节点id
+ *
+ * @param {*} nodes
+ * @param {*} nodeId 子节点id
+ * @param {*} parentIds 父节点ids
+ */
+export function treeFindParentIds (nodes, nodeId, parentIds = []) {
+	if (!nodes) {
+		return []
+	}
+	for (const node of nodes) {
+		parentIds.push(node.id)
+		if (node.id === nodeId) {
+			return parentIds
+		}
+		if (node.children) {
+			const findChildren = treeFindParentIds(node.children, nodeId, parentIds)
+			if (findChildren.length) return findChildren
+		}
+		parentIds.pop()
+	}
+	return []
+}

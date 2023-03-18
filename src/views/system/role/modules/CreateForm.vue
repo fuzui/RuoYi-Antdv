@@ -70,6 +70,7 @@
 
 import { getRole, addRole, updateRole } from '@/api/system/role'
 import { treeselect as menuTreeselect, roleMenuTreeselect } from '@/api/system/menu'
+import { treeFindParentIds } from '@/utils/ruoyi'
 
 export default {
   name: 'CreateForm',
@@ -147,34 +148,6 @@ export default {
       nodes.forEach(node => {
         this.menuCheckedKeys.push(node.id)
         return this.getAllMenuNode(node.children)
-      })
-    },
-    // 回显过滤
-    selectNodefilter (nodes, parentIds) {
-      if (!nodes || nodes.length === 0) {
-        return
-      }
-      nodes.forEach(node => {
-        // 父子关联模式且当前元素有父级
-        const currentIndex = this.menuCheckedKeys.indexOf(node.id)
-        // 当前节点存在,且父节点不存在，则说明父节点应是半选中状态
-        // parentIds没有数据的时候认为是顶级菜单，不用给半选中状态
-        if (currentIndex > -1 && parentIds && parentIds.length > 0) {
-          parentIds.forEach(parentId => {
-            if (this.halfCheckedKeys.indexOf(parentId) === -1) {
-              this.halfCheckedKeys.push(parentId)
-            }
-          })
-          parentIds = []
-        }
-        // 防重
-        const isExist = this.halfCheckedKeys.indexOf(node.id)
-        const isExistParentIds = parentIds.indexOf(node.id)
-        const newParentIds = [...parentIds]
-        if (isExist === -1 && isExistParentIds === -1 && currentIndex === -1) {
-          newParentIds.push(node.id)
-        }
-        this.selectNodefilter(node.children, parentIds)
       })
     },
     handleCheckedTreeNodeAll (value) {
@@ -273,7 +246,14 @@ export default {
             this.menuCheckedKeys = res.checkedKeys
             // 过滤回显时的半选中node(父)
             if (this.form.menuCheckStrictly) {
-              this.selectNodefilter(this.menuOptions, [])
+              this.menuCheckedKeys.forEach(id => {
+                const parentIds = treeFindParentIds(this.menuOptions, id)
+                parentIds.forEach(nodeId => {
+                  if (!this.menuCheckedKeys.includes(nodeId) && !this.halfCheckedKeys.includes(nodeId)) {
+                    this.halfCheckedKeys.push(nodeId)
+                  }
+                })
+              })
             }
           })
         })
