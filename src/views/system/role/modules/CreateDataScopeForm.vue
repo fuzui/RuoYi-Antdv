@@ -27,8 +27,15 @@
         <a-checkbox @change="handleCheckedTreeNodeAll($event)">
           全选/全不选
         </a-checkbox>
-        <a-checkbox @change="handleCheckedTreeConnect($event)" :checked="form.deptCheckStrictly">
+        <a-checkbox @change="handleCheckedTreeConnect($event)" :checked="form.deptCheckStrictly" :disabled="deptCheckedKeys.length > 0">
           父子联动
+          <a-tooltip>
+            <template slot="title">
+              当勾选项为空时方可切换模式，
+              可以点击”全不选“后再次切换。
+            </template>
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
         </a-checkbox>
         <a-tree
           v-model="deptCheckedKeys"
